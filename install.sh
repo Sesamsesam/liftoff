@@ -87,8 +87,9 @@ install_extension() {
 }
 
 if [[ "$PROFILE" -ge 2 ]]; then
-  echo -e "${GREEN}Installing research extension...${NC}"
+  echo -e "${GREEN}Installing research extensions...${NC}"
   install_extension "notebooklm-research"
+  install_extension "orbit-planning"
 fi
 
 if [[ "$PROFILE" -ge 3 ]]; then

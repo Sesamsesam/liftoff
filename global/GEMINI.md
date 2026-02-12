@@ -57,6 +57,11 @@
 - **Never auto-start dev servers** unless explicitly asked
 - Assume the user already has their local environment running
 
+## Browser & Recording
+- **Never auto-open the browser** unless explicitly asked
+- **Never auto-record** browser sessions unless explicitly asked
+- If verification needs a browser, ask first
+
 ## Architectural Patterns
 - When building something similar to existing code → inspect the working implementation first
 - File creation order: search existing → update → add section → create new file
@@ -73,6 +78,7 @@
 ## Session Start (Run Every Time)
 - Check `~/.gemini/settings/extensions.json` for active extensions
 - If Beads active: run `bd ready` to find pending tasks
+- If ORBIT active and `orbit.md` exists: check it before starting work
 - If credential rotation tracking exists: check dates, warn if overdue
 - Check `.gitignore` includes `.env*` if project has a `.env` file
 - On first session with new project: verify Git init and `.gitignore` hygiene

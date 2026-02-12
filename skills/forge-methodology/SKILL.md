@@ -54,6 +54,12 @@ You never need to say "use FORGE" - the agent follows it automatically. Every fe
  - **Each task has:** exact file paths, expected changes, verification steps
  - **Dependency order** - what must be built first
  - **Potential risks** - what could go wrong
+- For each proposed change, briefly state:
+  1. What files/functions change
+  2. Why this change is needed
+  3. Directly impacted modules
+  4. Potential side effects
+  5. Trade-offs (if any)
 - Present the plan in digestible sections (not a wall of text)
 - Wait for explicit user approval before proceeding
 
@@ -63,6 +69,10 @@ You never need to say "use FORGE" - the agent follows it automatically. Every fe
 > Execute the plan, brick by brick, with verification at each step.
 
 **Actions:**
+- Before writing code for a task, mentally trace the change:
+  - Walk through user interactions and data flow
+  - Identify edge cases (empty state, errors, concurrent access)
+  - If the simulation reveals issues → adjust the plan before coding
 - Implement one task at a time in the approved order
 - After each task:
  - Verify it works (run tests, check output, read the result)
@@ -91,7 +101,10 @@ You never need to say "use FORGE" - the agent follows it automatically. Every fe
 - Document what was built, what worked, what didn't
 - If Beads active: `bd sync` to persist context
 - Update Knowledge Items if new patterns were discovered
-- Suggest improvements for next iteration
+- Suggest improvements in three categories:
+  - **S1 - Stability/Scalability**: Architectural improvements, better error recovery, load handling
+  - **S2 - Performance/Security**: Query optimization, caching, auth hardening, rate limiting
+  - **S3 - Readability/Maintainability**: Cleaner abstractions, better naming, documentation gaps
 
 ---
 

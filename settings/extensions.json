@@ -1,5 +1,6 @@
 {
   "extended-git": false,
   "beads-workflow": false,
-  "notebooklm-research": false
+  "notebooklm-research": false,
+  "orbit-planning": false
 }

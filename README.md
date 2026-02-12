@@ -27,9 +27,9 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 <br>
 No more boilerplate security setups, no more forgotten <code>.gitignore</code> files, no more explaining your stack to a new AI session. This is the upgrade that makes your agent feel like a senior engineer instead of an intern.
 <br><br>
-But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://graphite.dev">Graphite</a> (stacked PRs that make your Git workflow feel like it's from the future), and research pipelines that turn NotebookLM into a grounded implementation engine. The landscape moves fast, and some of the sharpest people still run outdated stacks simply because they haven't had time to explore what's new. This closes that gap instantly.
+But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://graphite.dev">Graphite</a> (stacked PRs that make your Git workflow feel like it's from the future), <a href="https://github.com/steveyegge/beads">Beads</a> (session persistence by Steve Yegge, ex-Google and ex-Amazon, so your AI never forgets what you worked on), and research pipelines that turn NotebookLM into a grounded implementation engine. The landscape moves fast, and some of the sharpest people still run outdated stacks simply because they haven't had time to explore what's new. This closes that gap instantly.
 <br><br>
-I've watched people with six months of AI-assisted experience outship developers with ten years of traditional practice - not because they're smarter, but because they're using the right tools correctly. Liftoff is that multiplier.
+I've watched people with six months of AI-assisted experience outship developers with ten years of traditional practice (I'm one of them) - not because they're smarter, but because they're using the right tools correctly. Liftoff is that multiplier. This is some of the most Juicy stuff gathered and understood over the past year and relevant to 2026.
 </details>
 
 ---
@@ -85,9 +85,36 @@ Open that folder in your editor, start a conversation with Antigravity, and it w
 
 | Extension | Profile | What It Does |
 |---|---|---|
+| `orbit-planning` | Researcher+ | O.R.B.I.T. - Deep Professional Project Planning before you build |
 | `notebooklm-research` | Researcher+ | Research-to-Production pipeline with NotebookLM and how to connect Antigravity |
 | `extended-git` | Full | Graphite stacked PRs + Greptile AI code review |
 | `beads-workflow` | Full | Cross-session context persistence |
+
+<details>
+<summary><strong>🛰️ What is O.R.B.I.T.?</strong></summary>
+<br>
+<strong>O</strong>bjective - <strong>R</strong>equirements - <strong>B</strong>lueprint - <strong>I</strong>mplementation Roadmap - <strong>T</strong>rack
+<br><br>
+<em>"Set the trajectory before you launch."</em>
+<br><br>
+F.O.R.G.E. handles <em>how</em> to build things right. O.R.B.I.T. handles <em>what</em> to build and why. It's the difference between a vibe coder who says "build me an app" and a professional who walks in with a blueprint.
+<br><br>
+The agent walks you through 5 phases:
+<br><br>
+<strong>1. Objective</strong> - "What are we building, and why does it matter?" The agent asks deep questions and pushes back on vague answers until your vision is crystal clear.
+<br><br>
+<strong>2. Requirements</strong> - "What must it do?" Features get sorted into P1 (must-have), P2 (important), P3 (dream features). The agent helps you think like a product manager without needing to be one.
+<br><br>
+<strong>3. Blueprint</strong> - "How will we build it?" Technical architecture with opinionated defaults (the serious tools, not the overhyped ones). The agent recommends the stack, explains trade-offs, and maps features to components.
+<br><br>
+<strong>4. Implementation Roadmap</strong> - "What do we build first?" Your features get broken into phased work orders - concrete tasks the agent executes via F.O.R.G.E.
+<br><br>
+<strong>5. Track</strong> - "Keep the plan alive." The O.R.B.I.T. plan is a living document (<code>docs/orbit.md</code>). When you change direction mid-build, the agent updates the plan first, then proceeds. You never have to say "go update the plan" - it just does.
+<br><br>
+<strong>With Beads active:</strong> Session continuity is seamless. Each new session auto-loads your O.R.B.I.T. state, including <em>why</em> decisions changed - not just what changed. You spend zero time re-explaining.
+<br>
+<strong>Without Beads:</strong> O.R.B.I.T. still works perfectly within a session. Across sessions, the agent reads <code>orbit.md</code> and picks up from there. You may occasionally need to remind it of context from previous conversations.
+</details>
 
 Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Notion, Supabase, or GitHub). Every extension comes with a **complete setup guide built in** - you don't need to hunt for documentation. 🫰
 
@@ -96,11 +123,12 @@ Just activate the extension and ask the agent to help you set it up. It already 
 Extensions are installed **dormant** (all set to `false` by default). To activate one, change its value to `true` in `~/.gemini/settings/extensions.json`:
 
 ```json
-// Example: activating notebooklm-research while keeping the others off
+// Example: activating orbit-planning while keeping the others off
 {
   "extended-git": false,
   "beads-workflow": false,
-  "notebooklm-research": true  // ← changed to true to activate
+  "notebooklm-research": false,
+  "orbit-planning": true  // ← changed to true to activate
 }
 ```
 
@@ -195,7 +223,7 @@ A: The patterns still apply - just swap the specific tools. The security, error 
 
 I teach professionals from every background how to use AI as their unfair advantage. Liftoff is a supplement to that mission - a free, open-source foundation so anyone can start strong.
 
-Come follow along to if you want to learn better how to use AI:
+Come follow along too, if you want to learn better how to use AI:
 
 - 🌐 [samihermes.ai](https://samihermes.ai)
 - 🐙 [GitHub](https://github.com/sesamsesam)
