@@ -93,7 +93,7 @@ Open that folder in your editor, start a conversation with Antigravity, and it w
 <details>
 <summary><strong>🛰️ What is O.R.B.I.T.?</strong></summary>
 <br>
-<strong>O</strong>bjective - <strong>R</strong>equirements - <strong>B</strong>lueprint - <strong>I</strong> & mplementation Roadmap - <strong>T</strong>rack
+<strong>O</strong>bjective - <strong>R</strong>equirements - <strong>B</strong>lueprint - & <strong>I</strong>mplementation Roadmap - <strong>T</strong>rack
 <br><br>
 <em>"Set the trajectory before you launch."</em>
 <br><br>
