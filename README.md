@@ -2,13 +2,13 @@
 
 > **From 1,000 hours of trial and error to 50 hours of guided mastery.** This is your AI command center - whether you've never opened a code editor or you've been shipping software for a decade.
 
-**Hey, I'm Sami.** I built Liftoff because I believe every professional deserves to be ridiculously good with AI - not someday, right now. Whether you're in finance, marketing, sales, design, or deep in code, this is the toolkit that makes it click. If you want to see what else I'm working on, come say hi at [samihermes.ai](https://samihermes.ai).
+**Hey, I'm Sami.** I put together Liftoff because I believe every professional deserves to be ridiculously good with AI - not someday, right now. Whether you're in finance, marketing, sales, design, or deep in code, this is the toolkit that makes it click. If you want to see what else I'm working on, come say hi at [samihermes.ai](https://samihermes.ai).
 
 ---
 
 ## What Is This?
 
-The world changed. AI is no longer a tool reserved for engineers - it's the new operating layer for every professional. Accountants are automating reports. Salespeople are building custom CRMs. Marketers are spinning up landing pages before lunch. Video editors are programmatically chaing their vids. The professionals who thrive in the next decade won't be the ones who learned to code - they'll be the ones who learned to *command AI that codes for them*.
+The world changed. AI is no longer a tool reserved for engineers - it's the new operating layer for every professional. Accountants are automating reports. Salespeople are building custom CRMs. Marketers are spinning up landing pages before lunch. Video editors are programmatically creating their vids. The professionals who thrive in the next decade won't be the ones who learned to code - they'll be the ones who learned to *command AI that codes for them* and carry out tasks.
 
 That's what Antigravity is - an AI-powered workspace where you talk to an intelligent agent, and it builds, searches, connects, and automates on your behalf. You don't need to memorize syntax or understand server architecture. You describe what you want, and the agent handles the rest. **This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** One install, and your AI agent goes from a blank slate to a guided, battle-tested partner loaded with tools, ammo and best practices:
 
@@ -26,6 +26,10 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 <summary><strong>Already technical? Here's why you'll love this.</strong></summary>
 <br>
 No more boilerplate security setups, no more forgotten <code>.gitignore</code> files, no more explaining your stack to a new AI session. This is the upgrade that makes your agent feel like a senior engineer instead of an intern.
+<br><br>
+But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://graphite.dev">Graphite</a> (stacked PRs that make your Git workflow feel like it's from the future), and research pipelines that turn NotebookLM into a grounded implementation engine. The landscape moves fast, and some of the sharpest people still run outdated stacks simply because they haven't had time to explore what's new. This closes that gap instantly.
+<br><br>
+I've watched people with six months of AI-assisted experience outship developers with ten years of traditional practice - not because they're smarter, but because they're using the right tools correctly. Liftoff is that multiplier.
 </details>
 
 ---
@@ -77,13 +81,17 @@ Open that folder in your editor, start a conversation with Antigravity, and it w
 | `antigravity-standard` | Template for creating new skills |
 | `init-project` | Workflow to scaffold a new project with all guardrails |
 
-### 🔌 Extensions and how to connect them (Opt-In)
+### 🔌 Extensions (Opt-In)
 
 | Extension | Profile | What It Does |
 |---|---|---|
-| `notebooklm-research` | Researcher+ | Research-to-Production pipeline with NotebookLM and how to connect antigravity |
+| `notebooklm-research` | Researcher+ | Research-to-Production pipeline with NotebookLM and how to connect Antigravity |
 | `extended-git` | Full | Graphite stacked PRs + Greptile AI code review |
 | `beads-workflow` | Full | Cross-session context persistence |
+
+Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Notion, Supabase, or GitHub). Every extension comes with a **complete setup guide built in** - you don't need to hunt for documentation. 🫰
+
+Just activate the extension and ask the agent to help you set it up. It already knows the exact steps, where to get API keys, and how to connect everything.
 
 Extensions are installed **dormant** (all set to `false` by default). To activate one, change its value to `true` in `~/.gemini/settings/extensions.json`:
 
