@@ -2,6 +2,8 @@
 
 > **From 1,000 hours of trial and error to 50 hours of guided mastery.** This is your AI command center - whether you've never opened a code editor or you've been shipping software for a decade.
 
+**Hey, I'm Sami.** I built Liftoff because I believe every professional deserves to be ridiculously good with AI - not someday, right now. Whether you're in finance, marketing, sales, design, or deep in code, this is the toolkit that makes it click. If you want to see what else I'm working on, come say hi at [samihermes.ai](https://samihermes.ai).
+
 ---
 
 ## What Is This?
@@ -10,14 +12,14 @@ The world changed. AI is no longer a tool reserved for engineers - it's the new 
 
 That's what Antigravity is. It's an AI-powered workspace (think: your command center) where you talk to an intelligent agent, and it builds, searches, connects, and automates on your behalf. You don't need to memorize syntax or understand server architecture. You describe what you want, and the agent handles the rest.
 
-**This repo - Liftoff - is the startup pack that makes Antigravity actually good at its job.** One install, and your AI agent goes from a blank slate to a guided, battle-tested partner loaded with:
+**This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** One install, and your AI agent goes from a blank slate where you need to direct it to a guided, battle-tested partner loaded with tools, ammo and best practices - this will save you a lot of time and you can outcompete people who just use Antigravity raw:
 
 - **The F.O.R.G.E. methodology** - a step-by-step workflow where the agent plans before it builds, verifies as it goes, and never skips security. You approve every step
 - **7 core skills** - security, error handling, Git version control, design systems, tech stack defaults, and integrations with tools like NotebookLM and Notion
 - **3 optional extensions** - advanced Git workflows, research pipelines, and session memory so your AI remembers what you did yesterday
 - **Professional-grade standards** - every project gets enterprise patterns without enterprise complexity, automatically
 
-**If you're new to all of this** - don't worry. The agent walks you through everything. You don't need to understand what half of this means right now. The skills and guardrails are working behind the scenes so you can focus on *what* you want to build, not *how* to build it.
+**If you're new to all of this** - don't worry. The agent walks you through everything. You don't need to understand half of what's inside. The skills and guardrails are working behind the scenes so you can focus on *what* you want to build, not *how* to build it.
 
 **If you're already technical** - you'll feel this immediately. No more boilerplate security setups, no more forgotten `.gitignore` files, no more explaining your stack to a new AI session. This is the upgrade that makes your agent feel like a senior engineer instead of an intern.
 
@@ -25,6 +27,9 @@ That's what Antigravity is. It's an AI-powered workspace (think: your command ce
 
 ## Quick Start
 
+The install takes 30 seconds. You clone this repo, run the installer, and you're done - the skills get copied to your global Antigravity config. After that, you can delete the cloned folder. It's just the delivery vehicle.
+
+(copy this and give it to Antigravity, or paste it into your terminal)
 ```bash
 git clone https://github.com/sesamsesam/liftoff.git
 cd liftoff
@@ -40,7 +45,14 @@ Choose your profile when prompted:
 | **2. Researcher** | Developer + NotebookLM research extension |
 | **3. Full** | Everything, including advanced Git + Beads session persistence |
 
-That's it. Open your next project and the agent will follow F.O.R.G.E. automatically.
+**After the install**, you're set up globally. Every new Antigravity session - in any project, anywhere on your machine - will have these skills active. To start your first real project:
+
+```bash
+cd ..                              # leave the liftoff folder
+mkdir my-project && cd my-project  # create your actual project
+```
+
+Open that folder in your editor, start a conversation with Antigravity, and it will follow F.O.R.G.E. automatically. You can delete the `liftoff` folder whenever you want - it already did its job.
 
 ---
 
@@ -161,6 +173,17 @@ A: No. Those are defaults. The agent adapts to whatever tools you have installed
 
 **Q: What if I don't use Convex/Clerk?**
 A: The patterns still apply - just swap the specific tools. The security, error handling, and Git skills are framework-agnostic.
+
+---
+
+## Built By
+
+**Sami Hermes** - AI educator, builder, and the person behind Antigravity.
+
+I teach professionals from every background how to use AI as their unfair advantage. Liftoff is a core part of that mission - a free, open-source foundation so anyone can start strong.
+
+- 🌐 [samihermes.ai](https://samihermes.ai)
+- 🐙 [GitHub](https://github.com/sesamsesam)
 
 ---
 
