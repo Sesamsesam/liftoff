@@ -1,20 +1,25 @@
 # Antigravity Source Setup
 
-> Turn any AI coding agent into an enterprise-grade development partner - so a complete beginner can go from **1000 hours of mistakes to 50 hours of guided practice** with top-notch guardrails baked in.
+> **From 1,000 hours of trial and error to 50 hours of guided mastery.** This is your AI command center - whether you've never opened a code editor or you've been shipping software for a decade.
 
 ---
 
 ## What Is This?
-First if you don't understand what half of this means, don't worry the agent takes care of it all and guides you.
 
-This is a one-command install that equips your AI coding agent (like Gemini, Cursor, Copilot) with:
+The world changed. AI is no longer a tool reserved for engineers - it's the new operating layer for every professional. Accountants are automating reports. Salespeople are building custom CRMs. Marketers are spinning up landing pages before lunch. The professionals who thrive in the next decade won't be the ones who learned to code - they'll be the ones who learned to *command AI that codes for them*.
 
-- Samihermes.ai **F.O.R.G.E. methodology** - a step-by-step workflow that ensures your agent plans before coding, verifies as it builds, and never skips security
-- **7 core skills** - security, error handling, Git, design tokens, tech stack defaults, and specific MCP server skills like notebookLM, notion and more
-- **3 optional extensions** - advanced Git tooling, research workflows, and session persistence
-- **Professional standards** - every project gets enterprise-grade patterns without enterprise complexity, you can literally have no Idea of How to even use AI powertools to become highly profecient FAST!
+That's what Antigravity is. It's an AI-powered workspace (think: your command center) where you talk to an intelligent agent, and it builds, searches, connects, and automates on your behalf. You don't need to memorize syntax or understand server architecture. You describe what you want, and the agent handles the rest.
 
-**You don't need to be an expert.** The agent enforces best practices automatically. You just build and use the AI tools.
+**This repo - Liftoff - is the startup pack that makes Antigravity actually good at its job.** One install, and your AI agent goes from a blank slate to a guided, battle-tested partner loaded with:
+
+- **The F.O.R.G.E. methodology** - a step-by-step workflow where the agent plans before it builds, verifies as it goes, and never skips security. You approve every step
+- **7 core skills** - security, error handling, Git version control, design systems, tech stack defaults, and integrations with tools like NotebookLM and Notion
+- **3 optional extensions** - advanced Git workflows, research pipelines, and session memory so your AI remembers what you did yesterday
+- **Professional-grade standards** - every project gets enterprise patterns without enterprise complexity, automatically
+
+**If you're new to all of this** - don't worry. The agent walks you through everything. You don't need to understand what half of this means right now. The skills and guardrails are working behind the scenes so you can focus on *what* you want to build, not *how* to build it.
+
+**If you're already technical** - you'll feel this immediately. No more boilerplate security setups, no more forgotten `.gitignore` files, no more explaining your stack to a new AI session. This is the upgrade that makes your agent feel like a senior engineer instead of an intern.
 
 ---
 
