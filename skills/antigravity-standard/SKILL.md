@@ -35,9 +35,9 @@ category: code-quality | design | workflow | setup | meta
 
 ### 2. Beginner README Block
 Three sections at the top of every skill:
-- **What Is This?** — Plain-English explanation a non-developer can understand
-- **Why Does It Exist?** — The problem it solves
-- **What It Does For You** — The concrete benefit (what changes for the user)
+- **What Is This?** - Plain-English explanation a non-developer can understand
+- **Why Does It Exist?** - The problem it solves
+- **What It Does For You** - The concrete benefit (what changes for the user)
 
 ### 3. Activation Section
 When does the agent load and apply this skill? Specific triggers, not vague.
@@ -46,7 +46,7 @@ When does the agent load and apply this skill? Specific triggers, not vague.
 What rules the agent MUST follow. Use imperative language.
 
 ### 5. Content
-The actual skill content — patterns, checklists, code examples, etc.
+The actual skill content - patterns, checklists, code examples, etc.
 
 ---
 
@@ -61,7 +61,7 @@ Match instruction format to how much flexibility the agent has:
 | **Low** (fragile operations) | Exact bash commands | Database migrations, deployment scripts |
 
 > [!TIP]
-> If an agent could reasonably interpret the instruction 3 different ways, you need a code block or command — not a bullet.
+> If an agent could reasonably interpret the instruction 3 different ways, you need a code block or command - not a bullet.
 
 ---
 

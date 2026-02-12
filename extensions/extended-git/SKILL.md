@@ -10,10 +10,10 @@ category: workflow
 An optional extension that upgrades your Git workflow with professional tools: **Graphite** for stacked PRs and **Greptile** for AI code review. When active, this extension enforces feature branches (Level 2+) to prevent contradictory advice between "push to main" (Level 1) and "create PRs" (Greptile).
 
 ## Why Does It Exist?
-Once you're comfortable with basic Git, these tools dramatically improve code quality and collaboration. Graphite simplifies managing multiple related changes, and Greptile provides automated code review — like having a senior developer review every PR.
+Once you're comfortable with basic Git, these tools dramatically improve code quality and collaboration. Graphite simplifies managing multiple related changes, and Greptile provides automated code review - like having a senior developer review every PR.
 
 ## What It Does For You
-Every code change gets a second pair of eyes before going live. When you finish a feature, instead of pushing it straight to your main codebase, you create a **pull request** (PR) — a proposal that says "here's what I changed, review it before merging." Greptile's AI reviewer automatically checks that PR for bugs, security issues, and style problems you might miss. You get feedback in minutes, not hours.
+Every code change gets a second pair of eyes before going live. When you finish a feature, instead of pushing it straight to your main codebase, you create a **pull request** (PR) - a proposal that says "here's what I changed, review it before merging." Greptile's AI reviewer automatically checks that PR for bugs, security issues, and style problems you might miss. You get feedback in minutes, not hours.
 
 ---
 
@@ -29,7 +29,7 @@ Every code change gets a second pair of eyes before going live. When you finish 
 
 ## Graphite (Stacked PRs)
 
-**What it does:** Lets you create chains of small, focused PRs that depend on each other — instead of one massive PR.
+**What it does:** Lets you create chains of small, focused PRs that depend on each other - instead of one massive PR.
 
 **Setup:**
 ```bash

@@ -13,7 +13,7 @@ A set of battle-tested error handling patterns that the agent writes into your c
 90% of application crashes come from unhandled errors, silent failures, and poor resource cleanup. Amateur code uses bare `try/catch` with `console.log`. Professional code uses structured patterns that recover gracefully, report meaningfully, and clean up after themselves. This skill ensures every project gets the professional version from day one.
 
 ## What It Does For You
-The agent writes these patterns into your code automatically — you don't need experience with error handling. A senior developer reviewing your codebase would see proper Circuit Breaker patterns, structured error reporting, and graceful fallbacks — hallmarks of production-ready software.
+The agent writes these patterns into your code automatically - you don't need experience with error handling. A senior developer reviewing your codebase would see proper Circuit Breaker patterns, structured error reporting, and graceful fallbacks - hallmarks of production-ready software.
 
 ---
 
@@ -111,7 +111,7 @@ class ErrorReporter {
       context,
     };
     this.errors.push(structured);
-    // Log structured — no sensitive data
+    // Log structured - no sensitive data
     console.error(JSON.stringify({ level: "error", ...structured }));
   }
 
@@ -136,10 +136,10 @@ try {
 
 ```typescript
 async function loadDashboard(userId: string) {
-  // Core data — must succeed
+  // Core data - must succeed
   const user = await getUser(userId);
 
-  // Enhanced data — degrade gracefully if unavailable
+  // Enhanced data - degrade gracefully if unavailable
   const [analytics, recommendations] = await Promise.allSettled([
     fetchAnalytics(userId),
     fetchRecommendations(userId),
@@ -163,7 +163,7 @@ async function loadDashboard(userId: string) {
 **Why:** The sooner you catch a problem, the easier it is to debug and the less damage it causes.
 
 ```typescript
-// ✅ Fail fast — validate at the boundary
+// ✅ Fail fast - validate at the boundary
 function processPayment(amount: number, currency: string) {
   if (amount <= 0) throw new Error("Payment amount must be positive");
   if (!["usd", "eur", "gbp"].includes(currency)) throw new Error(`Unsupported currency: ${currency}`);
@@ -179,7 +179,7 @@ function processPayment(amount: number, currency: string) {
 **Why:** Leaked resources cause memory issues, connection exhaustion, and mysterious production bugs.
 
 ```typescript
-// ✅ Always clean up — use try/finally
+// ✅ Always clean up - use try/finally
 async function processFile(path: string) {
   const handle = await openFile(path);
   try {
@@ -208,7 +208,7 @@ useEffect(() => {
 | Anti-Pattern | Why It's Bad | Fix |
 |---|---|---|
 | `catch (e) { console.log(e) }` | No recovery, no structure, invisible in production | Use structured reporting |
-| Empty catch blocks `catch {}` | Silently swallows errors — bugs become invisible | At minimum, log with context |
+| Empty catch blocks `catch {}` | Silently swallows errors - bugs become invisible | At minimum, log with context |
 | `catch (e) { return null }` | Caller doesn't know something failed | Return a result type or re-throw |
 | Catching too broadly | Hides different failure modes | Catch specific error types |
 | No cleanup in error paths | Resource leaks | Use `try/finally` |

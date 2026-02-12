@@ -1,6 +1,6 @@
 # Antigravity Source Setup
 
-> Turn any AI coding agent into an enterprise-grade development partner — so a complete beginner can go from **1000 hours of mistakes to 50 hours of guided practice** with top-notch guardrails baked in.
+> Turn any AI coding agent into an enterprise-grade development partner - so a complete beginner can go from **1000 hours of mistakes to 50 hours of guided practice** with top-notch guardrails baked in.
 
 ---
 
@@ -9,10 +9,10 @@ First if you don't understand what half of this means, don't worry the agent tak
 
 This is a one-command install that equips your AI coding agent (like Gemini, Cursor, Copilot) with:
 
-- Samihermes.ai **F.O.R.G.E. methodology** — a step-by-step workflow that ensures your agent plans before coding, verifies as it builds, and never skips security
-- **7 core skills** — security, error handling, Git, design tokens, tech stack defaults, and specific MCP server skills like notebookLM, notion and more
-- **3 optional extensions** — advanced Git tooling, research workflows, and session persistence
-- **Professional standards** — every project gets enterprise-grade patterns without enterprise complexity, you can literally have no Idea of How to even use AI powertools to become highly profecient FAST!
+- Samihermes.ai **F.O.R.G.E. methodology** - a step-by-step workflow that ensures your agent plans before coding, verifies as it builds, and never skips security
+- **7 core skills** - security, error handling, Git, design tokens, tech stack defaults, and specific MCP server skills like notebookLM, notion and more
+- **3 optional extensions** - advanced Git tooling, research workflows, and session persistence
+- **Professional standards** - every project gets enterprise-grade patterns without enterprise complexity, you can literally have no Idea of How to even use AI powertools to become highly profecient FAST!
 
 **You don't need to be an expert.** The agent enforces best practices automatically. You just build and use the AI tools.
 
@@ -47,7 +47,7 @@ That's it. Open your next project and the agent will follow F.O.R.G.E. automatic
 |---|---|
 | `GEMINI.md` | Global rules the agent follows in every project |
 | `forge-methodology` | The F.O.R.G.E. workflow: Foundation → Outline → Rock'n'Roll → Guard → Evolve |
-| `security-guardian` | 14-point security checklist — secrets, inputs, auth, dependencies |
+| `security-guardian` | 14-point security checklist - secrets, inputs, auth, dependencies |
 | `error-handling` | Circuit breaker, structured reporting, graceful degradation |
 | `git-flow` | Progressive Git workflow from beginner to team-ready |
 | `brand-identity` | CSS design tokens for premium-looking UIs |
@@ -76,7 +76,7 @@ Extensions are installed **dormant** (all set to `false` by default). To activat
 
 **What does dormant mean?** When an extension is set to `false`, the skill file is installed on your machine but the agent completely ignores it. It won't suggest it, use it, or even mention it. It's as if it doesn't exist.
 
-**What happens when you activate it?** Setting an extension to `true` makes it available **globally** — meaning every new agent session, in any project, can now use that extension. You only need to flip it once.
+**What happens when you activate it?** Setting an extension to `true` makes it available **globally** - meaning every new agent session, in any project, can now use that extension. You only need to flip it once.
 
 **Why not just activate everything?** Some extensions change how the agent behaves in ways you might not always want. For example, `beads-workflow` makes the agent track session context and manage task persistence between conversations. That's powerful when you need it, but if you're doing a quick one-off task, you don't want the agent spending time on session management overhead. The toggle lets you control exactly which behaviors are active, so the agent stays focused on what matters for how you work right now.
 
@@ -84,7 +84,7 @@ Extensions are installed **dormant** (all set to `false` by default). To activat
 
 ## How Skills Work
 
-Skills live in folders under `~/.gemini/skills/`. Each folder has one file called `SKILL.md` — the agent discovers and loads skills by looking for this exact filename. **The folder name is the skill's identity.**
+Skills live in folders under `~/.gemini/skills/`. Each folder has one file called `SKILL.md` - the agent discovers and loads skills by looking for this exact filename. **The folder name is the skill's identity.**
 
 ```
 skills/
@@ -115,7 +115,7 @@ Guard      → Security + error handling on every change (automatic)
 Evolve     → Document what happened, persist knowledge for next session
 ```
 
-The agent follows this cycle for every task. You never need to say "use FORGE" — it's the default behavior.
+The agent follows this cycle for every task. You never need to say "use FORGE" - it's the default behavior.
 
 ---
 
@@ -149,16 +149,16 @@ The agent follows this cycle for every task. You never need to say "use FORGE" �
 A: The installer backs up your existing `GEMINI.md` before overwriting. All other files are additive.
 
 **Q: Can I customize the skills?**
-A: Yes. Every skill is a markdown file. Edit them directly — the agent reads them at runtime.
+A: Yes. Every skill is a markdown file. Edit them directly - the agent reads them at runtime.
 
 **Q: Do I need all the tools listed in `stack-pro-max`?**
 A: No. Those are defaults. The agent adapts to whatever tools you have installed.
 
 **Q: What if I don't use Convex/Clerk?**
-A: The patterns still apply — just swap the specific tools. The security, error handling, and Git skills are framework-agnostic.
+A: The patterns still apply - just swap the specific tools. The security, error handling, and Git skills are framework-agnostic.
 
 ---
 
 ## License
 
-MIT — use it, fork it, improve it.
+MIT - use it, fork it, improve it.

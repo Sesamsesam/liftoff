@@ -7,10 +7,10 @@ category: setup
 # Stack Pro Max
 
 ## What Is This?
-Your **tech stack** is the set of tools and frameworks you build with — like a builder choosing specific brands of hammer, saw, and nails. This skill defines exactly which tools the agent should use, so every project starts the right way.
+Your **tech stack** is the set of tools and frameworks you build with - like a builder choosing specific brands of hammer, saw, and nails. This skill defines exactly which tools the agent should use, so every project starts the right way.
 
 ## Why Does It Exist?
-Every developer has preferred tools. Without this, the agent might suggest Next.js when you use Vite, or npm when you use bun. This skill eliminates that friction — the agent knows your choices and follows them.
+Every developer has preferred tools. Without this, the agent might suggest Next.js when you use Vite, or npm when you use bun. This skill eliminates that friction - the agent knows your choices and follows them.
 
 ## What It Does For You
 When you start a new project, the agent scaffolds it with the exact tools, folder structure, and conventions defined here. No more correcting tool choices mid-build.
@@ -21,11 +21,11 @@ When you start a new project, the agent scaffolds it with the exact tools, folde
 
 A web application has layers, and each layer uses a specific tool:
 
-1. **Frontend** — what users see and click (React + Vite)
-2. **Styling** — how it looks (vanilla CSS with design tokens from `brand-identity`)
-3. **Backend** — where data is stored and processed (Convex)
-4. **Auth** — who can log in and what they can access (Clerk)
-5. **Hosting** — where the app lives on the internet (Cloudflare Pages)
+1. **Frontend** - what users see and click (React + Vite)
+2. **Styling** - how it looks (vanilla CSS with design tokens from `brand-identity`)
+3. **Backend** - where data is stored and processed (Convex)
+4. **Auth** - who can log in and what they can access (Clerk)
+5. **Hosting** - where the app lives on the internet (Cloudflare Pages)
 
 When you "start a new project," the agent sets up all these layers in the right order with compatible versions. The tables below show the exact tools for each layer.
 
@@ -94,12 +94,12 @@ bun install
 
 Always define the data model before writing UI:
 
-1. **Schema first** — write `convex/schema.ts` with all tables and relationships
-2. **Queries + Mutations** — write the data layer in `convex/`
-3. **UI last** — build components that consume the data layer
+1. **Schema first** - write `convex/schema.ts` with all tables and relationships
+2. **Queries + Mutations** - write the data layer in `convex/`
+3. **UI last** - build components that consume the data layer
 
 ```typescript
-// convex/schema.ts — always start here
+// convex/schema.ts - always start here
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 

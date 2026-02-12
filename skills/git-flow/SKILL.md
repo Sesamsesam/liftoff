@@ -8,7 +8,7 @@ category: workflow
 (THIS IS A MUST TO UNDERSTAND FOR ANY USER - an essential)
 
 ## What Is This?
-A step-by-step guide to using Git — from "what is Git?" to professional team workflows. Your AI agent enforces the right level automatically based on the project context.
+A step-by-step guide to using Git - from "what is Git?" to professional team workflows. Your AI agent enforces the right level automatically based on the project context.
 
 ## Why Does It Exist?
 Git is the universal tool for tracking code changes and collaborating. Without proper Git practices, you lose work, break things with no undo button, and can't collaborate effectively. This skill teaches you the right habits from day one.
@@ -57,7 +57,7 @@ git --version
 
 ## GitHub Setup (For Beginners)
 
-Git tracks changes locally. **GitHub** stores your code online — backup, sharing, and collaboration. They both start with 'Git' but are different things. Git is the local tool Github is a service that uses Git.
+Git tracks changes locally. **GitHub** stores your code online - backup, sharing, and collaboration. They both start with 'Git' but are different things. Git is the local tool Github is a service that uses Git.
 
 ### 1. Create a GitHub Account
 Go to [github.com](https://github.com) and sign up. Free accounts include unlimited repositories.
@@ -65,9 +65,9 @@ Go to [github.com](https://github.com) and sign up. Free accounts include unlimi
 ### 2. Create Your First Repository
 On GitHub, click **"New Repository"** → name it → select **Private** → click **Create**
 
-### 3. Connect Your Agent (HTTPS — Easiest Method)
+### 3. Connect Your Agent (HTTPS - Easiest Method)
 
-When the agent runs `git push` for the first time, your browser will open a GitHub login prompt. Sign in and authorize access. That's it — no keys, no tokens.
+When the agent runs `git push` for the first time, your browser will open a GitHub login prompt. Sign in and authorize access. That's it - no keys, no tokens.
 
 ```bash
 # The agent will set this up, but here's what happens:
@@ -97,7 +97,7 @@ git add .
 # Create a checkpoint with a description of what you changed
 git commit -m "feat: add user profile page"
 
-# Push your checkpoint to GitHub — this is what makes it live.
+# Push your checkpoint to GitHub - this is what makes it live.
 # If your website deployer (Cloudflare, Vercel, etc.) is connected
 # to this repo, pushing to main triggers a rebuild.
 # Your changes go live automatically after this command.
@@ -107,9 +107,9 @@ git push origin main
 The agent will run these commands for you when you say "push to git" or "commit to git." You don't need to memorize them.
 
 **But understanding the system matters.** Git is three things:
-1. **Save** (`git add`) — select which changes to include
-2. **Checkpoint** (`git commit`) — snapshot your code with a description you can always return to
-3. **Push to live** (`git push`) — upload to GitHub, which triggers your website to rebuild with the new code
+1. **Save** (`git add`) - select which changes to include
+2. **Checkpoint** (`git commit`) - snapshot your code with a description you can always return to
+3. **Push to live** (`git push`) - upload to GitHub, which triggers your website to rebuild with the new code
 
 This allows you to revert to previous 'save games' if things break by referencing the commit code (a little snippet of ID you can see in the terminal when pushed or on github)
 

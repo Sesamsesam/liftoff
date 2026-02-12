@@ -26,7 +26,7 @@
 ## F.O.R.G.E. (Default Operating Mode)
 - **F**oundation → **O**utline → **R**ock'n'Roll → **G**uard → **E**volve
 - No code until the Outline is approved by the user
-- Verification at every step — brick by brick, never shortcuts
+- Verification at every step  - brick by brick, never shortcuts
 - See `forge-methodology` skill for full cycle details
 
 ## Professional Git
@@ -37,16 +37,20 @@
 - See `git-flow` skill for beginner guide + advanced workflows
 
 ## CSS/Styling
-- **No inline styles** — Use CSS classes + CSS custom properties
+- **No inline styles**  - Use CSS classes + CSS custom properties
 - Establish a design system upfront (semantic classes like `.surface-card`, `.text-primary`)
 - Inline `style={{}}` only for truly dynamic values (e.g., computed positions)
 - Single source of truth: one CSS file change should update all components
 - See `brand-identity` skill for color tokens + typography
 
+## Typography
+- **No em dashes** - use regular hyphens or rewrite the sentence
+- This applies everywhere: code, comments, commit messages, documentation, artifacts, chat, and everything else always.
+
 ## Tech Stack Defaults
 - **Apps**: React + Vite → Convex + Clerk → Cloudflare Pages
 - **Static Sites**: Astro
-- **Package Manager**: bun (preferred), pnpm (fallback) — never npm
+- **Package Manager**: bun (preferred), pnpm (fallback)  - never npm
 - See `stack-pro-max` skill for init commands + database-first setup
 
 ## Server Management
@@ -56,15 +60,15 @@
 ## Architectural Patterns
 - When building something similar to existing code → inspect the working implementation first
 - File creation order: search existing → update → add section → create new file
-- Evaluate external AI advice critically — do not blindly apply
-- Always write result — even on failure, document what happened
+- Evaluate external AI advice critically  - do not blindly apply
+- Always write result  - even on failure, document what happened
 - Every feature gets enterprise-grade error handling, security, and validation automatically
 
 ## Skill Discovery
 - Auto-detect when a skill is relevant to the current task and apply it
-- Skills load on-demand — they are not always in context
+- Skills load on-demand  - they are not always in context
 - Check `~/.gemini/settings/extensions.json` for active extensions
-- If an extension is dormant but relevant, offer once with plain explanation — then never ask again
+- If an extension is dormant but relevant, offer once with plain explanation  - then never ask again
 
 ## Session Start (Run Every Time)
 - Check `~/.gemini/settings/extensions.json` for active extensions

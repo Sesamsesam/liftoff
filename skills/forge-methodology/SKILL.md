@@ -1,30 +1,30 @@
 ---
 name: forge-methodology
-description: "F.O.R.G.E. — the default operating mode. Foundation, Outline, Rock'n'Roll, Guard, Evolve."
+description: "F.O.R.G.E. - the default operating mode. Foundation, Outline, Rock'n'Roll, Guard, Evolve."
 category: workflow
 ---
 
 # F.O.R.G.E. Methodology
 
 ## What Is This?
-F.O.R.G.E. is the step-by-step process your AI agent follows for every task — from understanding what you want, to planning, building, protecting, and learning. Think of it as a master builder's workflow: measure twice, cut once, inspect the result.
+F.O.R.G.E. is the step-by-step process your AI agent follows for every task - from understanding what you want, to planning, building, protecting, and learning. Think of it as a master builder's workflow: measure twice, cut once, inspect the result.
 
 ## Why Does It Exist?
 Without a structured approach, AI agents jump straight to coding and skip planning, security, and verification. The result? Fragile code, missed requirements, and expensive rewrites. F.O.R.G.E. prevents this by enforcing discipline at every step.
 
 ## What It Does For You
-You never need to say "use FORGE" — the agent follows it automatically. Every feature gets planned before it's built, verified as it's built, and secured before it ships.
+You never need to say "use FORGE" - the agent follows it automatically. Every feature gets planned before it's built, verified as it's built, and secured before it ships.
 
 ---
 
 ## Activation
 - **Always active.** This is the default operating mode for every task.
-- No trigger needed — F.O.R.G.E. is the baseline behavior.
+- No trigger needed - F.O.R.G.E. is the baseline behavior.
 
 ## Enforcement
 - The agent MUST NOT write implementation code before the Outline is approved.
 - The agent MUST verify each step before moving to the next.
-- If a step fails, STOP and report — never skip ahead.
+- If a step fails, STOP and report - never skip ahead.
 
 ---
 
@@ -36,10 +36,10 @@ You never need to say "use FORGE" — the agent follows it automatically. Every 
 **Actions:**
 - Read relevant files, check the tech stack, understand the current state
 - Ask Socratic questions to clarify ambiguity:
-  - "What problem does this solve for the user?"
-  - "Is there existing code that does something similar?"
-  - "What are the success criteria?"
-  - "Are there constraints I should know about?"
+ - "What problem does this solve for the user?"
+ - "Is there existing code that does something similar?"
+ - "What are the success criteria?"
+ - "Are there constraints I should know about?"
 - If similar functionality exists in the codebase → inspect it first, learn from the working implementation
 - Check Knowledge Items (KIs) for relevant prior work
 
@@ -50,10 +50,10 @@ You never need to say "use FORGE" — the agent follows it automatically. Every 
 
 **Actions:**
 - Write an implementation plan with:
-  - **Task decomposition** — break into small tasks (2-5 minutes each)
-  - **Each task has:** exact file paths, expected changes, verification steps
-  - **Dependency order** — what must be built first
-  - **Potential risks** — what could go wrong
+ - **Task decomposition** - break into small tasks (2-5 minutes each)
+ - **Each task has:** exact file paths, expected changes, verification steps
+ - **Dependency order** - what must be built first
+ - **Potential risks** - what could go wrong
 - Present the plan in digestible sections (not a wall of text)
 - Wait for explicit user approval before proceeding
 
@@ -65,15 +65,15 @@ You never need to say "use FORGE" — the agent follows it automatically. Every 
 **Actions:**
 - Implement one task at a time in the approved order
 - After each task:
-  - Verify it works (run tests, check output, read the result)
-  - If verification fails → fix before moving on
-  - Update task tracker with progress
+ - Verify it works (run tests, check output, read the result)
+ - If verification fails → fix before moving on
+ - Update task tracker with progress
 - If you discover unexpected complexity → STOP, return to Outline, update the plan
 
 **Rule:** Never batch multiple unverified changes. One brick, test, next brick.
 
 ### 4. Guard
-> Security, validation, and error handling — automatic, not optional.
+> Security, validation, and error handling - automatic, not optional.
 
 **Actions (applied to every code change):**
 - Run security checks (see `security-guardian` skill)
@@ -82,7 +82,7 @@ You never need to say "use FORGE" — the agent follows it automatically. Every 
 - Check auth boundaries on public endpoints
 - Verify `.gitignore` covers sensitive files
 
-**Rule:** Guard is not a separate phase you "get to" — it runs continuously during Rock'n'Roll.
+**Rule:** Guard is not a separate phase you "get to" - it runs continuously during Rock'n'Roll.
 
 ### 5. Evolve
 > Learn from what happened. Persist knowledge for next session.
@@ -97,7 +97,7 @@ You never need to say "use FORGE" — the agent follows it automatically. Every 
 
 ## QA Checklist (Single Source of Truth)
 
-All other skills reference this checklist — it is defined here ONCE.
+All other skills reference this checklist - it is defined here ONCE.
 
 Before marking any task complete:
 - [ ] Code compiles / builds without errors

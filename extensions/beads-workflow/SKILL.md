@@ -7,13 +7,13 @@ category: workflow
 # Beads Workflow
 
 ## What Is This?
-An optional extension that integrates the **Beads CLI** — a tool that saves your AI session context (decisions, progress, patterns) so future sessions pick up right where you left off. No more re-explaining your project to the agent.
+An optional extension that integrates the **Beads CLI** - a tool that saves your AI session context (decisions, progress, patterns) so future sessions pick up right where you left off. No more re-explaining your project to the agent.
 
 ## Why Does It Exist?
-AI sessions are ephemeral — the agent forgets everything when the conversation ends. Beads solves this by persisting structured context that the next session can load automatically.
+AI sessions are ephemeral - the agent forgets everything when the conversation ends. Beads solves this by persisting structured context that the next session can load automatically.
 
 ## What It Does For You
-Your AI remembers decisions, discovered patterns, and open tasks from last time. When you start a new session, it picks up right where you left off — no re-explaining your project, no lost progress.
+Your AI remembers decisions, discovered patterns, and open tasks from last time. When you start a new session, it picks up right where you left off - no re-explaining your project, no lost progress.
 
 ---
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ─────────────────────────────────────────────────────────
-# Antigravity Source Setup — Installer
+# Antigravity Source Setup - Installer
 # One-command install for AI agent guardrails, skills, and workflows
 # ─────────────────────────────────────────────────────────
 
@@ -32,9 +32,9 @@ echo -e "${NC}"
 # ─── Profile Selection ───
 echo -e "${BLUE}Choose your profile:${NC}"
 echo ""
-echo "  1) ${GREEN}Developer${NC}  — Core skills + workflows (recommended)"
-echo "  2) ${YELLOW}Researcher${NC} — Developer + NotebookLM research extension"
-echo "  3) ${PURPLE}Full${NC}       — Everything, including advanced Git + Beads"
+echo "  1) ${GREEN}Developer${NC}  - Core skills + workflows (recommended)"
+echo "  2) ${YELLOW}Researcher${NC} - Developer + NotebookLM research extension"
+echo "  3) ${PURPLE}Full${NC}       - Everything, including advanced Git + Beads"
 echo ""
 read -rp "Enter 1, 2, or 3 [default: 1]: " PROFILE
 PROFILE=${PROFILE:-1}
@@ -54,7 +54,7 @@ mkdir -p "$SETTINGS_DIR"
 # ─── Backup existing GEMINI.md ───
 if [ -f "$GEMINI_DIR/GEMINI.md" ]; then
   BACKUP_NAME="GEMINI.md.backup.$(date +%Y%m%d_%H%M%S)"
-  echo -e "${YELLOW}Existing GEMINI.md found — backing up as $BACKUP_NAME${NC}"
+  echo -e "${YELLOW}Existing GEMINI.md found - backing up as $BACKUP_NAME${NC}"
   cp "$GEMINI_DIR/GEMINI.md" "$GEMINI_DIR/$BACKUP_NAME"
 fi
 
@@ -83,7 +83,7 @@ install_extension() {
   local ext_name="$1"
   mkdir -p "$EXTENSIONS_DIR/$ext_name"
   cp "$SCRIPT_DIR/extensions/$ext_name/SKILL.md" "$EXTENSIONS_DIR/$ext_name/SKILL.md"
-  echo "  ✓ $ext_name (installed, dormant — activate in extensions.json)"
+  echo "  ✓ $ext_name (installed, dormant - activate in extensions.json)"
 }
 
 if [[ "$PROFILE" -ge 2 ]]; then

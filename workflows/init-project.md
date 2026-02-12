@@ -1,5 +1,5 @@
 ---
-description: "Initialize a new project with the full Antigravity stack — Git, Vite/Astro, Convex, and all guardrails."
+description: "Initialize a new project with the full Antigravity stack - Git, Vite/Astro, Convex, and all guardrails."
 ---
 
 # Init Project Workflow

@@ -1,6 +1,6 @@
 ---
 name: security-guardian
-description: "14-point security framework. Covers the 95% that matters — agent enforces automatically on every code change."
+description: "14-point security framework. Covers the 95% that matters - agent enforces automatically on every code change."
 category: code-quality
 ---
 
@@ -10,10 +10,10 @@ category: code-quality
 A 14-point security checklist that your AI agent follows automatically on every code change. It covers the security measures that prevent 95% of real-world vulnerabilities.
 
 ## Why Does It Exist?
-Most security breaches exploit simple mistakes: exposed API keys, unsanitized inputs, missing auth checks. These aren't exotic attacks — they're preventable oversights. This skill ensures the agent catches them before they ship.
+Most security breaches exploit simple mistakes: exposed API keys, unsanitized inputs, missing auth checks. These aren't exotic attacks - they're preventable oversights. This skill ensures the agent catches them before they ship.
 
 ## What It Does For You
-You never need to think "did I handle security?" The agent does it for you, every time — checking for leaked secrets, validating inputs, enforcing auth boundaries, and auditing dependencies. A senior developer reviewing your code would find it locked down.
+You never need to think "did I handle security?" The agent does it for you, every time - checking for leaked secrets, validating inputs, enforcing auth boundaries, and auditing dependencies. A senior developer reviewing your code would find it locked down.
 
 ---
 
@@ -23,7 +23,7 @@ You never need to think "did I handle security?" The agent does it for you, ever
 
 ## Enforcement
 - The agent MUST run these checks before any commit.
-- If a violation is found, the agent fixes it before proceeding — not after.
+- If a violation is found, the agent fixes it before proceeding - not after.
 - Security is never deferred to "a later sprint."
 
 ---
@@ -55,10 +55,10 @@ eyJ[a-zA-Z0-9_-]+\.eyJ       # JWT tokens
 - Use Zod schemas on ALL mutation/action inputs (Convex pattern)
 - Apply `sanitizeText()` for plain text display
 - Apply `sanitizeHtml()` only when rich text is explicitly needed
-- Never trust client-side validation alone — always validate server-side
+- Never trust client-side validation alone - always validate server-side
 
 ```typescript
-// ✅ Correct — Zod schema validates input
+// ✅ Correct - Zod schema validates input
 export const createPost = mutation({
   args: {
     title: v.string(),
@@ -81,13 +81,13 @@ export const createPost = mutation({
 - Enforce size limits (configurable per upload type)
 - Allowlist file types (never blocklist)
 - Store in sandboxed storage (e.g., Convex file storage, S3 with restricted access)
-- Generate new filenames — never use user-provided filenames in paths
+- Generate new filenames - never use user-provided filenames in paths
 
 ### 5. Database Injection
 **What:** Prevent SQL/NoSQL injection.
 **Rules:**
-- Parameterized queries only — never string concatenation
-- Convex provides type safety by default — leverage it
+- Parameterized queries only - never string concatenation
+- Convex provides type safety by default - leverage it
 - For raw SQL (Supabase): always use parameterized queries via the client SDK
 - Never expose raw database IDs in URLs without auth checks
 
@@ -129,7 +129,7 @@ if (!identity) throw new Error("Not authenticated");
 ### 9. Log Safety
 **What:** Never log sensitive data.
 **Rules:**
-- Redact tokens before logging — show only last 4 characters: `sk-...a1b2`
+- Redact tokens before logging - show only last 4 characters: `sk-...a1b2`
 - Never log full request bodies that may contain passwords
 - Never log full error stacks to user-facing responses
 - Use structured logging (JSON format) for easy filtering
@@ -154,7 +154,7 @@ node_modules/
 - CORS: specific origins only, never `*` in production
 - Debug mode: OFF in production
 - Error messages: generic for users, detailed only in server logs
-- HTTPS only — no mixed content
+- HTTPS only - no mixed content
 
 ### 12. Dependency Verification
 **What:** Verify packages are legitimate before installing.
@@ -162,12 +162,12 @@ node_modules/
 - Does the package exist on npm? (Catch hallucinated package names)
 - Does it have meaningful download counts? (Catch typosquatting)
 - Is the package name exactly correct? (`lodash` not `1odash`)
-- Check last publish date — abandoned packages may have known vulnerabilities
+- Check last publish date - abandoned packages may have known vulnerabilities
 
 ### 13. Error Handling (Security Angle)
 **What:** Errors must never leak sensitive information or grant unintended access.
 **Rules:**
-- Never "fail open" — if auth check errors, DENY access
+- Never "fail open" - if auth check errors, DENY access
 - User-facing error messages: generic ("Something went wrong")
 - Server logs: detailed for debugging
 - Never expose stack traces, file paths, or internal IDs to users
