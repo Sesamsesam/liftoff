@@ -116,7 +116,7 @@ The agent walks you through 5 phases:
 <strong>Without Beads:</strong> O.R.B.I.T. still works perfectly within a session. Across sessions, the agent reads <code>orbit.md</code> and picks up from there. You may occasionally need to remind it of context from previous conversations.
 </details>
 
-Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Notion, Supabase, or GitHub). Every extension comes with a **complete setup guide built in** - you don't need to hunt for documentation. 🫰
+Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Notion, Convex, Remotion, or GitHub). Every extension comes with a **complete setup guide built in** - you don't need to hunt for documentation. 🫰
 
 Just activate the extension and ask the agent to help you set it up. It already knows the exact steps, where to get API keys, and how to connect everything.
 
