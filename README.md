@@ -10,18 +10,23 @@
 
 The world changed. AI is no longer a tool reserved for engineers - it's the new operating layer for every professional. Accountants are automating reports. Salespeople are building custom CRMs. Marketers are spinning up landing pages before lunch. Video editors are programmatically chaing their vids. The professionals who thrive in the next decade won't be the ones who learned to code - they'll be the ones who learned to *command AI that codes for them*.
 
-That's what Antigravity is. It's an AI-powered workspace (think: your command center) where you talk to an intelligent agent, and it builds, searches, connects, and automates on your behalf. You don't need to memorize syntax or understand server architecture. You describe what you want, and the agent handles the rest.
+That's what Antigravity is - an AI-powered workspace where you talk to an intelligent agent, and it builds, searches, connects, and automates on your behalf. You don't need to memorize syntax or understand server architecture. You describe what you want, and the agent handles the rest. **This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** One install, and your AI agent goes from a blank slate to a guided, battle-tested partner loaded with tools, ammo and best practices:
 
-**This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** One install, and your AI agent goes from a blank slate where you need to direct it to a guided, battle-tested partner loaded with tools, ammo and best practices - this will save you a lot of time and you can outcompete people who just use Antigravity raw:
+| What You Get | Why It Matters |
+|---|---|
+| 🔨 **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
+| 🛡️ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
+| 🔌 **3 optional extensions** | Advanced Git workflows, research pipelines, and session memory so your AI remembers yesterday |
+| ⚡ **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
-- **The F.O.R.G.E. methodology** - a step-by-step workflow where the agent plans before it builds, verifies as it goes, and never skips security. You approve every step
-- **7 core skills** - security, error handling, Git version control, design systems, tech stack defaults, and integrations with tools like NotebookLM and Notion
-- **3 optional extensions** - advanced Git workflows, research pipelines, and session memory so your AI remembers what you did yesterday
-- **Professional-grade standards** - every project gets enterprise patterns without enterprise complexity, automatically
+> [!TIP]
+> **New to all of this?** Don't worry. The agent walks you through everything. You don't need to understand half of what's inside. The skills and guardrails work behind the scenes so you can focus on *what* you want to build, not *how* to build it.
 
-**If you're new to all of this** - don't worry. The agent walks you through everything. You don't need to understand half of what's inside. The skills and guardrails are working behind the scenes so you can focus on *what* you want to build, not *how* to build it.
-
-**If you're already technical** - you'll feel this immediately. No more boilerplate security setups, no more forgotten `.gitignore` files, no more explaining your stack to a new AI session. This is the upgrade that makes your agent feel like a senior engineer instead of an intern.
+<details>
+<summary><strong>Already technical? Here's why you'll love this.</strong></summary>
+<br>
+No more boilerplate security setups, no more forgotten <code>.gitignore</code> files, no more explaining your stack to a new AI session. This is the upgrade that makes your agent feel like a senior engineer instead of an intern.
+</details>
 
 ---
 
@@ -180,7 +185,9 @@ A: The patterns still apply - just swap the specific tools. The security, error 
 
 **Sami Hermes** - AI educator, builder, and the person behind Antigravity.
 
-I teach professionals from every background how to use AI as their unfair advantage. Liftoff is a core part of that mission - a free, open-source foundation so anyone can start strong.
+I teach professionals from every background how to use AI as their unfair advantage. Liftoff is a supplement to that mission - a free, open-source foundation so anyone can start strong.
+
+Come follow along to if you want to learn better how to use AI:
 
 - 🌐 [samihermes.ai](https://samihermes.ai)
 - 🐙 [GitHub](https://github.com/sesamsesam)
