@@ -16,7 +16,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | 🔨 **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | 🛡️ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
-| 🔌 **3 optional extensions** | Advanced Git workflows, research pipelines, and session memory so your AI remembers yesterday |
+| 🔌 **4 optional extensions** | Strategic project planning, advanced Git workflows, research pipelines, and session memory so your AI remembers yesterday |
 | ⚡ **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 > [!TIP]
@@ -51,7 +51,7 @@ Choose your profile when prompted:
 | Profile | What You Get |
 |---|---|
 | **1. Developer** | Core skills + workflows (recommended for most users) |
-| **2. Researcher** | Developer + NotebookLM research extension |
+| **2. Researcher** | Developer + O.R.B.I.T. planning + NotebookLM research |
 | **3. Full** | Everything, including advanced Git + Beads session persistence |
 
 **After the install**, you're set up globally. Every new Antigravity session - in any project, anywhere on your machine - will have these skills active. To start your first real project:
@@ -192,6 +192,7 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── brand-identity/SKILL.md        # Design tokens
 │   ├── stack-pro-max/SKILL.md         # Tech stack
 │   ├── antigravity-standard/SKILL.md  # Skill template
+│   ├── orbit-planning/SKILL.md        # (extension)
 │   ├── extended-git/SKILL.md          # (extension)
 │   ├── beads-workflow/SKILL.md        # (extension)
 │   └── notebooklm-research/SKILL.md   # (extension)

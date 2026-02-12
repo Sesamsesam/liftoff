@@ -68,6 +68,7 @@
 - Evaluate external AI advice critically  - do not blindly apply
 - Always write result  - even on failure, document what happened
 - Every feature gets enterprise-grade error handling, security, and validation automatically
+- **Liftoff source repo sync**: When modifying the Liftoff source itself (adding/removing skills, extensions, workflows), always update `README.md` to reflect current counts, tables, file tree, and profile descriptions before committing
 
 ## Skill Discovery
 - Auto-detect when a skill is relevant to the current task and apply it
