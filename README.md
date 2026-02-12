@@ -111,7 +111,7 @@ The agent walks you through 5 phases:
 <br><br>
 <strong>5. Track</strong> - "Keep the plan alive." The O.R.B.I.T. plan is a living document (<code>docs/orbit.md</code>). When you change direction mid-build, the agent updates the plan first, then proceeds. You never have to say "go update the plan" - it just does.
 <br><br>
-<strong>With Beads active:</strong> Session continuity is seamless. Each new session auto-loads your O.R.B.I.T. state, including <em>why</em> decisions changed - not just what changed. You spend zero time re-explaining.
+<strong>With Beads active (extension):</strong> Session continuity is seamless. Each new session auto-loads your O.R.B.I.T. state, including <em>why</em> decisions changed - not just what changed. You spend zero time re-explaining.
 <br>
 <strong>Without Beads:</strong> O.R.B.I.T. still works perfectly within a session. Across sessions, the agent reads <code>orbit.md</code> and picks up from there. You may occasionally need to remind it of context from previous conversations.
 </details>
