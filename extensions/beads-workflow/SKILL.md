@@ -94,14 +94,14 @@ This is the simplest option. Homebrew handles everything - installation, PATH se
 
 > **New to Homebrew?** If you don't have it installed yet or aren't sure what it is, check the [Homebrew skill guide](../../skills/homebrew/SKILL.md) - it walks you through everything from scratch.
 
-#### Option B: npm/bun (if you're in a JavaScript environment)
+#### Option B: bun/pnpm (if you're in a JavaScript environment)
 
 ```bash
 # Using bun (preferred)
 bun install -g --trust @beads/bd
 
-# Using npm
-npm install -g @beads/bd
+# Using pnpm (fallback)
+pnpm install -g @beads/bd
 ```
 
 #### Option C: Quick Install Script (any platform)
@@ -123,7 +123,7 @@ Requires Go 1.24+.
 | Method | Best For | Updates | Needs |
 |---|---|---|---|
 | **Homebrew** | macOS/Linux users | `brew upgrade beads` | Homebrew |
-| **bun/npm** | JavaScript developers | `bun/npm update -g @beads/bd` | bun or Node.js |
+| **bun/pnpm** | JavaScript developers | `bun/pnpm update -g @beads/bd` | bun or Node.js |
 | **Install script** | Quick setup, any platform | Re-run script | curl, bash |
 | **Go** | Go developers | Re-run command | Go 1.24+ |
 

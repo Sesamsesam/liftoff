@@ -51,7 +51,10 @@
 - **Apps**: React + Vite → Convex + Clerk → Cloudflare Pages
 - **Infrastructure**: Cloudflare MCP (D1, R2, Workers, AI Gateway, DNS)  - see `cloudflare-mcp` extension
 - **Static Sites**: Astro
-- **Package Manager**: bun (preferred), pnpm (fallback)  - never npm
+- **Package Manager**: bun (preferred), pnpm (fallback) - never npm
+- If bun is not installed, install it (`brew install oven-sh/bun/bun` or `curl -fsSL https://bun.sh/install | bash`)
+- If the user explicitly prefers pnpm over bun, install pnpm if missing (`brew install pnpm` or `corepack enable pnpm`)
+- Always check `which bun` before defaulting to pnpm
 - See `stack-pro-max` skill for init commands + database-first setup
 
 ## Server Management
