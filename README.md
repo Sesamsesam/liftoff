@@ -101,6 +101,7 @@ You can delete the `liftoff` folder whenever you want - it already did its job.
 | `brand-identity` | CSS design tokens for premium-looking UIs |
 | `stack-pro-max` | Tech stack defaults (React + Vite + Convex + Clerk) |
 | `antigravity-standard` | Template for creating new skills |
+| `homebrew` | macOS package manager - how the agent installs tools like Git, Node, and Bun |
 | `init-project` | Workflow to scaffold a new project with all guardrails |
 
 ### 🔌 Extensions (Opt-In)

@@ -66,7 +66,7 @@ cp "$SCRIPT_DIR/settings/extensions.json" "$SETTINGS_DIR/extensions.json"
 
 # ─── Install Skills (Phase 2) ───
 echo -e "${GREEN}Installing skills...${NC}"
-CORE_SKILLS=("forge-methodology" "security-guardian" "error-handling" "git-flow" "brand-identity" "stack-pro-max" "antigravity-standard")
+CORE_SKILLS=("forge-methodology" "security-guardian" "error-handling" "git-flow" "brand-identity" "stack-pro-max" "antigravity-standard" "homebrew")
 
 for skill in "${CORE_SKILLS[@]}"; do
   mkdir -p "$SKILLS_DIR/$skill"
