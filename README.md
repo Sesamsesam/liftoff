@@ -2,16 +2,24 @@
 
 > **From 1,000 hours of trial and error to 50 hours of guided mastery.** This is your AI command center - whether you've never opened a code editor or you've been shipping software for a decade.
 
-**Hey, I'm Sami.** I put together Liftoff because I believe every professional deserves to be ridiculously good with AI - not someday, right now. Whether you're in finance, marketing, sales, design, or deep in code, this is the toolkit that makes it click. If you want to see what else I'm working on, come say hi at [samihermes.ai](https://samihermes.ai).
+**Hey, I'm Sami.** I put together Liftoff because I believe every professional deserves to be ridiculously good with AI - not someday, right now.
+
+Whether you're in finance, marketing, sales, design, or deep in code, this is the toolkit that makes it click. If you want to see what else I'm working on, come say hi at [samihermes.ai](https://samihermes.ai).
 
 
 ---
 
 ## What Is This?
 
-The world changed. AI is no longer a tool reserved for engineers - it's the new operating layer for every professional. Accountants are automating reports. Salespeople are building custom CRMs. Marketers are spinning up landing pages before lunch. Video editors are programmatically creating their vids. The professionals who thrive in the next decade won't be the ones who learned to code - they'll be the ones who learned to *command AI that codes for them* and carry out tasks.
+The world changed. AI is no longer a tool reserved for engineers - it's the new operating layer for every professional.
 
-That's what Antigravity is - an AI-powered workspace where you talk to an intelligent agent, and it builds, searches, connects, and automates on your behalf. You don't need to memorize syntax or understand server architecture. You describe what you want, and the agent handles the rest. **This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** One install, and your AI agent goes from a blank slate to a guided, battle-tested partner loaded with tools, ammo and best practices:
+Accountants are automating reports. Salespeople are building custom CRMs. Marketers are spinning up landing pages before lunch. Video editors are programmatically creating their vids.
+
+The professionals who thrive in the next decade won't be the ones who learned to code - they'll be the ones who learned to *command AI that codes for them* and carry out tasks.
+
+That's what Antigravity is - an AI-powered workspace where you talk to an intelligent agent, and it builds, searches, connects, and automates on your behalf. You don't need to memorize syntax or understand server architecture. You describe what you want, and the agent handles the rest.
+
+**This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** One install, and your AI agent goes from a blank slate to a guided, battle-tested partner loaded with tools, ammo and best practices:
 
 
 | What You Get | Why It Matters |
@@ -39,7 +47,9 @@ I've watched people with six months of AI-assisted experience outship developers
 
 ## Quick Start
 
-The install takes 30 seconds. You clone this repo, run the installer, and you're done - the skills get copied to your global Antigravity config. After that, you can delete the cloned folder. It's just the delivery vehicle.
+The install takes 30 seconds. You clone this repo, run the installer, and you're done - the skills get copied to your global Antigravity config.
+
+After that, you can delete the cloned folder. It's just the delivery vehicle.
 
 (copy this and give it to Antigravity, or paste it into your terminal)
 ```bash
@@ -59,7 +69,9 @@ Choose your profile when prompted:
 | **4. Full** | Everything enabled |
 
 
-**After the install**, you're set up globally. Every new Antigravity session - in any project, anywhere on your machine - will have these skills active. To start your first real project:
+**After the install**, you're set up globally. Every new Antigravity session - in any project, anywhere on your machine - will have these skills active.
+
+To start your first real project:
 
 ```bash
 cd ..                              # leave the liftoff folder
@@ -125,7 +137,9 @@ The agent walks you through 5 phases:
 </details>
 
 
-Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Notion, Convex, Remotion, or GitHub). Every extension comes with a **complete setup guide built in** - you don't need to hunt for documentation. 🫰
+Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Notion, Convex, Remotion, or GitHub).
+
+Every extension comes with a **complete setup guide built in** - you don't need to hunt for documentation. 🫰
 
 Just activate the extension and ask the agent to help you set it up. It already knows the exact steps, where to get API keys, and how to connect everything.
 
@@ -142,19 +156,29 @@ Extensions are installed **dormant** (all set to `false` by default). To activat
 }
 ```
 
-**What does dormant mean?** When an extension is set to `false`, the skill file is installed on your machine but the agent completely ignores it. It won't suggest it, use it, or even mention it. It's as if it doesn't exist.
+**What does dormant mean?** When an extension is set to `false`, the skill file is installed on your machine but the agent completely ignores it. It won't suggest it, use it, or even mention it.
+
+It's as if it doesn't exist.
 
 
-**What happens when you activate it?** Setting an extension to `true` makes it available **globally** - meaning every new agent session, in any project, can now use that extension. You only need to flip it once.
+**What happens when you activate it?** Setting an extension to `true` makes it available **globally** - meaning every new agent session, in any project, can now use that extension.
 
-**Why not just activate everything?** Some extensions change how the agent behaves in ways you might not always want. For example, `beads-workflow` makes the agent track session context and manage task persistence between conversations. That's powerful when you need it, but if you're doing a quick one-off task, you don't want the agent spending time on session management overhead. The toggle lets you control exactly which behaviors are active, so the agent stays focused on what matters for how you work right now.
+You only need to flip it once.
+
+**Why not just activate everything?** Some extensions change how the agent behaves in ways you might not always want.
+
+For example, `beads-workflow` makes the agent track session context and manage task persistence between conversations. That's powerful when you need it, but if you're doing a quick one-off task, you don't want the agent spending time on session management overhead.
+
+The toggle lets you control exactly which behaviors are active, so the agent stays focused on what matters for how you work right now.
 
 
 ---
 
 ## How Skills Work
 
-Skills live in folders under `~/.gemini/skills/`. Each folder has one file called `SKILL.md` - the agent discovers and loads skills by looking for this exact filename. **The folder name is the skill's identity.**
+Skills live in folders under `~/.gemini/skills/`. Each folder has one file called `SKILL.md` - the agent discovers and loads skills by looking for this exact filename.
+
+**The folder name is the skill's identity.**
 
 ```
 skills/
@@ -169,7 +193,9 @@ You don't create a new folder for every small thing. Instead, you add new patter
 - **Skill 1**: The Research-to-Production pipeline (research → extract → ground → implement)
 - **Skill 2**: Auto-add sources (automatically click "Add to Sources" after research is complete)
 
-Both live inside the same `notebooklm-research/SKILL.md` because they're part of the same topic. The agent reads the full file and knows how to apply each pattern when relevant.
+Both live inside the same `notebooklm-research/SKILL.md` because they're part of the same topic.
+
+The agent reads the full file and knows how to apply each pattern when relevant.
 
 > **When to create a new folder**: Only when the topic is genuinely different. If you're adding something about video production, that's a new folder (`remotion-video/`). If you're adding a second NotebookLM workflow, it goes in the existing `notebooklm-research/SKILL.md`.
 
@@ -237,7 +263,9 @@ A: The patterns still apply - just swap the specific tools. The security, error 
 
 **Sami Hermes** - AI educator & builder.
 
-I teach professionals from every background how to use AI as their unfair advantage. Liftoff is a supplement to that mission - a free, open-source foundation so anyone can start strong.
+I teach professionals from every background how to use AI as their unfair advantage.
+
+Liftoff is a supplement to that mission - a free, open-source foundation so anyone can start strong.
 
 Come follow along too, if you want to learn better how to use AI:
 
