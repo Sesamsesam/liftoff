@@ -7,33 +7,231 @@ category: workflow
 # Beads Workflow
 
 ## What Is This?
-An optional extension that integrates the **Beads CLI** - a tool that saves your AI session context (decisions, progress, patterns) so future sessions pick up right where you left off. No more re-explaining your project to the agent.
+
+Every time you start a new AI conversation, the agent has no memory of what you did before. You have to re-explain your project, your decisions, what's done, and what's left. It's like hiring a new contractor every morning who doesn't know what happened yesterday.
+
+**Beads fixes this.** It's a CLI tool (created by Steve Yegge, ex-Google and ex-Amazon) that gives your AI agent a persistent memory. It tracks tasks, decisions, progress, and context in a structured graph database that lives inside your project. When you start a new session, the agent loads everything up and picks up exactly where you left off.
+
+Think of it like this: without Beads, your AI has amnesia. With Beads, it has a journal.
 
 ## Why Does It Exist?
-AI sessions are ephemeral - the agent forgets everything when the conversation ends. Beads solves this by persisting structured context that the next session can load automatically.
 
-## What It Does For You
-Your AI remembers decisions, discovered patterns, and open tasks from last time. When you start a new session, it picks up right where you left off - no re-explaining your project, no lost progress.
+AI coding agents are powerful, but they forget everything between sessions. This creates real problems:
+
+- You waste 10-15 minutes re-explaining your project every time
+- Decisions get lost ("why did we use that library again?")
+- Tasks fall through the cracks
+- The agent makes the same mistakes twice because it doesn't remember the first time
+
+Beads solves all of this by persisting structured context - not just a text dump, but an actual dependency-aware task graph with history, rationale, and progress tracking.
 
 ---
 
-## Activation
-- Enable in `~/.gemini/settings/extensions.json`: `"beads-workflow": true`
-- The agent checks for Beads during Session Start (see `GEMINI.md`)
+## Before vs After
+
+### Without Beads 🌵
+
+```
+Session 1: "Build the user auth system"
+  Agent: *builds it perfectly*
+
+Session 2: "Continue working on the app"
+  Agent: "What app? What auth system? Can you explain the project?"
+  You: *spends 15 minutes re-explaining everything*
+
+Session 3: "We decided to use JWT tokens, remember?"
+  Agent: "I have no context about previous decisions."
+  You: *screams internally*
+```
+
+### With Beads 🫰
+
+```
+Session 1: "Build the user auth system"
+  Agent: *builds it, tracks progress in Beads*
+
+Session 2: "Continue working on the app"
+  Agent: *runs bd ready*
+  Agent: "Welcome back. Last session we completed the JWT auth system.
+         Open tasks: dashboard UI (P0), email verification (P1).
+         Ready to continue with the dashboard?"
+```
+
+One command. Full context. No re-explaining.
 
 ---
 
-## Session Start Integration
+## How to Set Up
 
-When Beads is active, the agent runs at the start of every session:
+### Step 1: Install the Beads CLI
+
+Beads is a command-line tool you install once on your computer. You do NOT clone the Beads repo into your project - it's a system-wide tool like `git`.
+
+**Pick the method that fits you best:**
+
+#### Option A: Homebrew (macOS/Linux - Recommended)
+
+```bash
+brew install beads
+```
+
+This is the simplest option. Homebrew handles everything - installation, PATH setup, and future updates via `brew upgrade beads`.
+
+#### Option B: npm/bun (if you're in a JavaScript environment)
+
+```bash
+# Using bun (preferred)
+bun install -g --trust @beads/bd
+
+# Using npm
+npm install -g @beads/bd
+```
+
+#### Option C: Quick Install Script (any platform)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+```
+
+The script auto-detects your platform and handles everything.
+
+#### Option D: Go (for Go developers)
+
+```bash
+go install github.com/steveyegge/beads/cmd/bd@latest
+```
+
+Requires Go 1.24+.
+
+| Method | Best For | Updates | Needs |
+|---|---|---|---|
+| **Homebrew** | macOS/Linux users | `brew upgrade beads` | Homebrew |
+| **bun/npm** | JavaScript developers | `bun/npm update -g @beads/bd` | bun or Node.js |
+| **Install script** | Quick setup, any platform | Re-run script | curl, bash |
+| **Go** | Go developers | Re-run command | Go 1.24+ |
+
+
+### Step 2: Verify It Worked
+
+After installing, run:
+
+```bash
+bd version
+bd help
+```
+
+If you see a version number and the help menu, you're good.
+
+**If you see "bd: command not found"**, your terminal needs to know where Beads was installed. Close and reopen your terminal, or run `source ~/.zshrc` (macOS) / `source ~/.bashrc` (Linux).
+
+
+### Step 3: Initialize Beads in Your Project
+
+Navigate to your project folder and run:
+
+```bash
+cd your-project
+bd init
+```
+
+This creates a `.beads/` directory in your project that stores the task graph. It's automatically added to your git history so context persists across machines.
+
+**Useful init options:**
+
+```bash
+bd init --quiet      # Minimal output
+bd init --stealth    # Use Beads locally without committing files (good for shared repos)
+bd init --contributor  # For contributing to open-source projects (stores planning in ~/.beads-planning)
+```
+
+
+### Step 4: Set Up Your Editor Integration
+
+Tell your editor's AI agent about Beads:
+
+**For Cursor:**
+
+```bash
+bd setup cursor
+```
+
+This creates `.cursor/rules/beads.mdc` so the agent automatically knows about Beads.
+
+**For VS Code with GitHub Copilot (MCP Server):**
+
+1. Install the MCP bridge:
+   ```bash
+   uv tool install beads-mcp
+   ```
+
+2. Create `.vscode/mcp.json` in your project:
+   ```json
+   {
+     "servers": {
+       "beads": {
+         "command": "beads-mcp"
+       }
+     }
+   }
+   ```
+
+3. Initialize and reload:
+   ```bash
+   bd init --quiet
+   ```
+   Then reload VS Code.
+
+**For Gemini / Antigravity (this agent):**
+
+No additional setup needed. This extension handles everything. Once Beads is installed and `bd init` has been run in your project, this agent automatically uses `bd ready` on session start and `bd sync` on session end (see "Session Integration" below).
+
+---
+
+## How It Works Day-to-Day
+
+You don't need to learn all of Beads to benefit from it. Here's the practical flow:
+
+1. **Start a session** - The agent runs `bd ready` and loads your context automatically
+2. **Work normally** - Just build. The agent tracks what's happening
+3. **End a session** - The agent runs `bd sync` to save progress
+4. **Start the next session** - Everything is right where you left it
+
+That's it. The agent handles the Beads commands for you. You just build.
+
+---
+
+## Commands Reference
+
+These are the commands the agent uses behind the scenes. You can also run them manually:
+
+| Command | What It Does |
+|---|---|
+| `bd ready` | Load context for current session - shows open tasks and recent decisions |
+| `bd sync` | Save session progress - persists what was accomplished |
+| `bd status` | Check what's currently tracked |
+| `bd tasks` | List open tasks across sessions |
+| `bd create "Title" -p 0` | Create a new task (priority 0 = highest) |
+| `bd update <id> --claim` | Claim a task to work on it |
+| `bd show <id>` | Show details of a specific task |
+| `bd dep add <child> <parent>` | Add a dependency between tasks |
+
+**Priority levels:** P0 (critical/must-have), P1 (important), P2 (nice-to-have), P3 (someday)
+
+---
+
+## Session Integration
+
+### Session Start
+
+When Beads is active in `extensions.json`, the agent runs at the start of every session:
 
 ```bash
 bd ready
 ```
 
-This loads any pending tasks, recent decisions, and project context from previous sessions.
+This loads pending tasks, recent decisions, and project context from previous sessions. The agent gets a compact summary (~1-2k tokens) of everything it needs to continue your work.
 
-## Session End Integration
+### Session End
 
 Before ending a session, the agent syncs progress:
 
@@ -42,16 +240,29 @@ bd sync
 ```
 
 This persists:
-- What was accomplished
+- What was accomplished this session
 - Decisions made and their rationale
 - Open tasks for next session
-- Patterns discovered
+- Patterns and insights discovered
 
-## Commands Reference
+---
 
-| Command | What It Does |
-|---|---|
-| `bd ready` | Load context for current session |
-| `bd sync` | Save session progress |
-| `bd status` | Check what's tracked |
-| `bd tasks` | List open tasks across sessions |
+## Activation
+
+- Enable in `~/.gemini/settings/extensions.json`: `"beads-workflow": true`
+- The agent checks for Beads during Session Start (see `GEMINI.md`)
+
+---
+
+## Rules for the Agent
+
+- **Always run `bd ready` at session start** when this extension is active - this is how you get context from previous sessions
+- **Always run `bd sync` before session end** - never let a session's work go unrecorded
+- **Guide the user through installation** if Beads is not installed - walk them through the steps above, choosing the best install method for their setup
+- **Use `bd init` in new projects** when the user is starting a project and this extension is active - ask first before initializing
+- **Track meaningful decisions** - when the user makes an architectural or design decision, create a Beads task or note so future sessions remember WHY, not just what
+- **Don't overwhelm beginners** - if the user is new, just use `bd ready` and `bd sync`. Introduce `bd create` and `bd update` gradually as they get comfortable
+- **Respect stealth mode** - if the user is contributing to a shared repo they don't own, suggest `bd init --stealth` or `bd init --contributor`
+- **Explain what happened** - when running `bd ready`, briefly summarize the loaded context for the user so they know what the agent remembers
+
+Source: [steveyegge/beads](https://github.com/steveyegge/beads)
