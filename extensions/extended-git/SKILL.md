@@ -6,6 +6,8 @@ category: workflow
 
 # Extended Git
 
+> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
 ## What Is This?
 An optional extension that upgrades your Git workflow with professional tools: **Graphite** for stacked PRs and **Greptile** for AI code review. When active, this extension enforces feature branches (Level 2+) to prevent contradictory advice between "push to main" (Level 1) and "create PRs" (Greptile).
 

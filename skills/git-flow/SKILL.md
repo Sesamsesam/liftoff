@@ -5,6 +5,8 @@ category: workflow
 ---
 
 # Git Flow
+
+> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
 (THIS IS A MUST TO UNDERSTAND FOR ANY USER - an essential)
 
 ## What Is This?

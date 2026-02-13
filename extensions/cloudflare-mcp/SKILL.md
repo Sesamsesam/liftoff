@@ -6,6 +6,8 @@ category: infrastructure
 
 # Cloudflare MCP
 
+> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
 ## What Is This?
 
 Cloudflare is a cloud platform where your apps, databases, storage, and domains live on the internet. Think of it as the infrastructure layer - the servers, the database, the file storage, the DNS. When you build a site and you want to take it online: 

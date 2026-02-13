@@ -6,6 +6,8 @@ category: workflow
 
 # O.R.B.I.T. - Strategic Project Planning
 
+> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
 > **O**bjective - **R**equirements - **B**lueprint - **I**mplementation Roadmap - **T**rack
 >
 > *"Set the trajectory before you launch."*

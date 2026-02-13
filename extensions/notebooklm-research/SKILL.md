@@ -6,6 +6,8 @@ category: workflow
 
 # NotebookLM Research
 
+> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
 ## What Is This?
 An optional extension that defines how to use Google NotebookLM as a research companion to the Antigravity agent. NotebookLM excels at synthesizing large documents (papers, docs, videos) into structured insights. This extension defines the handoff protocol: NotebookLM researches → you share the output → the agent implements.
 

@@ -6,6 +6,8 @@ category: workflow
 
 # Beads Workflow
 
+> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
 > **Heads up for beginners:** This extension uses a **CLI (Command Line Interface)** - a text-based tool where you type commands instead of clicking buttons. If you've never used one, don't worry - it's simpler than it sounds and your AI agent handles most of the commands for you. In Short you will have to work with Antigravity through another app. But it's easy and you only need to do a few commands otherwise it just stays open in the background.
 >
 > **The good news:** However you really don't need to open a separate application. Your editor (VS Code, Cursor, Windsurf, Antigravity) has a **built-in terminal** right inside it. Press `` Ctrl+` `` (Windows/Linux) or `` Cmd+` `` (Mac) or look for the 'terminal' tab in your computer menu when using Antigravity. Click new and a terminal panel opens at the bottom of your editor. That's where Beads runs - same window, same workflow, no context switching.
@@ -26,7 +28,7 @@ bd init                  # 3. Initialize Beads in your project
 
 **That's it.** After this, the agent handles everything automatically - `bd ready` on session start, `bd sync` on session end. You don't need to memorize any other commands.
 
-**On Windows/Linux or prefer a different install method?** The full guide below has all the options. Everything below this point is just for deeper understanding - you do NOT need to read it all to use Beads. The agent can handle all.
+**On Windows/Linux or prefer a different install method?** The full guide below has all the options. Everything below this point is just for deeper understanding - you do NOT need to read it all to use Beads. The agent can handle all but if you are curios and want to learn more you can read the full guide below for context and manual setup if you want to nerd it out.
 
 ---
 
@@ -42,7 +44,7 @@ It's not too big a problem for Antigravity since it has a KI (knowledge) memory,
 
 It tracks tasks, decisions, progress, and context in a structured graph database that lives inside your project. When you start a new session, the agent loads everything up and picks up exactly where you left off.
 
-A ‘graph’ just means a map of connected tasks (like a flowchart) showing what depends on what. Not equations and beads continues to keep track.
+A ‘graph’ just means a map of connected tasks (like a flowchart) showing what depends on what. Beads continues to keep track.
 
 Think of it like this: without Beads, your AI has amnesia. With Beads, it has a detailed journal of everything that happens.
 
@@ -50,11 +52,11 @@ Think of it like this: without Beads, your AI has amnesia. With Beads, it has a 
 
 AI coding agents are powerful, but they have a maximum of how much they can hold in memory per session. This creates real problems:
 
-- You waste 10-15 minutes re-explaining your project every time
+- You waste 10-15 minutes re-explaining your project every time on new sessions
 - Decisions get lost ("why did we use that library again?")
 - Tasks fall through the cracks
 - The agent makes the same mistakes twice because it doesn't remember the first time and you keep asking it the same stuff over and over again.
-- or you have a long planning session with many side quests and sessions and it might eventually narrow context and when you ask to summarize at the end of it, it didn't understand you wanted everything since it deprioritized along the way if you didn't lock it in step by step.
+- or you have a long planning session with many side quests and sessions and it might eventually narrow context and when you ask to summarize at the end of it, it didn't understand you wanted everything summarized since it deprioritized along the way if you didn't lock it in step by step.
 
 Beads solves all of this by persisting structured context - not just a text dump, but an actual dependency-aware task graph with history, rationale, and progress tracking.
 
@@ -74,7 +76,7 @@ Session 2: "Continue working on the app"
 
 Session 3: "We decided to use JWT tokens, remember?"
   Agent: "Let me check that first and can you specify where?."
-  You: *Extra work for you*
+  You: *spending time to catch up*
 ```
 
 ### With Beads 🫰
@@ -83,7 +85,7 @@ Session 3: "We decided to use JWT tokens, remember?"
 Session 1: "Build the user auth system"
   Agent: *builds it, tracks progress in Beads*
 
-Session 2: "Continue working on the app"
+Session 2: "Continue working on the app in a new session"
   Agent: *runs bd ready*
   Agent: "Welcome back. Last session we completed the JWT auth system.
          Open tasks: dashboard UI (P0), email verification (P1).

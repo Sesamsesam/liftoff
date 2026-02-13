@@ -6,6 +6,8 @@ category: setup
 
 # Stack Pro Max
 
+> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
 ## What Is This?
 Your **tech stack** is the set of tools and frameworks you build with - like a builder choosing specific brands of hammer, saw, and nails. This skill defines exactly which tools the agent should use, so every project starts the right way.
 

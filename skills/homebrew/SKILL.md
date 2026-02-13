@@ -6,6 +6,8 @@ category: setup
 
 # Homebrew - The Missing Package Manager for macOS
 
+> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
 ## What Is Homebrew?
 
 When you use your Mac, you install apps from the App Store or by downloading them from websites. But there's a whole world of developer tools, utilities, and software that doesn't come packaged as a regular app. Things like programming languages (Python, Node.js), version control (Git), databases, CLI tools - these don't have a "Download" button on a website.
