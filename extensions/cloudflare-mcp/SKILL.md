@@ -145,9 +145,10 @@ Each server authenticates independently with only the permissions it needs (OAut
 
 ---
 
-## Good to Know: The Portal (For Teams)
+## Good to Know: The Portal (For Teams) 💡
+You don't need this for solo work. The individual servers above are simpler and work perfectly on their own.
 
-If you're working on a team, Cloudflare offers something called an **MCP Portal** - a single URL that bundles multiple MCP servers together. Instead of every developer on the team adding 3-5 server URLs to their editor, an admin creates one portal URL and everyone connects to that.
+...but, If you're working on a team, Cloudflare offers something called an **MCP Portal** - a single URL that bundles multiple MCP servers together. Instead of every developer on the team adding 3-5 server URLs each to their editor, an admin creates one portal URL and everyone connects to that with one url.
 
 **Why it's awesome for teams:**
 - One URL instead of many - new team members are set up instantly
@@ -161,7 +162,6 @@ If you're working on a team, Cloudflare offers something called an **MCP Portal*
 3. Add the individual MCP servers you want in the portal
 4. Share the single portal URL with your team
 
-You don't need this for solo work. The individual servers above are simpler and work perfectly on their own.
 
 ---
 
@@ -203,6 +203,6 @@ Source: [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-ser
 - **Always verify** the user has authenticated before attempting operations - if OAuth hasn't been completed, guide them through it
 - **Start with Bindings** - most infrastructure tasks (D1, R2, KV) go through the Workers Bindings server
 - **Explain what you're doing** - when creating resources, tell the user what was created and any IDs/bindings they should know about
-- **Respect the free tier** - warn users before operations that require a paid plan
+- **Respect the free tier** - warn users before operations that require a paid plan (But also tell them about the paid plans that are free they just need to be activated as paid)
 - **Don't over-connect** - only suggest adding more MCP servers if the user actually needs them
 - **Security-first** - recommend the minimum set of servers needed for the task at hand
