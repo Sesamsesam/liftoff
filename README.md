@@ -50,10 +50,10 @@ Choose your profile when prompted:
 
 | Profile | What You Get |
 |---|---|
-| **1. Developer** | Core skills + workflows (recommended for most users) |
-| **2. Builder** | Developer + Cloudflare MCP (deploy and manage infrastructure) |
-| **3. Researcher** | Builder + O.R.B.I.T. planning + NotebookLM research |
-| **4. Full** | Everything, including advanced Git + Beads session persistence |
+| **1. Coder** | Write code, debug, and ship features (recommended for most users) |
+| **2. Builder** | 1 + deploy to the web, manage databases and storage via Cloudflare |
+| **3. Researcher** | 1 + 2 + deep research pipelines and strategic project planning |
+| **4. Full** | Everything enabled |
 
 **After the install**, you're set up globally. Every new Antigravity session - in any project, anywhere on your machine - will have these skills active. To start your first real project:
 
@@ -86,7 +86,7 @@ Open that folder in your editor, start a conversation with Antigravity, and it w
 
 | Extension | Profile | What It Does |
 |---|---|---|
-| `cloudflare-mcp` | Builder+ | Connect to Cloudflare infrastructure - D1 databases, R2 storage, Workers deployment |
+| `cloudflare-mcp` | Builder+ | Deploy to the web, manage databases and storage via Cloudflare |
 | `orbit-planning` | Researcher+ | O.R.B.I.T. - Deep Professional Project Planning before you build |
 | `notebooklm-research` | Researcher+ | Research-to-Production pipeline with NotebookLM and how to connect Antigravity |
 | `extended-git` | Full | Graphite stacked PRs + Greptile AI code review |

@@ -49,6 +49,7 @@
 
 ## Tech Stack Defaults
 - **Apps**: React + Vite → Convex + Clerk → Cloudflare Pages
+- **Infrastructure**: Cloudflare MCP (D1, R2, Workers, AI Gateway, DNS)  - see `cloudflare-mcp` extension
 - **Static Sites**: Astro
 - **Package Manager**: bun (preferred), pnpm (fallback)  - never npm
 - See `stack-pro-max` skill for init commands + database-first setup
