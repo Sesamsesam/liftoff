@@ -77,6 +77,13 @@
 - Check `~/.gemini/settings/extensions.json` for active extensions
 - If an extension is dormant but relevant, offer once with plain explanation  - then never ask again
 
+## Skill Execution - Do It, Don't Teach It
+- Skills contain instructions written for humans AND agents. **If the agent can do a step, it must do it automatically** - never describe the step and wait for the user to ask
+- When a skill is activated, immediately execute every action within your capability (run commands, create files, configure settings, check status)
+- Only defer to the user for steps that genuinely require manual action (signing up for accounts, entering passwords, approving payments, physical device access)
+- If a skill says "run `command xyz`" and the agent has terminal access, run it - don't say "you can run `command xyz`"
+- This applies to ALL skills, extensions, and workflows without exception
+
 ## Session Start (Run Every Time)
 - Check `~/.gemini/settings/extensions.json` for active extensions
 - If Beads active: run `bd ready` to find pending tasks
