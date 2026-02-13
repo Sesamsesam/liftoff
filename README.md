@@ -11,9 +11,7 @@ Whether you're in finance, marketing, sales, design, or deep in code, this is th
 
 ## What Is This?
 
-The world changed. AI is no longer a tool reserved for engineers - it's the new operating layer for every professional.
-
-Accountants are automating reports. Salespeople are building custom CRMs. Marketers are spinning up landing pages before lunch. Video editors are programmatically creating their vids.
+The world changed. AI is no longer a tool reserved for engineers - it's the new operating layer for every professional. Accountants are automating reports. Salespeople are building custom CRMs. Marketers are spinning up landing pages before lunch. Video editors are programmatically creating their vids.
 
 The professionals who thrive in the next decade won't be the ones who learned to code - they'll be the ones who learned to *command AI that codes for them* and carry out tasks.
 
@@ -38,9 +36,13 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 <br>
 No more boilerplate security setups, no more forgotten <code>.gitignore</code> files, no more explaining your stack to a new AI session. This is the upgrade that makes your agent feel like a senior engineer instead of an intern.
 <br><br>
-But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://graphite.dev">Graphite</a> (stacked PRs that make your Git workflow feel like it's from the future), <a href="https://github.com/steveyegge/beads">Beads</a> (session persistence by Steve Yegge, ex-Google and ex-Amazon, so your AI never forgets what you worked on), and research pipelines that turn NotebookLM into a grounded implementation engine. The landscape moves fast, and some of the sharpest people still run outdated stacks simply because they haven't had time to explore what's new. This closes that gap instantly.
+But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://graphite.dev">Graphite</a> (stacked PRs that make your Git workflow feel like it's from the future), and <a href="https://github.com/steveyegge/beads">Beads</a> (session persistence by Steve Yegge, ex-Google and ex-Amazon, so your AI never forgets what you worked on).
 <br><br>
-I've watched people with six months of AI-assisted experience outship developers with ten years of traditional practice (I'm one of them) - not because they're smarter, but because they're using the right tools correctly. Liftoff is that multiplier. This is some of the most Juicy stuff gathered and understood over the past year and relevant to 2026.
+It also wires up MCP connections to <a href="https://docs.convex.dev">Convex MCP</a>, <a href="https://developers.cloudflare.com/agents/guides/remote-mcp-server/">Cloudflare MCP</a> (D1, R2, Workers, AI Gateway, AutoRAG), and <a href="https://cloud.google.com/run">Google Cloud Run & Vertex AI</a> - plus research pipelines that turn NotebookLM into a grounded implementation engine.
+<br><br>
+The landscape moves fast, and some of the sharpest people still run outdated stacks simply because they haven't had time to explore what's new. This closes that gap instantly.
+<br><br>
+I've watched people with six months of AI-assisted experience outship developers with ten years of traditional practice (I'm one of them) - not because they're smarter, but because they're using the right tools correctly. Liftoff is that multiplier. This is some of the most juicy stuff gathered and understood over the past year and relevant to 2026.
 </details>
 
 ---
@@ -78,7 +80,9 @@ cd ..                              # leave the liftoff folder
 mkdir my-project && cd my-project  # create your actual project
 ```
 
-Open that folder in your editor, start a conversation with Antigravity, and it will follow F.O.R.G.E. automatically. You can delete the `liftoff` folder whenever you want - it already did its job.
+Open that folder in your editor, start a conversation with Antigravity, and it will follow F.O.R.G.E. automatically.
+
+You can delete the `liftoff` folder whenever you want - it already did its job.
 
 
 ---
@@ -252,6 +256,7 @@ A: Yes. Every skill is a markdown file. Edit them directly - the agent reads the
 
 **Q: Do I need all the tools listed in `stack-pro-max`?**
 A: No. Those are defaults. The agent adapts to whatever tools you have installed.
+
 
 
 **Q: What if I don't use Convex/Clerk?**
