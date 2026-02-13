@@ -183,7 +183,9 @@ The toggle lets you control exactly which behaviors are active, so the agent sta
 
 ## How Skills Work
 
-> **Important:** Every skill and extension is written as documentation so you can learn what each tool does and how it works. But you never need to set anything up yourself. The agent reads these guides and handles installation, configuration, and usage automatically. If there's ever a step that requires your input (like creating an account or entering a password), the agent will tell you exactly what to do and when.
+> **Important:** Every skill and extension is written as documentation so you can learn what each tool does and how it works if it interest you (I recommend reading the skills if you want to become GREAT at AI and Antigravity, but it's not needed for you to use any of this if you don't want to). 
+
+You never need to set anything up yourself. The agent reads these guides and handles installation, configuration, and usage automatically. If there's ever a step that requires your input (like creating an account or entering a password), the agent will tell you exactly what to do and when.
 
 Skills live in folders under `~/.gemini/skills/`. Each folder has one file called `SKILL.md` - the agent discovers and loads skills by looking for this exact filename.
 
