@@ -144,7 +144,7 @@ The agent walks you through 5 phases:
 </details>
 
 
-Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Notion, Convex, Remotion, or GitHub).
+Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Cloudflare, Convex, Firecrawl, or Google Cloud).
 
 Every extension comes with a **complete setup guide built in** - you don't need to hunt for documentation. 🫰
 
@@ -253,20 +253,38 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 
 ## FAQ
 
+**Q: What is Antigravity exactly?**
+A: Antigravity is an AI coding agent built into your editor (like Google's Gemini in VS Code, Cursor, or similar tools). Liftoff doesn't install Antigravity itself - it supercharges the agent you already have by giving it skills, guardrails, and best practices.
+
+
+**Q: Which editors does this work with?**
+A: Any editor that supports Gemini or a similar AI agent with the `~/.gemini/` configuration directory. This includes VS Code with the Gemini extension, Cursor, and Windsurf.
+
+
 **Q: Will this break my existing setup?**
-A: The installer backs up your existing `GEMINI.md` before overwriting. All other files are additive.
+A: The installer backs up your existing `GEMINI.md` before overwriting. All other files are additive - nothing gets deleted.
 
 
-**Q: Can I customize the skills?**
-A: Yes. Every skill is a markdown file. Edit them directly - the agent reads them at runtime.
+**Q: How do I update when new skills or extensions are added?**
+A: Pull the latest version and re-run the installer. It will copy any new or updated files without touching your `extensions.json` settings.
+
+```bash
+cd liftoff
+git pull
+./install.sh
+```
+
+
+**Q: Can I customize the skills or create my own?**
+A: Yes. Every skill is a markdown file - edit them directly, and the agent picks up changes at runtime. To create a new skill, make a folder under `~/.gemini/skills/` with a `SKILL.md` inside. The `antigravity-standard` skill is a template you can copy.
+
 
 **Q: Do I need all the tools listed in `stack-pro-max`?**
-A: No. Those are defaults. The agent adapts to whatever tools you have installed.
+A: No. Those are defaults. The agent adapts to whatever tools you have installed. If you don't use Convex or Clerk, the security, error handling, and Git skills still work - they're framework-agnostic.
 
 
-
-**Q: What if I don't use Convex/Clerk?**
-A: The patterns still apply - just swap the specific tools. The security, error handling, and Git skills are framework-agnostic.
+**Q: Do MCP server extensions cost money?**
+A: Most have generous free tiers. Cloudflare, Convex, and Google Cloud all offer free plans that cover typical development usage. The agent will warn you before doing anything that requires a paid plan.
 
 ---
 
