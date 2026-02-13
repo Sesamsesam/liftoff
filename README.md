@@ -284,7 +284,7 @@ A: No. Those are defaults. The agent adapts to whatever tools you have installed
 
 
 **Q: Do MCP server extensions cost money?**
-A: Most have generous free tiers. Cloudflare, Convex, and Google Cloud all offer free plans that cover typical development usage. The agent will warn you before doing anything that requires a paid plan.
+A: You can build and ship an entire app with advanced features, serve thousands of users, and pay nothing. Cloudflare, Convex, and Google Cloud all have free tiers that cover real production usage - not just toy projects. The only costs come from scaling well beyond free limits or using premium AI models. The agent will always warn you before doing anything that requires a paid plan.
 
 ---
 
