@@ -33,15 +33,16 @@ echo -e "${NC}"
 echo -e "${BLUE}Choose your profile:${NC}"
 echo ""
 echo "  1) ${GREEN}Developer${NC}  - Core skills + workflows (recommended)"
-echo "  2) ${YELLOW}Researcher${NC} - Developer + NotebookLM research extension"
-echo "  3) ${PURPLE}Full${NC}       - Everything, including advanced Git + Beads"
+echo "  2) ${BLUE}Builder${NC}    - Developer + Cloudflare MCP (deploy & manage infrastructure)"
+echo "  3) ${YELLOW}Researcher${NC} - Builder + NotebookLM research + O.R.B.I.T. planning"
+echo "  4) ${PURPLE}Full${NC}       - Everything, including advanced Git + Beads"
 echo ""
-read -rp "Enter 1, 2, or 3 [default: 1]: " PROFILE
+read -rp "Enter 1, 2, 3, or 4 [default: 1]: " PROFILE
 PROFILE=${PROFILE:-1}
 
 # ─── Validate ───
-if [[ ! "$PROFILE" =~ ^[1-3]$ ]]; then
-  echo -e "${RED}Invalid selection. Please run again and choose 1, 2, or 3.${NC}"
+if [[ ! "$PROFILE" =~ ^[1-4]$ ]]; then
+  echo -e "${RED}Invalid selection. Please run again and choose 1, 2, 3, or 4.${NC}"
   exit 1
 fi
 
@@ -87,12 +88,17 @@ install_extension() {
 }
 
 if [[ "$PROFILE" -ge 2 ]]; then
+  echo -e "${GREEN}Installing infrastructure extensions...${NC}"
+  install_extension "cloudflare-mcp"
+fi
+
+if [[ "$PROFILE" -ge 3 ]]; then
   echo -e "${GREEN}Installing research extensions...${NC}"
   install_extension "notebooklm-research"
   install_extension "orbit-planning"
 fi
 
-if [[ "$PROFILE" -ge 3 ]]; then
+if [[ "$PROFILE" -ge 4 ]]; then
   echo -e "${GREEN}Installing advanced extensions...${NC}"
   install_extension "extended-git"
   install_extension "beads-workflow"
@@ -103,7 +109,7 @@ echo ""
 echo -e "${PURPLE}═══════════════════════════════════════════${NC}"
 echo -e "${GREEN}✅ Installation complete!${NC}"
 echo ""
-echo -e "  ${BLUE}Profile:${NC}        $([ "$PROFILE" = "1" ] && echo "Developer" || ([ "$PROFILE" = "2" ] && echo "Researcher" || echo "Full"))"
+echo -e "  ${BLUE}Profile:${NC}        $([ "$PROFILE" = "1" ] && echo "Developer" || ([ "$PROFILE" = "2" ] && echo "Builder" || ([ "$PROFILE" = "3" ] && echo "Researcher" || echo "Full")))"
 echo -e "  ${BLUE}GEMINI.md:${NC}      $GEMINI_DIR/GEMINI.md"
 echo -e "  ${BLUE}Skills:${NC}         $SKILLS_DIR/ (${#CORE_SKILLS[@]} core skills)"
 echo -e "  ${BLUE}Workflows:${NC}      $WORKFLOWS_DIR/"

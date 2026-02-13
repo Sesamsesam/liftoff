@@ -16,7 +16,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | 🔨 **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | 🛡️ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
-| 🔌 **4 optional extensions** | Strategic project planning, advanced Git workflows, research pipelines, and session memory so your AI remembers yesterday |
+| 🔌 **5 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, and session memory so your AI remembers yesterday |
 | ⚡ **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 > [!TIP]
@@ -51,8 +51,9 @@ Choose your profile when prompted:
 | Profile | What You Get |
 |---|---|
 | **1. Developer** | Core skills + workflows (recommended for most users) |
-| **2. Researcher** | Developer + O.R.B.I.T. planning + NotebookLM research |
-| **3. Full** | Everything, including advanced Git + Beads session persistence |
+| **2. Builder** | Developer + Cloudflare MCP (deploy and manage infrastructure) |
+| **3. Researcher** | Builder + O.R.B.I.T. planning + NotebookLM research |
+| **4. Full** | Everything, including advanced Git + Beads session persistence |
 
 **After the install**, you're set up globally. Every new Antigravity session - in any project, anywhere on your machine - will have these skills active. To start your first real project:
 
@@ -85,6 +86,7 @@ Open that folder in your editor, start a conversation with Antigravity, and it w
 
 | Extension | Profile | What It Does |
 |---|---|---|
+| `cloudflare-mcp` | Builder+ | Connect to Cloudflare infrastructure - D1 databases, R2 storage, Workers deployment |
 | `orbit-planning` | Researcher+ | O.R.B.I.T. - Deep Professional Project Planning before you build |
 | `notebooklm-research` | Researcher+ | Research-to-Production pipeline with NotebookLM and how to connect Antigravity |
 | `extended-git` | Full | Graphite stacked PRs + Greptile AI code review |
@@ -192,6 +194,7 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── brand-identity/SKILL.md        # Design tokens
 │   ├── stack-pro-max/SKILL.md         # Tech stack
 │   ├── antigravity-standard/SKILL.md  # Skill template
+│   ├── cloudflare-mcp/SKILL.md        # (extension)
 │   ├── orbit-planning/SKILL.md        # (extension)
 │   ├── extended-git/SKILL.md          # (extension)
 │   ├── beads-workflow/SKILL.md        # (extension)
@@ -220,7 +223,7 @@ A: The patterns still apply - just swap the specific tools. The security, error 
 
 ## Built By
 
-**Sami Hermes** - AI educator, builder, and the person behind Antigravity.
+**Sami Hermes** - AI educator & builder.
 
 I teach professionals from every background how to use AI as their unfair advantage. Liftoff is a supplement to that mission - a free, open-source foundation so anyone can start strong.
 

@@ -2,5 +2,6 @@
   "extended-git": false,
   "beads-workflow": false,
   "notebooklm-research": false,
-  "orbit-planning": false
+  "orbit-planning": false,
+  "cloudflare-mcp": false
 }
