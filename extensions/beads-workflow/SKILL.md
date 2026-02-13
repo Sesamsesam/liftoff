@@ -6,9 +6,15 @@ category: workflow
 
 # Beads Workflow
 
+> **Heads up for beginners:** This extension uses a **CLI (Command Line Interface)** - a text-based tool where you type commands instead of clicking buttons. If you've never used one, don't worry - it's simpler than it sounds and your AI agent handles most of the commands for you.
+>
+> **The good news:** You don't need to open a separate application. Your editor (VS Code, Cursor, Windsurf) has a **built-in terminal** right inside it. Press `` Ctrl+` `` (Windows/Linux) or `` Cmd+` `` (Mac) and a terminal panel opens at the bottom of your editor. That's where Beads runs - same window, same workflow, no context switching.
+>
+> Once installed, the agent does the heavy lifting. You'll mainly just see it running `bd ready` (load context) and `bd sync` (save progress) automatically. Think of the CLI as the engine under the hood - you rarely need to touch it directly.
+
 ## What Is This?
 
-Every time you start a new AI conversation, the agent has no memory of what you did before. You have to re-explain your project, your decisions, what's done, and what's left. It's like hiring a new contractor every morning who doesn't know what happened yesterday.
+Every time you start a new AI conversation, the agent has no memory of what you did before. You have to re-explain your project, your decisions, what's done, and what's left. It's like hiring a new contractor every morning who doesn't know what happened yesterday. It's not too big a problem for Antigravity since it has a KI (knowledge) memory, but it still requires the agent to rediscover the project's context every time.
 
 **Beads fixes this.** It's a CLI tool (created by Steve Yegge, ex-Google and ex-Amazon) that gives your AI agent a persistent memory. It tracks tasks, decisions, progress, and context in a structured graph database that lives inside your project. When you start a new session, the agent loads everything up and picks up exactly where you left off.
 
@@ -16,7 +22,7 @@ Think of it like this: without Beads, your AI has amnesia. With Beads, it has a 
 
 ## Why Does It Exist?
 
-AI coding agents are powerful, but they forget everything between sessions. This creates real problems:
+AI coding agents are powerful, but they only haforget everything between sessions. This creates real problems:
 
 - You waste 10-15 minutes re-explaining your project every time
 - Decisions get lost ("why did we use that library again?")
