@@ -26,23 +26,23 @@ bd init                  # 3. Initialize Beads in your project
 
 **That's it.** After this, the agent handles everything automatically - `bd ready` on session start, `bd sync` on session end. You don't need to memorize any other commands.
 
-**On Windows/Linux or prefer a different install method?** The full guide below has all the options. Everything below this point is just for deeper understanding - you do NOT need to read it all to use Beads.
+**On Windows/Linux or prefer a different install method?** The full guide below has all the options. Everything below this point is just for deeper understanding - you do NOT need to read it all to use Beads. The agent can handle all.
 
 ---
 
-## What Is This?
+## What Is Bead?
 
 Every time you start a new AI conversation, the agent has no memory of what you did before. 
 
 You have to re-explain your project, your decisions, what's done, and what's left or ask it to read up on the project to get context. It's like hiring a new contractor every morning who needs time to get up to speed. 
 
-It's not too big a problem for Antigravity since it has a KI (knowledge) memory, but it still requires the agent to rediscover the project's context every time and either way it can result in inconsistencies if you are not thorough or have the right experience to recognize if the Agent is off and sometimes on a big project even an Expert needs time to get into the groove - but with beads this is not an issue.
+It's not too big a problem for Antigravity since it has a KI (knowledge) memory, but it still requires the agent to rediscover the project's context every time and either way it can result in inconsistencies if you are not thorough on a large project or have the right experience to recognize if the Agent is off point and sometimes on a big project even an Expert needs time to get into the groove - but with beads this is not an issue.
 
-**Beads fixes this.** It's a CLI (command line interface) tool (created by Steve Yegge, ex-Google and ex-Amazon, he's a wizard 🧙) that gives your AI agent a persistent memory. 
+**Beads fixes this.** It's a CLI (command line interface) tool (created by Steve Yegge, ex-Google and ex-Amazon, he's a wizard 🧙) it gives your AI agent a persistent memory. 
 
 It tracks tasks, decisions, progress, and context in a structured graph database that lives inside your project. When you start a new session, the agent loads everything up and picks up exactly where you left off.
 
-Here, a ‘graph’ just means a map of connected tasks (like a flowchart) showing what depends on what — not equations and beads continues to keep track.
+A ‘graph’ just means a map of connected tasks (like a flowchart) showing what depends on what. Not equations and beads continues to keep track.
 
 Think of it like this: without Beads, your AI has amnesia. With Beads, it has a detailed journal of everything that happens.
 
