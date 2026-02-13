@@ -24,7 +24,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | 🔨 **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | 🛡️ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
-| 🔌 **7 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, web scraping, live documentation, and session memory so your AI remembers yesterday |
+| 🔌 **8 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, web scraping, live documentation, Google Cloud, and session memory so your AI remembers yesterday |
 | ⚡ **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 
@@ -114,6 +114,7 @@ You can delete the `liftoff` folder whenever you want - it already did its job.
 | `beads-workflow` | Full | Cross-session context persistence |
 | `firecrawl` | Builder+ | Scrape, crawl, and convert any website to clean structured data |
 | `context7` | Builder+ | Always up-to-date library docs so the agent never uses outdated APIs |
+| `google-cloud` | Builder+ | Google Cloud Run deployment + Vertex AI model access |
 
 
 <details>
@@ -242,6 +243,7 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── beads-workflow/SKILL.md        # (extension)
 │   ├── firecrawl/SKILL.md             # (extension)
 │   ├── context7/SKILL.md              # (extension)
+│   ├── google-cloud/SKILL.md          # (extension)
 │   └── notebooklm-research/SKILL.md   # (extension)
 └── workflows/
     └── init-project.md                # Project scaffolding
