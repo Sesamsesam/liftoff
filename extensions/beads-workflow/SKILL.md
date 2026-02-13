@@ -12,6 +12,24 @@ category: workflow
 >
 > Once installed, the agent does the heavy lifting. You'll mainly just see it running `bd ready` (load context) and `bd sync` (save progress) automatically. Think of the CLI as the engine under the hood - you rarely need to touch it directly.
 
+---
+
+## TL;DR - This Is All You Actually Need
+
+If you're on **macOS**, these 3 commands are the entire setup:
+
+```bash
+brew install beads       # 1. Install Beads (need Homebrew first? See the Homebrew skill)
+cd your-project          # 2. Go to your project folder
+bd init                  # 3. Initialize Beads in your project
+```
+
+**That's it.** After this, the agent handles everything automatically - `bd ready` on session start, `bd sync` on session end. You don't need to memorize any other commands.
+
+**On Windows/Linux or prefer a different install method?** The full guide below has all the options. Everything below this point is just for deeper understanding - you do NOT need to read it all to use Beads.
+
+---
+
 ## What Is This?
 
 Every time you start a new AI conversation, the agent has no memory of what you did before. 
