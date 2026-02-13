@@ -22,10 +22,10 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 
 | What You Get | Why It Matters |
 |---|---|
-| 🔨 **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
-| 🛡️ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
+| ⚔️ **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
+| ⚡ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
 | 🔌 **8 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, web scraping, live documentation, Google Cloud, and session memory so your AI remembers yesterday |
-| ⚡ **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
+| 🏆 **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 
 > [!TIP]
