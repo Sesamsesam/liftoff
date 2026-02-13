@@ -24,7 +24,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | 🔨 **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | 🛡️ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
-| 🔌 **5 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, and session memory so your AI remembers yesterday |
+| 🔌 **7 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, web scraping, live documentation, and session memory so your AI remembers yesterday |
 | ⚡ **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 
@@ -38,7 +38,7 @@ No more boilerplate security setups, no more forgotten <code>.gitignore</code> f
 <br><br>
 But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://graphite.dev">Graphite</a> (stacked PRs that make your Git workflow feel like it's from the future), and <a href="https://github.com/steveyegge/beads">Beads</a> (session persistence by Steve Yegge, ex-Google and ex-Amazon, so your AI never forgets what you worked on).
 <br><br>
-It also wires up MCP connections to <a href="https://docs.convex.dev">Convex MCP</a>, <a href="https://developers.cloudflare.com/agents/guides/remote-mcp-server/">Cloudflare MCP</a> (D1, R2, Workers, AI Gateway, AutoRAG), and <a href="https://cloud.google.com/run">Google Cloud Run & Vertex AI</a> - plus research pipelines that turn NotebookLM into a grounded implementation engine.
+It also wires up MCP connections to <a href="https://docs.convex.dev">Convex MCP</a>, <a href="https://developers.cloudflare.com/agents/guides/remote-mcp-server/">Cloudflare MCP</a> (D1, R2, Workers, AI Gateway, AutoRAG), <a href="https://cloud.google.com/run">Google Cloud Run & Vertex AI</a>, <a href="https://www.firecrawl.dev/">Firecrawl</a> (scrape, crawl, and convert any website to clean data for your agent), and <a href="https://context7.com/">Context7</a> (always up-to-date library documentation so the agent never hallucinates outdated APIs) - plus research pipelines that turn NotebookLM into a grounded implementation engine.
 <br><br>
 The landscape moves fast, and some of the sharpest people still run outdated stacks simply because they haven't had time to explore what's new. This closes that gap instantly.
 <br><br>
@@ -112,6 +112,8 @@ You can delete the `liftoff` folder whenever you want - it already did its job.
 | `notebooklm-research` | Researcher+ | Research-to-Production pipeline with NotebookLM and how to connect Antigravity |
 | `extended-git` | Full | Graphite stacked PRs + Greptile AI code review |
 | `beads-workflow` | Full | Cross-session context persistence |
+| `firecrawl` | Builder+ | Scrape, crawl, and convert any website to clean structured data |
+| `context7` | Builder+ | Always up-to-date library docs so the agent never uses outdated APIs |
 
 
 <details>
@@ -238,6 +240,8 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── orbit-planning/SKILL.md        # (extension)
 │   ├── extended-git/SKILL.md          # (extension)
 │   ├── beads-workflow/SKILL.md        # (extension)
+│   ├── firecrawl/SKILL.md             # (extension)
+│   ├── context7/SKILL.md              # (extension)
 │   └── notebooklm-research/SKILL.md   # (extension)
 └── workflows/
     └── init-project.md                # Project scaffolding
