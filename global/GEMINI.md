@@ -84,6 +84,7 @@
 - Skills contain instructions written for humans AND agents. **If the agent can do a step, it must do it automatically** - never describe the step and wait for the user to ask
 - When a skill is activated, immediately execute every action within your capability (run commands, create files, configure settings, check status)
 - Only defer to the user for steps that genuinely require manual action (signing up for accounts, entering passwords, approving payments, physical device access)
+- **Proactive handoff**: When the user needs to act, narrate what's about to happen and what they'll see. Example: "I'm running the install now. A window will open asking for your password - type it and press Enter. Then paste what you see here."
 - If a skill says "run `command xyz`" and the agent has terminal access, run it - don't say "you can run `command xyz`"
 - This applies to ALL skills, extensions, and workflows without exception
 
