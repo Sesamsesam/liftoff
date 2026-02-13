@@ -4,6 +4,7 @@
 
 **Hey, I'm Sami.** I put together Liftoff because I believe every professional deserves to be ridiculously good with AI - not someday, right now. Whether you're in finance, marketing, sales, design, or deep in code, this is the toolkit that makes it click. If you want to see what else I'm working on, come say hi at [samihermes.ai](https://samihermes.ai).
 
+
 ---
 
 ## What Is This?
@@ -12,12 +13,14 @@ The world changed. AI is no longer a tool reserved for engineers - it's the new 
 
 That's what Antigravity is - an AI-powered workspace where you talk to an intelligent agent, and it builds, searches, connects, and automates on your behalf. You don't need to memorize syntax or understand server architecture. You describe what you want, and the agent handles the rest. **This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** One install, and your AI agent goes from a blank slate to a guided, battle-tested partner loaded with tools, ammo and best practices:
 
+
 | What You Get | Why It Matters |
 |---|---|
 | 🔨 **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | 🛡️ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
 | 🔌 **5 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, and session memory so your AI remembers yesterday |
 | ⚡ **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
+
 
 > [!TIP]
 > **New to all of this?** Don't worry. The agent walks you through everything. You don't need to understand half of what's inside. The skills and guardrails work behind the scenes so you can focus on *what* you want to build, not *how* to build it.
@@ -50,10 +53,11 @@ Choose your profile when prompted:
 
 | Profile | What You Get |
 |---|---|
-| **1. Coder** | Write code, debug, and ship features (recommended for most users) |
+| **1. Starter** | Core AI skills and workflows (recommended for most users) |
 | **2. Builder** | 1 + deploy to the web, manage databases and storage via Cloudflare |
 | **3. Researcher** | 1 + 2 + deep research pipelines and strategic project planning |
 | **4. Full** | Everything enabled |
+
 
 **After the install**, you're set up globally. Every new Antigravity session - in any project, anywhere on your machine - will have these skills active. To start your first real project:
 
@@ -63,6 +67,7 @@ mkdir my-project && cd my-project  # create your actual project
 ```
 
 Open that folder in your editor, start a conversation with Antigravity, and it will follow F.O.R.G.E. automatically. You can delete the `liftoff` folder whenever you want - it already did its job.
+
 
 ---
 
@@ -92,6 +97,7 @@ Open that folder in your editor, start a conversation with Antigravity, and it w
 | `extended-git` | Full | Graphite stacked PRs + Greptile AI code review |
 | `beads-workflow` | Full | Cross-session context persistence |
 
+
 <details>
 <summary><strong>🛰️ What is O.R.B.I.T.?</strong></summary>
 <br>
@@ -118,9 +124,11 @@ The agent walks you through 5 phases:
 <strong>Without Beads:</strong> O.R.B.I.T. still works perfectly within a session. Across sessions, the agent reads <code>orbit.md</code> and picks up from there. You may occasionally need to remind it of context from previous conversations.
 </details>
 
+
 Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Notion, Convex, Remotion, or GitHub). Every extension comes with a **complete setup guide built in** - you don't need to hunt for documentation. 🫰
 
 Just activate the extension and ask the agent to help you set it up. It already knows the exact steps, where to get API keys, and how to connect everything.
+
 
 Extensions are installed **dormant** (all set to `false` by default). To activate one, change its value to `true` in `~/.gemini/settings/extensions.json`:
 
@@ -136,9 +144,11 @@ Extensions are installed **dormant** (all set to `false` by default). To activat
 
 **What does dormant mean?** When an extension is set to `false`, the skill file is installed on your machine but the agent completely ignores it. It won't suggest it, use it, or even mention it. It's as if it doesn't exist.
 
+
 **What happens when you activate it?** Setting an extension to `true` makes it available **globally** - meaning every new agent session, in any project, can now use that extension. You only need to flip it once.
 
 **Why not just activate everything?** Some extensions change how the agent behaves in ways you might not always want. For example, `beads-workflow` makes the agent track session context and manage task persistence between conversations. That's powerful when you need it, but if you're doing a quick one-off task, you don't want the agent spending time on session management overhead. The toggle lets you control exactly which behaviors are active, so the agent stays focused on what matters for how you work right now.
+
 
 ---
 
@@ -210,11 +220,13 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 **Q: Will this break my existing setup?**
 A: The installer backs up your existing `GEMINI.md` before overwriting. All other files are additive.
 
+
 **Q: Can I customize the skills?**
 A: Yes. Every skill is a markdown file. Edit them directly - the agent reads them at runtime.
 
 **Q: Do I need all the tools listed in `stack-pro-max`?**
 A: No. Those are defaults. The agent adapts to whatever tools you have installed.
+
 
 **Q: What if I don't use Convex/Clerk?**
 A: The patterns still apply - just swap the specific tools. The security, error handling, and Git skills are framework-agnostic.
