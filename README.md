@@ -61,6 +61,22 @@ chmod +x install.sh
 ./install.sh
 ```
 
+<details>
+<summary><strong>What happens when you run this?</strong></summary>
+
+The installer runs a 5-phase setup that takes about 30 seconds:
+
+1. **Profile selection** - Choose Starter, Builder, Researcher, or Full (see table below)
+2. **Core identity** - Installs `GEMINI.md` (global rules) and `extensions.json` (activation settings) to `~/.gemini/`
+3. **7 core skills** - Copies the essential skills (F.O.R.G.E., security, error handling, git, brand identity, tech stack, skill template) to `~/.gemini/skills/`
+4. **Workflows** - Installs the `init-project` workflow for scaffolding new projects
+5. **Setup tasks** - Registers one-time tasks (like package manager detection) that run automatically on your first Antigravity session
+6. **Extensions** - Installs optional extensions based on your chosen profile. All extensions start **dormant** - they're available but inactive until you enable them in `extensions.json`
+
+Nothing runs in the background. Nothing phones home. Everything stays in `~/.gemini/` on your machine.
+
+</details>
+
 Choose your profile when prompted:
 
 | Profile | What You Get |
