@@ -53,8 +53,8 @@
 - **Infrastructure**: Cloudflare MCP (D1, R2, Workers, AI Gateway, DNS)  - see `cloudflare-mcp` extension
 - **Static Sites**: Astro
 - **Package Manager**: bun (preferred), pnpm (fallback) - never npm
-- If bun is not installed, install it (`brew install oven-sh/bun/bun` or `curl -fsSL https://bun.sh/install | bash`)
-- If the user explicitly prefers pnpm over bun, install pnpm if missing (`brew install pnpm` or `corepack enable pnpm`)
+- If bun is not installed, install it using the system package manager (see Machine Environment) or `curl -fsSL https://bun.sh/install | bash`
+- If the user explicitly prefers pnpm over bun, install pnpm if missing (system package manager or `corepack enable pnpm`)
 - Always check `which bun` before defaulting to pnpm
 - See `stack-pro-max` skill for init commands + database-first setup
 
@@ -90,7 +90,8 @@
 - This applies to ALL skills, extensions, and workflows without exception
 
 ## Session Start (Run Every Time)
-- Check `~/.gemini/settings/extensions.json` for active extensions
+- Check `~/.gemini/settings/extensions.json` for active extensions and pending setup tasks
+- If any `setup-*` entries are `"pending"`: read the matching `~/.gemini/setup/*/SKILL.md`, execute it, then mark `"done"`
 - If Beads active: run `bd ready` to find pending tasks
 - If ORBIT active and `orbit.md` exists: check it before starting work
 - If credential rotation tracking exists: check dates, warn if overdue

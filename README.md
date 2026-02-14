@@ -115,7 +115,6 @@ You can delete the `liftoff` folder whenever you want - it already did its job.
 | `brand-identity` | CSS design tokens for premium-looking UIs |
 | `stack-pro-max` | Tech stack defaults (React + Vite + Convex + Clerk) |
 | `antigravity-standard` | Template for creating new skills |
-| `homebrew` | macOS package manager - how the agent installs tools like Git, Node, and Bun |
 | `init-project` | Workflow to scaffold a new project with all guardrails |
 
 ### 🔌 Extensions (Opt-In)
@@ -247,7 +246,9 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 ~/.gemini/
 ├── GEMINI.md                          # Global identity + rules
 ├── settings/
-│   └── extensions.json                # Extension activation
+│   └── extensions.json                # Extension + setup task activation
+├── setup/
+│   └── package-manager/SKILL.md       # One-time OS + package manager detection
 ├── skills/
 │   ├── forge-methodology/SKILL.md     # Core workflow
 │   ├── security-guardian/SKILL.md     # Security checklist

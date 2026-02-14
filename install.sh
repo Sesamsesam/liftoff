@@ -19,6 +19,7 @@ GEMINI_DIR="$HOME/.gemini"
 SKILLS_DIR="$GEMINI_DIR/skills"
 WORKFLOWS_DIR="$GEMINI_DIR/workflows"
 SETTINGS_DIR="$GEMINI_DIR/settings"
+SETUP_DIR="$GEMINI_DIR/setup"
 EXTENSIONS_DIR="$SKILLS_DIR"  # Extensions are stored alongside skills
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -51,6 +52,7 @@ echo -e "\n${BLUE}Creating directories...${NC}"
 mkdir -p "$SKILLS_DIR"
 mkdir -p "$WORKFLOWS_DIR"
 mkdir -p "$SETTINGS_DIR"
+mkdir -p "$SETUP_DIR"
 
 # ─── Backup existing GEMINI.md ───
 if [ -f "$GEMINI_DIR/GEMINI.md" ]; then
@@ -66,7 +68,7 @@ cp "$SCRIPT_DIR/settings/extensions.json" "$SETTINGS_DIR/extensions.json"
 
 # ─── Install Skills (Phase 2) ───
 echo -e "${GREEN}Installing skills...${NC}"
-CORE_SKILLS=("forge-methodology" "security-guardian" "error-handling" "git-flow" "brand-identity" "stack-pro-max" "antigravity-standard" "homebrew")
+CORE_SKILLS=("forge-methodology" "security-guardian" "error-handling" "git-flow" "brand-identity" "stack-pro-max" "antigravity-standard")
 
 for skill in "${CORE_SKILLS[@]}"; do
   mkdir -p "$SKILLS_DIR/$skill"
@@ -78,6 +80,16 @@ done
 echo -e "${GREEN}Installing workflows...${NC}"
 cp "$SCRIPT_DIR/workflows/init-project.md" "$WORKFLOWS_DIR/init-project.md"
 echo "  ✓ init-project"
+
+# ─── Install Setup Tasks (Phase 3.5) ───
+echo -e "${GREEN}Installing setup tasks...${NC}"
+SETUP_TASKS=("package-manager")
+
+for task in "${SETUP_TASKS[@]}"; do
+  mkdir -p "$SETUP_DIR/$task"
+  cp "$SCRIPT_DIR/setup/$task/SKILL.md" "$SETUP_DIR/$task/SKILL.md"
+  echo "  ✓ $task (will run on first session)"
+done
 
 # ─── Install Extensions (based on profile) ───
 install_extension() {
@@ -112,6 +124,7 @@ echo ""
 echo -e "  ${BLUE}Profile:${NC}        $([ "$PROFILE" = "1" ] && echo "Starter" || ([ "$PROFILE" = "2" ] && echo "Builder" || ([ "$PROFILE" = "3" ] && echo "Researcher" || echo "Full")))"
 echo -e "  ${BLUE}GEMINI.md:${NC}      $GEMINI_DIR/GEMINI.md"
 echo -e "  ${BLUE}Skills:${NC}         $SKILLS_DIR/ (${#CORE_SKILLS[@]} core skills)"
+echo -e "  ${BLUE}Setup tasks:${NC}    $SETUP_DIR/ (${#SETUP_TASKS[@]} pending)"
 echo -e "  ${BLUE}Workflows:${NC}      $WORKFLOWS_DIR/"
 echo -e "  ${BLUE}Extensions:${NC}     $SETTINGS_DIR/extensions.json"
 echo ""
