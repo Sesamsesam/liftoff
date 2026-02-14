@@ -192,6 +192,37 @@ For example, `beads-workflow` makes the agent track session context and manage t
 
 The toggle lets you control exactly which behaviors are active, so the agent stays focused on what matters for how you work right now.
 
+---
+
+### 👁️ Visibility in Every Project
+
+When you scaffold a new project with `init-project`, the agent creates a `.gemini/` directory inside your project that **symlinks** back to your global installation:
+
+```
+my-project/
+├── .gemini/
+│   ├── GEMINI.md              → ~/.gemini/GEMINI.md
+│   ├── settings/              → ~/.gemini/settings/
+│   │   └── extensions.json
+│   └── extensions/
+│       ├── cloudflare-mcp/    → ~/.gemini/skills/cloudflare-mcp/
+│       ├── orbit-planning/    → ~/.gemini/skills/orbit-planning/
+│       └── ...                   (all extensions, including dormant)
+├── src/
+└── ...
+```
+
+**Why this matters:**
+
+- **See what's available.** Browse `.gemini/extensions/` anytime to see every extension you have, even the ones you haven't activated yet.
+- **Toggle from any project.** Open `extensions.json` through the symlink - edits go straight to the global file, so one change applies everywhere.
+- **No copies, no drift.** Everything points to the canonical files in `~/.gemini/`. There's nothing to sync.
+- **Git-safe.** The symlinks are `.gitignored` by default - they never leak into your repo.
+
+**Windows note:** On Windows, the agent uses NTFS junctions (for directories) and hard links (for files) instead of symbolic links. These work without admin privileges and behave identically.
+
+**Creating your own skills:** When you ask the agent to create a new skill, it always creates the skill globally at `~/.gemini/skills/<skill-name>/SKILL.md`, adds it to `extensions.json` as dormant (`false`), and asks if you want to activate it. If the current project has a `.gemini/extensions/` directory, the agent also creates a symlink so the new skill is immediately visible locally.
+
 
 ---
 
@@ -242,6 +273,8 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 
 ## File Structure
 
+### Global (installed once)
+
 ```
 ~/.gemini/
 ├── GEMINI.md                          # Global identity + rules
@@ -268,6 +301,20 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 └── workflows/
     └── init-project.md                # Project scaffolding
 ```
+
+### Per-project (created by init-project)
+
+```
+my-project/.gemini/
+├── GEMINI.md                → symlink to ~/.gemini/GEMINI.md
+├── settings/                → symlink to ~/.gemini/settings/
+└── extensions/
+    ├── cloudflare-mcp/      → symlink to ~/.gemini/skills/cloudflare-mcp/
+    ├── orbit-planning/      → symlink to ~/.gemini/skills/orbit-planning/
+    └── ...                     (all extensions)
+```
+
+> These are symlinks (macOS/Linux) or junctions (Windows) - not copies. They are `.gitignored` by default.
 
 ---
 

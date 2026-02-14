@@ -79,7 +79,16 @@
 - Auto-detect when a skill is relevant to the current task and apply it
 - Skills load on-demand  - they are not always in context
 - Check `~/.gemini/settings/extensions.json` for active extensions
+- If a skill is listed in `extensions.json`, it's an extension (togglable). If not listed, it's a core skill (always active)
 - If an extension is dormant but relevant, offer once with plain explanation  - then never ask again
+
+## Skill Creation
+- **NEVER create skills inside a project directory.** All skills live at the global canonical location `~/.gemini/skills/` - no exceptions
+- When the user asks to create a new skill, create it at `~/.gemini/skills/<skill-name>/SKILL.md` (global)
+- Add `"<skill-name>": false` to `~/.gemini/settings/extensions.json` (treats it as an extension)
+- Ask the user: "Want to activate this skill now?" - if yes, set to `true`
+- If the current project has `.gemini/extensions/`, create a symlink: `.gemini/extensions/<skill-name>` pointing to `~/.gemini/skills/<skill-name>`
+- User-created skills are always extensions - core skills are only the ones shipped with Liftoff
 
 ## Skill Execution - Do It, Don't Teach It
 - Skills contain instructions written for humans AND agents. **If the agent can do a step, it must do it automatically** - never describe the step and wait for the user to ask
