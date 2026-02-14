@@ -73,6 +73,20 @@ Choose your profile when prompted:
 
 **After the install**, you're set up globally. Every new Antigravity session - in any project, anywhere on your machine - will have these skills active.
 
+> [!TIP]
+> **Using cloud agents?** (OpenClaw, Cursor Cloud, Cloud Code for Web, etc.)
+>
+> Global skills live in `~/.gemini/` on **your machine**. Cloud agents run on remote servers and can only see files inside your project repo - so global skills are invisible to them.
+>
+> To make your skills work in cloud environments, copy them into the project:
+> ```bash
+> cp -r ~/.gemini/skills/ .gemini/skills/
+> cp ~/.gemini/GEMINI.md .gemini/GEMINI.md
+> ```
+> This gives you project-level copies that travel with the code. Having both global **and** project-level copies causes no conflicts - the project-level version takes priority when both exist.
+>
+> **If you only work locally, you can ignore this entirely.** The global install is all you need.
+
 To start your first real project:
 
 ```bash

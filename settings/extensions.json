@@ -3,5 +3,7 @@
   "beads-workflow": false,
   "notebooklm-research": false,
   "orbit-planning": false,
-  "cloudflare-mcp": false
+  "cloudflare-mcp": false,
+  "autorag-pipeline": false,
+  "vertex-rag-pipeline": false
 }
