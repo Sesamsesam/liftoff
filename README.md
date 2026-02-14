@@ -71,7 +71,7 @@ The installer runs a 5-phase setup that takes about 30 seconds:
 3. **7 core skills** - Copies the essential skills (F.O.R.G.E., security, error handling, git, brand identity, tech stack, skill template) to `~/.gemini/skills/`
 4. **Workflows** - Installs the `init-project` workflow for scaffolding new projects
 5. **Setup tasks** - Registers one-time tasks (like package manager detection) that run automatically on your first Antigravity session
-6. **Extensions** - Installs optional extensions based on your chosen profile. All extensions start **dormant** - they're available but inactive until you enable them in `extensions.json`
+6. **Extensions** - Installs optional extensions based on your chosen profile. All extensions start **dormant** - they're available but inactive until you enable them in `extensions.json` (symlinks to `~/.gemini/skills/` for every new project so you have a visual overview of what's available) | note: A symlink is a file or directory that points to another file or directory. It's a way to create a link between two files or directories.
 
 Nothing runs in the background. Nothing phones home. Everything stays in `~/.gemini/` on your machine.
 
