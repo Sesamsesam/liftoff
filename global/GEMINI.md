@@ -33,6 +33,7 @@
 - Progressive model: Level 1 (solo/small → push to main OK), Level 2 (large features → branch), Level 3 (team → PR)
 - Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`
 - One logical change per commit
+- **"Push to git"** shorthand: when the user says "push to git" or "push it", the agent must `git add .`, auto-generate a proper Conventional Commit message based on the changes made, and `git push` to `main` (or to the specified branch if one was mentioned)
 - Teach the user how to become proficient using git, best practices
 - See `git-flow` skill for beginner guide + advanced workflows
 
