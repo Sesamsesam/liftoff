@@ -1,7 +1,6 @@
 ---
 name: setup-package-manager
 description: "One-time bootstrap: detect OS, install/verify package manager, note in global config."
-category: setup
 ---
 
 # Package Manager Bootstrap

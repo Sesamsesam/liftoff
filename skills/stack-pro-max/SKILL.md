@@ -1,12 +1,15 @@
 ---
 name: stack-pro-max
 description: "The user's actual tech stack. Init commands, conventions, and database-first patterns."
-category: setup
 ---
 
 # Stack Pro Max
 
-> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+> **🤖 You don't need to do any of this manually.** The agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- USER OVERVIEW                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## What Is This?
 Your **tech stack** is the set of tools and frameworks you build with - like a builder choosing specific brands of hammer, saw, and nails. This skill defines exactly which tools the agent should use, so every project starts the right way.
@@ -39,6 +42,10 @@ When you "start a new project," the agent sets up all these layers in the right 
 - When the user asks "what should I use for X?"
 
 ---
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- THE STACK                                          -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## The Stack
 
@@ -91,6 +98,10 @@ bun install
 ```
 
 ---
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PATTERNS & CONVENTIONS                             -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## Database-First Pattern (Convex)
 

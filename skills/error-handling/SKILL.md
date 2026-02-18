@@ -1,33 +1,36 @@
 ---
 name: error-handling
 description: "Enterprise-grade error handling patterns. What separates amateur code from professional code."
-category: code-quality
 ---
 
 # Error Handling
 
-> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+> **🤖 You don't need to do any of this manually.** The agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- USER OVERVIEW                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## What Is This?
-A set of battle-tested error handling patterns that the agent writes into your code automatically. These patterns make your code resilient, debuggable, and professional.
+Battle-tested error handling patterns written into your code automatically. These make your code resilient, debuggable, and professional.
 
 ## Why Does It Exist?
-90% of application crashes come from unhandled errors, silent failures, and poor resource cleanup. Amateur code uses bare `try/catch` with `console.log`. Professional code uses structured patterns that recover gracefully, report meaningfully, and clean up after themselves. This skill ensures every project gets the professional version from day one.
+90% of crashes come from unhandled errors, silent failures, and poor resource cleanup. Amateur code: bare `try/catch` with `console.log`. Professional code: structured patterns that recover gracefully, report meaningfully, and clean up after themselves.
 
 ## What It Does For You
-The agent writes these patterns into your code automatically - you don't need experience with error handling. A senior developer reviewing your codebase would see proper Circuit Breaker patterns, structured error reporting, and graceful fallbacks - hallmarks of production-ready software.
+The agent writes these patterns into your code automatically - you don't need experience with error handling. A senior dev reviewing your codebase would see Circuit Breaker patterns, structured error reporting, and graceful fallbacks - hallmarks of production-ready software.
 
 ---
 
 ## Activation
-- Any code that makes external API calls, handles file I/O, processes user input, or manages resources
+- Code with external API calls, file I/O, user input processing, or resource management
 - During the Guard phase of F.O.R.G.E.
-- When implementing new features that interact with external services
+- New features interacting with external services
 
 ## Enforcement
-- The agent MUST NOT leave bare `try/catch` blocks with only `console.log`
-- Every `catch` block must handle the error meaningfully (retry, fallback, or structured report)
-- For the security angle of errors (what NOT to do), see `security-guardian` skill point #13
+- Agent MUST NOT leave bare `try/catch` with only `console.log`
+- Every `catch` must handle meaningfully (retry, fallback, or structured report)
+- For the security angle of errors (what NOT to do), see `security-guardian` #13
 
 ---
 
@@ -35,17 +38,21 @@ The agent writes these patterns into your code automatically - you don't need ex
 
 | This Skill (What TO Do) | Security Guardian #13 (What NOT To Do) |
 |---|---|
-| Use Circuit Breaker for API resilience | Never "fail open" on auth errors |
-| Implement graceful fallbacks | Never expose stack traces to users |
-| Structure error reporting for debugging | Never log sensitive data in error details |
-| Clean up resources on failure | Generic messages to users, details in server logs |
+| Circuit Breaker for API resilience | Never "fail open" on auth errors |
+| Graceful fallbacks | Never expose stack traces to users |
+| Structured error reporting | Never log sensitive data in errors |
+| Resource cleanup on failure | Generic messages to users, details in logs |
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PATTERNS                                           -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ---
 
 ## Pattern 1: Circuit Breaker
 
-**When:** Your code calls an external API (OpenAI, Stripe, any third-party service).
-**Why:** External services fail. Without a circuit breaker, one slow API call can cascade and bring down your entire app.
+**When:** External API calls (OpenAI, Stripe, any third-party).
+**Why:** Without this, one slow API call cascades and takes down your whole app.
 
 ```typescript
 class CircuitBreaker {
@@ -55,18 +62,17 @@ class CircuitBreaker {
   private readonly resetTimeout = 60_000; // 1 minute
 
   async call<T>(fn: () => Promise<T>, fallback?: () => T): Promise<T> {
-    // If circuit is open (too many failures), use fallback
     if (this.failures >= this.threshold) {
       if (Date.now() - this.lastFailure < this.resetTimeout) {
         if (fallback) return fallback();
         throw new Error("Service temporarily unavailable. Please try again.");
       }
-      this.failures = 0; // Reset after timeout
+      this.failures = 0;
     }
 
     try {
       const result = await fn();
-      this.failures = 0; // Reset on success
+      this.failures = 0;
       return result;
     } catch (error) {
       this.failures++;
@@ -87,8 +93,8 @@ const response = await openAIBreaker.call(
 
 ## Pattern 2: Error Aggregation (Structured Reporting)
 
-**When:** Your app handles multiple operations that can each fail independently.
-**Why:** Scattered `console.log("error:", e)` makes debugging impossible. Structured error reporting means when something fails in production, you know exactly what happened, where, and why.
+**When:** Multiple operations that can each fail independently.
+**Why:** Scattered `console.log("error:", e)` makes debugging impossible.
 
 ```typescript
 type ErrorCategory = "auth" | "network" | "validation" | "storage" | "unknown";
@@ -113,7 +119,6 @@ class ErrorReporter {
       context,
     };
     this.errors.push(structured);
-    // Log structured - no sensitive data
     console.error(JSON.stringify({ level: "error", ...structured }));
   }
 
@@ -134,14 +139,13 @@ try {
 ## Pattern 3: Graceful Degradation
 
 **When:** A feature depends on a service that might be unavailable.
-**Why:** Your app should never crash because one feature's backend is down. Users should see the rest of the app working, with a clear message about what's temporarily unavailable.
+**Why:** App should never crash because one feature's backend is down.
 
 ```typescript
 async function loadDashboard(userId: string) {
-  // Core data - must succeed
-  const user = await getUser(userId);
+  const user = await getUser(userId); // Core - must succeed
 
-  // Enhanced data - degrade gracefully if unavailable
+  // Enhanced - degrade gracefully
   const [analytics, recommendations] = await Promise.allSettled([
     fetchAnalytics(userId),
     fetchRecommendations(userId),
@@ -161,8 +165,8 @@ async function loadDashboard(userId: string) {
 
 ## Pattern 4: Fail Fast
 
-**When:** You detect an invalid state early in a function.
-**Why:** The sooner you catch a problem, the easier it is to debug and the less damage it causes.
+**When:** Invalid state detected early in a function.
+**Why:** Catch problems sooner = easier debugging, less damage.
 
 ```typescript
 // ✅ Fail fast - validate at the boundary
@@ -177,8 +181,8 @@ function processPayment(amount: number, currency: string) {
 
 ## Pattern 5: Resource Cleanup
 
-**When:** Your code opens connections, file handles, timers, or subscriptions.
-**Why:** Leaked resources cause memory issues, connection exhaustion, and mysterious production bugs.
+**When:** Code opens connections, file handles, timers, or subscriptions.
+**Why:** Leaked resources cause memory issues and mysterious production bugs.
 
 ```typescript
 // ✅ Always clean up - use try/finally
@@ -203,14 +207,18 @@ useEffect(() => {
 }, []);
 ```
 
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- REFERENCE                                          -->
+<!-- ═══════════════════════════════════════════════════ -->
+
 ---
 
-## Anti-Patterns (What NOT To Do)
+## Anti-Patterns
 
 | Anti-Pattern | Why It's Bad | Fix |
 |---|---|---|
-| `catch (e) { console.log(e) }` | No recovery, no structure, invisible in production | Use structured reporting |
-| Empty catch blocks `catch {}` | Silently swallows errors - bugs become invisible | At minimum, log with context |
-| `catch (e) { return null }` | Caller doesn't know something failed | Return a result type or re-throw |
+| `catch (e) { console.log(e) }` | No recovery, invisible in production | Structured reporting |
+| Empty catch `catch {}` | Silently swallows errors | At minimum, log with context |
+| `catch (e) { return null }` | Caller doesn't know it failed | Result type or re-throw |
 | Catching too broadly | Hides different failure modes | Catch specific error types |
-| No cleanup in error paths | Resource leaks | Use `try/finally` |
+| No cleanup in error paths | Resource leaks | `try/finally` |

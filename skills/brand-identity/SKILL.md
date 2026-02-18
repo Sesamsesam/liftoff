@@ -1,49 +1,49 @@
 ---
 name: brand-identity
 description: "Design tokens and CSS architecture for the Antigravity visual identity. Ensures every project looks premium from line one."
-category: design
 ---
 
 # Brand Identity
 
-> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+> **🤖 You don't need to do any of this manually.** The agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- USER OVERVIEW                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## What Is This?
-A ready-to-use design system with CSS custom properties, utility classes, and theming rules. Drop this into any project and immediately get a premium, cohesive visual identity. CSS is the visual design code that makes your build look good.
+A ready-to-use design system with CSS custom properties, utility classes, and theming rules. CSS is the visual design code that makes your build look good. Drop this into any project and immediately get a premium, cohesive visual identity.
 
 ## Why Does It Exist?
-Without a design system, every project starts with random colors, inconsistent spacing, and a "developer-made" aesthetic or looks AI generic. This skill gives the agent a concrete library so every UI it builds looks intentional and polished - as if a designer was on the team.
+Without a design system, every project starts with random colors and inconsistent spacing. This gives the agent a concrete library so every UI looks intentional and polished.
 
 ## What It Does For You
-The agent uses these tokens when generating CSS. Instead of hardcoded 'hex values' scattered across files, every color, shadow, and gradient references a centralized variable. Change one token → the entire app updates.
+The agent references these tokens when generating CSS. Every color, shadow, and gradient uses a centralized variable. Change one token - the entire app updates.
 
 ---
 
 ## Activation
-- When creating a new project with UI (user interface) components
-- When generating CSS / styling code
-- When the user asks for "make it look better" or "improve the design"
-
----
+- New projects with UI components
+- Generating CSS/styling code
+- "Make it look better" or "improve the design"
 
 ## How It Works
 
-A **design token** is a named variable for a visual value - a color, a shadow, a spacing size. Instead of writing `color: #3B82F6` in 50 different places, you define it once as `--ag-blue: #3B82F6` and reference the name everywhere. Change the token, and every component using it updates automatically across the entire site.
+A **design token** is a named variable for a visual value - a color, a shadow, a spacing size. Instead of writing `color: #3B82F6` in 50 places, define once as `--ag-blue: #3B82F6` and reference everywhere. Want to try a different look? Change the token, every component using it updates automatically.
 
-This is great because if you want to try looks you don't have to change every single palce where that color exists.
-
-The tokens below are organized into categories:
-
-- **Gradients** - the signature blue-to-cyan sweep that gives Antigravity its look
+The tokens are organized into categories:
+- **Gradients** - the signature blue-to-cyan sweep
 - **Accent colors** - supporting purples, pinks, and blues for highlights
-- **Surfaces** - background layers (cards, elevated panels) with subtle transparency
-- **Shadows** - the "Blueprint Lift" effect that makes cards feel like they float
-- **Typography** - font families, weights, and letter-spacing
-- **Spacing & Radius** - consistent padding/margins and rounded corners
+- **Surfaces** - backgrounds with subtle transparency
+- **Shadows** - the "Blueprint Lift" effect that makes cards float
+- **Typography** - font families, weights, letter-spacing
+- **Spacing & Radius** - consistent padding/margins and corners
 
-**Light vs Dark mode:** The same token names work in both modes. The `:root` block defines light mode defaults; the `.dark` block overrides just the values that change. The result: you write `.surface-card` once, and it looks correct in both themes.
+**Light vs Dark mode:** Same token names in both modes. `:root` = light defaults, `.dark` = overrides.
 
-I created this to resemble my design on samihermes.ai
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TOKENS & CLASSES                                   -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ---
 
@@ -155,10 +155,16 @@ I created this to resemble my design on samihermes.ai
 }
 ```
 
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- RULES & GUARDRAILS                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+---
+
 ## Theme Transition Rule
 
 > [!CAUTION]
-> **Never** use `* { transition: ... }` for theme switching. This hijacks `transform` transitions on every component, breaking hover animations. Instead, apply transitions only to surface classes:
+> **Never** use `* { transition: ... }` for theme switching. It hijacks `transform` transitions on every component, breaking hover animations.
 
 ```css
 /* ✅ Correct - targeted transitions */
@@ -172,15 +178,14 @@ body, .surface-card, .surface-elevated, .glass-card {
 
 ## Typography Standards
 
-- **Headings:** `font-family: var(--font-sans)` with `font-weight: var(--font-heading-weight)` and `letter-spacing: var(--font-heading-tracking)`
-- **Subtitles:** 60% opacity, weight 400 - "imprint" effect, not competing with the headline
-- **Body text:** 16px base, 1.6 line-height for comfortable reading
-- **No em dashes** - use regular hyphens or rewrite the sentence
+- **Headings:** `var(--font-sans)`, weight `var(--font-heading-weight)`, tracking `var(--font-heading-tracking)`
+- **Subtitles:** 60% opacity, weight 400
+- **Body:** 16px base, 1.6 line-height
+- **No em dashes** - use hyphens or rewrite
 
 ## Hover Standard
 
 ```css
-/* Snappy tactile feedback - the "blueprint lift" */
 .interactive-element {
   transition: transform 0.05s ease;
 }
@@ -192,21 +197,18 @@ body, .surface-card, .surface-elevated, .glass-card {
 
 ## Design Guardrails
 
-The agent MUST enforce these on every UI it generates:
-
-### Anti-Patterns (Never Do)
+### Anti-Patterns (Never)
 - No tap targets under `44x44px` on mobile
-- No more than 3 primary colors in a single view
+- No more than 3 primary colors per view
 - No more than 2 font families per page
-- No hamburger menus on desktop - use visible navigation
+- No hamburger menus on desktop
 - No hover-dependent interactions on touch devices
-- No `#000000` text on `#FFFFFF` - too harsh; use `#1E293B` on `#F8FAFC`
-- No color-only information (red/green for pass/fail without icons or labels)
+- No `#000000` on `#FFFFFF` - use `#1E293B` on `#F8FAFC`
+- No color-only information (add icons or labels)
 
-### Accessibility (Always Do)
+### Accessibility (Always)
 
 ```css
-/* Respect user motion preferences - ALWAYS include */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -216,7 +218,7 @@ The agent MUST enforce these on every UI it generates:
 }
 ```
 
-- WCAG AA minimum: `4.5:1` contrast ratio for body text, `3:1` for large text
-- All interactive elements must have visible focus indicators (`outline`, not just color change)
-- Images must have `alt` text - no exceptions
-- Use `rem` for font sizes, not `px`, to respect user browser settings
+- WCAG AA: `4.5:1` contrast for body text, `3:1` for large text
+- Visible focus indicators on all interactive elements
+- All images must have `alt` text
+- Use `rem` for font sizes, not `px`

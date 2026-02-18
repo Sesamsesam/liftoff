@@ -1,12 +1,15 @@
 ---
 name: forge-methodology
 description: "F.O.R.G.E. - the default operating mode. Foundation, Outline, Rock'n'Roll, Guard, Evolve."
-category: workflow
 ---
 
 # F.O.R.G.E. Methodology
 
-> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+> **🤖 You don't need to do any of this manually.** The agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- USER OVERVIEW                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## What Is This?
 F.O.R.G.E. is the step-by-step process your AI agent follows for every task - from understanding what you want, to planning, building, protecting, and learning. Think of it as a master builder's workflow: measure twice, cut once, inspect the result.
@@ -29,6 +32,10 @@ You never need to say "use FORGE" - the agent follows it automatically. Every fe
 - If a step fails, STOP and report - never skip ahead.
 
 ---
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- THE CYCLE                                          -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## The F.O.R.G.E. Cycle
 
@@ -109,6 +116,10 @@ You never need to say "use FORGE" - the agent follows it automatically. Every fe
   - **S3 - Readability/Maintainability**: Cleaner abstractions, better naming, documentation gaps
 
 ---
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- QA & ANTI-PATTERNS                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## QA Checklist (Single Source of Truth)
 

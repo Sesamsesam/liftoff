@@ -1,185 +1,301 @@
 ---
 name: notebooklm-research
-description: "Use NotebookLM as a research assistant. Feed its outputs to the agent for grounded implementation."
-category: workflow
+description: "Connect to NotebookLM via MCP for grounded, citation-backed research directly from the agent."
 ---
 
 # NotebookLM Research
 
-> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
-
-## What Is This?
-
-An optional extension that defines how to use **Google NotebookLM** as a research companion alongside the Antigravity agent. NotebookLM excels at reading and synthesizing large amounts of information - entire books, research papers, documentation, even YouTube videos - into structured insights you can act on.
-
-This extension defines the handoff protocol: **NotebookLM researches, you share the output, the agent implements.**
-
-## Why Does It Exist?
-
-AI coding agents are great at writing code, but they have limits when it comes to deeply researching complex topics from multiple long-form sources simultaneously. Think about it:
-
-- The agent can't watch a 2-hour conference talk and extract the key architecture decisions
-- The agent can't read 5 research papers side-by-side and compare their approaches
-- The agent can't process an entire technical book and pull out what's relevant to your project
-
-**NotebookLM fills this gap.** You feed it your sources, ask it questions, and it produces structured summaries grounded in those sources - with inline citations so you can verify everything. Then you hand that output to the agent, and it turns research into real code.
-
----
+> **You don't need to do any of this manually.** The agent handles setup and usage automatically. If it needs you to do something (like logging in), it will tell you exactly what and when.
 
 ## What Is NotebookLM?
 
-NotebookLM is a free AI tool from Google specifically designed for research. Unlike ChatGPT or other general-purpose AI, NotebookLM:
+A free AI research tool from Google. Unlike general AI, NotebookLM **only answers from your uploaded sources** - no hallucinations, every answer cited. It handles PDFs, Google Docs, URLs, YouTube, Slides, and Sheets. Free tier: 50 sources per notebook, 500K words each (roughly 5-6 full novels per source). Paid tiers unlock 300 sources and higher-quality audio.
 
-- **Only uses your sources** - it doesn't make things up from general knowledge
-- **Cites everything** - every answer links back to the exact passage in your document
-- **Handles massive inputs** - up to 50 sources per notebook, 500,000 words each
-- **Produces diverse outputs** - summaries, study guides, FAQs, timelines, mind maps, and even audio discussions
-
-### What You Can Upload
-
-| Source Type | Examples |
-|---|---|
-| **Documents** | PDFs, Google Docs, Word files, text files, Markdown |
-| **Web** | URLs to articles, blog posts, documentation |
-| **Media** | YouTube video URLs, audio files |
-| **Presentations** | Google Slides |
-| **Data** | Google Sheets, images |
-
-### What It Can Create
-
-| Output | What It Is |
-|---|---|
-| **Summaries** | Condensed overviews of complex documents |
-| **Study guides** | Key concepts, glossary, short-answer questions |
-| **FAQs** | Common questions answered from your sources |
-| **Timelines** | Chronological breakdowns of events or progressions |
-| **Mind maps** | Visual maps of how concepts relate |
-| **Audio overviews** | Two-voice podcast-style discussions about your content |
-| **Structured tables** | Raw information organized into exportable tables |
+It can produce reports, mind maps, audio discussions, quizzes, flashcards, slide decks, and structured data tables - all grounded in your documents.
 
 ---
 
-## Activation
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- AGENT SETUP - The user can ignore everything below -->
+<!-- until the "Automated Workflow" section.            -->
+<!-- ═══════════════════════════════════════════════════ -->
 
-- Enable in `~/.gemini/settings/extensions.json`: `"notebooklm-research": true`
-- Triggered when you share NotebookLM output or say "I researched this in NotebookLM"
-- Also activates when you ask questions that benefit from deep, multi-source research
+## MCP Setup (Agent-Only)
+
+> [!NOTE]
+> **Users can skip this section.** The agent reads these instructions to auto-install and configure everything. You only need to act when the agent explicitly asks you.
+
+### Prerequisites
+
+- **uv** (Python package manager) - auto-installed if missing
+- **Google Chrome** - required for one-time browser authentication
+- **A Google account** with access to [notebooklm.google.com](https://notebooklm.google.com)
+
+### Installation
+
+```bash
+uv tool install notebooklm-mcp-cli    # Install CLI + MCP
+nlm login                              # One-time auth (opens Chrome)
+nlm doctor                             # Verify connection
+```
+
+- Credentials: `~/.notebooklm-mcp-cli/profiles/default`
+- If auto mode fails: `nlm login --manual --file cookies.txt`
+- **Never share or commit the credentials directory**
+
+### MCP Config
+
+Add to `~/.gemini/antigravity/mcp_config.json`:
+
+```json
+"notebooklm": {
+  "command": "uvx",
+  "args": ["--from", "notebooklm-mcp-cli", "notebooklm-mcp"]
+}
+```
+
+This gives the agent 29 native MCP tools. **Always prefer MCP tools over CLI commands.**
+
+> [!IMPORTANT]
+> **Context window warning:** 29 tools is a lot. Disable this MCP when not actively using NotebookLM.
+
+### Auto-Setup Behavior
+
+When this extension is activated and setup hasn't been completed:
+
+1. Check `which uv` - install if missing
+2. Check `which nlm` - install via `uv tool install notebooklm-mcp-cli` if missing
+3. Check MCP config for `"notebooklm"` entry - add if missing
+4. Check auth via `nlm login --check` - guide user through `nlm login` if needed
+5. Verify with `nlm doctor`
+6. Inform user to reload IDE so MCP tools become available
 
 ---
 
-## The Research-to-Production Pipeline
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- AUTOMATED WORKFLOW - This is the core skill.       -->
+<!-- ═══════════════════════════════════════════════════ -->
 
-### Step 1: Research (You + NotebookLM)
+## Automated Workflow
 
-Go to [notebooklm.google.com](https://notebooklm.google.com) and create a new notebook. Upload the sources relevant to your project. Then ask questions.
+**Every time you do deep research, this loop runs automatically:**
 
-**Example research questions:**
+1. **Start** - Launch research across notebooks
+2. **Poll** - Wait for completion
+3. **Import** - Auto-import all discovered sources
+4. **Summarize** - Show completion stats
+5. **Curate + Report** *(offered, not automatic)* - Filter to top-quality sources, generate consensus-driven reports
+6. **Brain Update** - Refresh `notebooklm-brain.md`
 
-| Scenario | What to Ask NotebookLM |
-|---|---|
-| Building auth | "What are the best practices for implementing auth in Convex?" |
-| Choosing a tool | "Compare these 3 payment providers for a SaaS app" |
-| Learning patterns | "Summarize the key patterns from this architecture book" |
-| API integration | "What are the rate limits and gotchas for this API?" |
-| Tech decision | "What are the trade-offs between SSR and CSR for my use case?" |
-
-**Pro tip:** Be specific with your questions. Instead of "tell me about auth," ask "what are the security best practices for session-based auth in a serverless environment?"
-
-### Step 2: Extract (You)
-
-Copy NotebookLM's structured output - bullet points, comparisons, tables, or recommendations. The more structured the output, the better the agent can use it.
-
-**Good outputs to copy:**
-- Comparison tables between options
-- Ordered lists of best practices
-- Step-by-step implementation guides
-- Lists of gotchas and edge cases
-- Architecture recommendations
-
-### Step 3: Hand Off (You to Agent)
-
-Paste the output into your conversation with the agent, along with context:
-
-```
-Here's what I found in NotebookLM about [topic].
-Use this to inform our implementation of [feature].
-```
-
-Or be more specific:
-
-```
-NotebookLM compared 3 payment providers. Based on this research,
-I want to go with Stripe. Here are the integration patterns it found:
-[paste research]
-```
-
-### Step 4: Ground and Verify (Agent)
-
-The agent reads your research critically. It does NOT blindly apply everything. Instead, it:
-
-1. **Reads** the research output carefully
-2. **Cross-references** with existing skills, project patterns, and conventions
-3. **Identifies** what's relevant to the current implementation
-4. **Flags contradictions** if the research recommends something that conflicts with your project
-5. **Implements** with the research as informed context, not as gospel
-
-### Step 5: Implement (Agent)
-
-Normal F.O.R.G.E. cycle proceeds, with the research serving as grounding context for design decisions. The agent cites the research when making choices: "Based on your NotebookLM research, I'm using approach X because..."
+*(Without this skill, you'd manually import sources, clean up failures, and request reports every single time. Now it's automatic.)*
 
 ---
 
-## Advanced NotebookLM Workflows
+### Step 1: Start Research
 
-### The Deep Research Feature
+```
+research_start(notebook_id, query, source="web", mode="deep"|"fast")
+```
 
-NotebookLM has a built-in "Deep Research" mode that acts like a dedicated research assistant. It can:
+- **Deep** (~5 min, ~40-80 sources): comprehensive research
+- **Fast** (~30s, ~10 sources): quick lookups
 
-- Create an automated research plan from a question
-- Browse and synthesize information from multiple online sources
-- Produce detailed reports with citations
-- Recommend related articles and resources
+For multiple notebooks, launch all `research_start` calls in parallel.
 
-This is useful when you need background research before even knowing what sources to upload.
+### Step 2: Poll Until Complete
 
-### Audio Overviews for Learning
+```
+research_status(notebook_id, query="<original query>", poll_interval=30, max_wait=300)
+```
 
-NotebookLM can generate podcast-style audio discussions about your sources. This is perfect for:
+- Always use `query` for matching (task IDs change during deep research)
+- If `max_wait` expires while still `in_progress`, poll again
+- Poll multiple notebooks in parallel
 
-- Learning about a new technology while away from your desk
-- Getting a high-level understanding before diving into the details
-- Reviewing complex architecture decisions in a conversational format
+### Step 3: Auto-Import Sources
 
-### Custom Expert Personas
+```
+research_import(notebook_id, task_id)
+```
 
-You can set up custom AI personas in NotebookLM with specific instructions. For example:
+- Call **immediately** when status returns `completed`
+- Import all sources by default (omit `source_indices`)
+- Import each notebook as it completes - don't wait for all
 
-- "You are a senior security engineer reviewing this architecture"
-- "You are a database performance expert analyzing these query patterns"
-- "You are a UX researcher evaluating these design decisions"
+> [!IMPORTANT]
+> **Always auto-import.** Never leave research in "completed but not imported" state.
 
-This produces more targeted and useful analysis than generic queries.
+### Step 4: Completion Summary
 
----
+Dynamically pull data from `notebook_list` and present:
 
-## Common Use Cases with Antigravity
+```
+## Research Complete
 
-| Scenario | NotebookLM Does | Agent Does |
+| Notebook | Sources | Link |
 |---|---|---|
-| **Learn a new API** | Read the docs, extract key patterns and gotchas | Implement the integration following those patterns |
-| **Choose between options** | Compare 3-5 alternatives with pros/cons | Implement the chosen option correctly |
-| **Understand a codebase** | Analyze architecture docs and READMEs | Apply the patterns to your project |
-| **Security review** | Research best practices for your stack | Implement security following those practices |
-| **Design system** | Research UI/UX patterns from design articles | Build components following the design principles |
+| [Title] | [count] | [url] |
+| **Total** | **[sum]** | |
+
+### Actions Taken
+1. Created [N] notebooks with targeted research prompts
+2. Launched deep research across all notebooks
+3. Polled until all research completed
+4. Auto-imported all discovered sources
+
+All [N] notebooks are ready to query.
+```
+
+Always use live data - never hard-code numbers.
+
+### Step 5: Source Curation + Report Generation (On-Demand)
+
+After the summary, **offer** this step:
+
+> "Want me to curate sources and generate a comprehensive report for each notebook?"
+
+If agreed, run sub-steps **for each notebook independently** in sequence.
+
+#### 5a. Source Curation
+
+Use `notebook_query` to have NotebookLM classify its own sources (it has already parsed every word of every source).
+
+**Curation query:**
+
+```
+Classify every source in this notebook. For each source, provide:
+1. Source title
+2. Publication year (or best estimate)
+3. Source credibility tier:
+   - TIER_1: Primary research institutions, academic papers, government reports, major consultancies, or any organization that conducted original research with documented methodology
+   - TIER_2: Established journalism outlets with editorial oversight, official company filings, earnings reports, or industry body publications
+   - TIER_3: Blogs, forums, social media, opinion pieces, listicles, content aggregators, or sources with no clear institutional backing
+4. Data quality: ORIGINAL (contains its own data, surveys, experiments, or first-hand analysis) or DERIVATIVE (summarizes, repackages, or comments on other sources)
+
+Be strict. If unsure about credibility, default to TIER_3. Format as a numbered list.
+```
+
+**Keep/Remove rules:**
+- **Keep:** TIER_1 + ORIGINAL from the current year
+- **Keep:** TIER_2 + ORIGINAL from the current year
+- **Keep:** TIER_1 + DERIVATIVE only if the original source is NOT already present
+- **Remove:** All TIER_3 sources
+- **Remove:** Anything older than 12 months
+- **Remove:** DERIVATIVE sources when a higher-tier ORIGINAL covering the same findings exists
+
+**Present keep/remove lists to the user for confirmation before deleting.** Delete confirmed sources with `source_delete(source_id, confirm=True)`.
+
+#### 5b. Consensus Analysis
+
+Query each notebook to map agreement vs. conflict:
+
+```
+Analyze the remaining sources for consensus and conflict:
+1. What key findings do MULTIPLE sources agree on? List each and note how many sources support it.
+2. Are there claims where sources directly contradict each other? List each conflict with the disagreeing sources.
+3. Any outlier predictions supported by only a single source?
+
+Focus on substantive claims, not stylistic differences.
+```
+
+This consensus map guides report structure:
+- **Consensus findings** become the main body
+- **Conflicts** are isolated into an appendix
+- **Single-source outliers** are noted as "worth monitoring"
+
+#### 5c. Report Generation
+
+Ask **one focusing question** before generating:
+
+> "I'm about to generate a report for each notebook ([list titles]). Any specific angle, or should I go broad?"
+
+**Generate per notebook using `studio_create`:**
+
+```python
+# Run for EACH notebook individually
+studio_create(
+    notebook_id="[current notebook ID]",
+    artifact_type="report",
+    report_format="Create Your Own",
+    custom_prompt="""Create a comprehensive, consensus-driven report. Follow this structure:
+
+    (1) EXECUTIVE OVERVIEW - Landscape summary based on majority source agreement.
+
+    (2) CONSENSUS FINDINGS - Main body. Only findings supported by 2+ sources. Organize thematically, not by source. Cite all supporting sources inline. Must read as one coherent narrative.
+
+    (3) SUPPORTING DATA - Key statistics and projections reinforcing consensus. Cite origins.
+
+    (4) FORWARD-LOOKING OUTLOOK - Converging predictions. Note confidence (strong consensus vs. emerging trend).
+
+    (5) CONTESTED AREAS (appendix) - Separated from main narrative. Each conflict: what each side claims, which sources support each position.
+
+    (6) OUTLIER SIGNALS (appendix) - Single-source claims lacking corroboration. Present as "worth monitoring."
+
+    Main body (1-4) must be unified with no contradictions. All disagreements in 5-6 only.""",
+    confirm=True
+)
+```
+
+Each notebook's report becomes the **foundation** for downstream studio artifacts (audio, quizzes, slides, etc.).
+
+After all reports are generated, update `notebooklm-brain.md`.
 
 ---
 
-## Rules for the Agent
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- AGENT BEHAVIORS - Rules the agent always follows   -->
+<!-- when this extension is active.                     -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+## Agent Behaviors
+
+### Core Rules
 
 - **Never blindly copy** NotebookLM suggestions into code - evaluate first
 - **Cross-reference** with existing project conventions and skills
-- **Flag conflicts** if NotebookLM recommends something contradicting the project's patterns
-- **Cite the source** when making decisions informed by the research: "Based on the NotebookLM research, I'm using X because..."
-- **Ask clarifying questions** if the research output is ambiguous or contradictory
-- **Prefer the project's existing conventions** over research suggestions when they conflict, unless the user explicitly wants to change course
-- **Suggest NotebookLM** when the user asks about topics that would benefit from deep, multi-source research that's beyond what the agent can do in a conversation
+- **Flag conflicts** if NotebookLM contradicts the project's patterns
+- **Cite the source**: "Based on the NotebookLM research, I'm using X because..."
+- **Prefer project conventions** over research suggestions unless the user wants to change
+- **Suggest NotebookLM** for topics that benefit from deep, multi-source research
+
+### NotebookLM Brain Overview
+
+The agent MUST maintain a `notebooklm-brain.md` file at the **project root** whenever NotebookLM is used.
+
+**When to create/update:**
+- After any deep research workflow completes
+- After creating/deleting notebooks or adding/removing sources
+- On first use of NotebookLM in a new project (scan ALL existing notebooks)
+
+**How to build:**
+1. `notebook_list` to get all notebooks
+2. For each: title, URL, source count, creation date
+3. `notebook_describe` for AI-generated summaries
+4. Write to project root as `notebooklm-brain.md`
+
+**Format:**
+```markdown
+# NotebookLM Brain
+
+> Auto-generated overview of all NotebookLM notebooks.
+> Last updated: [date]
+
+---
+
+## [Notebook Title]
+
+[notebook_describe summary paragraph]
+
+- **Sources:** [count]
+- **Created:** [date]
+- **Open:** [url]
+
+---
+
+*[N] notebooks / [total] sources*
+```
+
+**Formatting rules:** One notebook per section, `---` dividers, summary as flowing paragraph, metadata on separate lines, no dense tables, italic footer with totals.
+
+> [!IMPORTANT]
+> This is a **living document**. Update in place - don't recreate. Always include ALL notebooks.

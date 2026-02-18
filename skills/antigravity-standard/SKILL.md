@@ -1,12 +1,15 @@
 ---
 name: antigravity-standard
 description: "Meta-skill: the standard format for writing new Antigravity skills. Use this when creating or evaluating skills."
-category: meta
 ---
 
 # Antigravity Standard
 
-> **🤖 You don't need to do any of this manually.** This guide explains how this tool works so you can learn and understand it. But the agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+> **🤖 You don't need to do any of this manually.** The agent handles setup and usage automatically. If it ever needs you to do something, it will tell you exactly what and when.
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- USER OVERVIEW                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## What Is This?
 The template and quality standard for writing new skills. Every skill in the Antigravity ecosystem must follow this format. Use this skill when creating a new skill or evaluating whether an existing one meets the bar.
@@ -22,6 +25,10 @@ Without a standard, skills would have inconsistent formats, missing sections, an
 
 ---
 
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TEMPLATE                                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+
 ## Required Sections
 
 Every skill MUST have:
@@ -31,7 +38,6 @@ Every skill MUST have:
 ---
 name: skill-name-kebab-case
 description: "One-line description. What does this skill enable?"
-category: code-quality | design | workflow | setup | meta
 ---
 ```
 
@@ -66,6 +72,10 @@ Match instruction format to how much flexibility the agent has:
 > If an agent could reasonably interpret the instruction 3 different ways, you need a code block or command - not a bullet.
 
 ---
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- QUALITY                                            -->
+<!-- ═══════════════════════════════════════════════════ -->
 
 ## Quality Bar
 

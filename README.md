@@ -139,7 +139,7 @@ You can delete the `liftoff` folder whenever you want - it already did its job.
 |---|---|---|
 | `cloudflare-mcp` | Builder+ | Deploy to the web, manage databases and storage via Cloudflare |
 | `orbit-planning` | Researcher+ | O.R.B.I.T. - Deep Professional Project Planning before you build |
-| `notebooklm-research` | Researcher+ | Research-to-Production pipeline with NotebookLM and how to connect Antigravity |
+| `notebooklm-research` | Researcher+ | Connect to NotebookLM via MCP for grounded, citation-backed research directly from the agent |
 | `extended-git` | Full | Graphite stacked PRs + Greptile AI code review |
 | `beads-workflow` | Full | Cross-session context persistence |
 | `firecrawl` | Builder+ | Scrape, crawl, and convert any website to clean structured data |
