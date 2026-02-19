@@ -85,7 +85,7 @@ When this extension is activated and setup hasn't been completed:
 3. **Import** - Auto-import all discovered sources
 4. **Summarize** - Show completion stats
 5. **Curate + Report** *(offered, not automatic)* - Filter to top-quality sources, generate consensus-driven reports
-6. **Brain Update** - Refresh `notebooklm-brain.md`
+6. **Brain Update** - Refresh `research/index.md`
 
 *(Without this skill, you'd manually import sources, clean up failures, and request reports every single time. Now it's automatic.)*
 
@@ -238,7 +238,40 @@ studio_create(
 
 Each notebook's report becomes the **foundation** for downstream studio artifacts (audio, quizzes, slides, etc.).
 
-After all reports are generated, update `notebooklm-brain.md`.
+#### 5d. Download Reports Locally
+
+After all reports are generated, **download each report** into the project's `research/reports/` folder:
+
+```python
+# Try API download first
+download_artifact(
+    notebook_id="[notebook ID]",
+    artifact_type="report",
+    output_path="research/reports/[slug]_briefing.md"
+)
+```
+
+**If `download_artifact` fails** (e.g. "not supported for async download"), use the fallback:
+
+```python
+# Fallback: extract report content via notebook_query
+notebook_query(
+    notebook_id="[notebook ID]",
+    query="Reproduce the full text of the Briefing Doc report that was just generated, preserving all headings, citations, and formatting."
+)
+# Save the response text as research/reports/[slug]_briefing.md
+```
+
+**Naming convention:** lowercase slug from notebook title + `_briefing.md`:
+- `fortune500_briefing.md`
+- `workforce_displacement_briefing.md`
+- `upskilling_briefing.md`
+- `ai_frameworks_briefing.md`
+
+> [!IMPORTANT]
+> **Always download reports.** The research is not complete until report files exist in `research/reports/`.
+
+After all reports are downloaded, update `research/index.md`.
 
 ---
 
@@ -258,44 +291,56 @@ After all reports are generated, update `notebooklm-brain.md`.
 - **Prefer project conventions** over research suggestions unless the user wants to change
 - **Suggest NotebookLM** for topics that benefit from deep, multi-source research
 
-### NotebookLM Brain Overview
+### Research Folder Structure
 
-The agent MUST maintain a `notebooklm-brain.md` file at the **project root** whenever NotebookLM is used.
+The agent MUST maintain a `research/` folder at the **project root** whenever NotebookLM is used.
 
-**When to create/update:**
+```
+project-root/
+  research/
+    index.md          <- notebook index (was notebooklm-brain.md)
+    reports/
+      [slug]_briefing.md
+      [slug]_briefing.md
+```
+
+**When to create/update `research/index.md`:**
 - After any deep research workflow completes
 - After creating/deleting notebooks or adding/removing sources
 - On first use of NotebookLM in a new project (scan ALL existing notebooks)
 
 **How to build:**
-1. `notebook_list` to get all notebooks
-2. For each: title, URL, source count, creation date
-3. `notebook_describe` for AI-generated summaries
-4. Write to project root as `notebooklm-brain.md`
+1. Create `research/` and `research/reports/` directories if they don't exist
+2. `notebook_list` to get all notebooks
+3. For each: title, URL, source count, creation date
+4. `notebook_describe` for AI-generated summaries
+5. Write to `research/index.md`
 
 **Format:**
 ```markdown
-# NotebookLM Brain
+# Research Index
 
-> Auto-generated overview of all NotebookLM notebooks.
+> Auto-generated overview of all research notebooks.
 > Last updated: [date]
 
 ---
 
 ## [Notebook Title]
 
-[notebook_describe summary paragraph]
-
+- **ID:** `[notebook_id]`
 - **Sources:** [count]
-- **Created:** [date]
-- **Open:** [url]
+- **Report:** "[report title]" (if generated)
+- **URL:** [url]
+- **Key sources:** [list of major source institutions]
+- **Consensus findings:** [brief summary]
+- **Key conflict:** [brief summary]
 
 ---
 
 *[N] notebooks / [total] sources*
 ```
 
-**Formatting rules:** One notebook per section, `---` dividers, summary as flowing paragraph, metadata on separate lines, no dense tables, italic footer with totals.
+**Formatting rules:** One notebook per section, `---` dividers, metadata on separate lines, consensus/conflict summaries when available, italic footer with totals.
 
 > [!IMPORTANT]
 > This is a **living document**. Update in place - don't recreate. Always include ALL notebooks.

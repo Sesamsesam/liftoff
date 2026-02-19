@@ -30,25 +30,8 @@ echo "  ║   Enterprise-grade AI coding guardrails   ║"
 echo "  ╚═══════════════════════════════════════════╝"
 echo -e "${NC}"
 
-# ─── Profile Selection ───
-echo -e "${BLUE}Choose your profile:${NC}"
-echo ""
-echo "  1) ${GREEN}Starter${NC}    - Core AI skills and workflows (recommended)"
-echo "  2) ${BLUE}Builder${NC}    - 1 + deploy to the web, manage databases and storage via Cloudflare"
-echo "  3) ${YELLOW}Researcher${NC} - 1 + 2 + deep research pipelines and strategic project planning"
-echo "  4) ${PURPLE}Full${NC}       - Everything enabled"
-echo ""
-read -rp "Enter 1, 2, 3, or 4 [default: 1]: " PROFILE
-PROFILE=${PROFILE:-1}
-
-# ─── Validate ───
-if [[ ! "$PROFILE" =~ ^[1-4]$ ]]; then
-  echo -e "${RED}Invalid selection. Please run again and choose 1, 2, 3, or 4.${NC}"
-  exit 1
-fi
-
 # ─── Create directories ───
-echo -e "\n${BLUE}Creating directories...${NC}"
+echo -e "${BLUE}Creating directories...${NC}"
 mkdir -p "$SKILLS_DIR"
 mkdir -p "$WORKFLOWS_DIR"
 mkdir -p "$SETTINGS_DIR"
@@ -61,13 +44,13 @@ if [ -f "$GEMINI_DIR/GEMINI.md" ]; then
   cp "$GEMINI_DIR/GEMINI.md" "$GEMINI_DIR/$BACKUP_NAME"
 fi
 
-# ─── Install Core Identity (Phase 1) ───
+# ─── Install Core Identity ───
 echo -e "${GREEN}Installing core identity...${NC}"
 cp "$SCRIPT_DIR/global/GEMINI.md" "$GEMINI_DIR/GEMINI.md"
 cp "$SCRIPT_DIR/settings/extensions.json" "$SETTINGS_DIR/extensions.json"
 
-# ─── Install Skills (Phase 2) ───
-echo -e "${GREEN}Installing skills...${NC}"
+# ─── Install Core Skills ───
+echo -e "${GREEN}Installing core skills...${NC}"
 CORE_SKILLS=("forge-methodology" "security-guardian" "error-handling" "git-flow" "brand-identity" "stack-pro-max" "antigravity-standard")
 
 for skill in "${CORE_SKILLS[@]}"; do
@@ -76,12 +59,12 @@ for skill in "${CORE_SKILLS[@]}"; do
   echo "  ✓ $skill"
 done
 
-# ─── Install Workflows (Phase 3) ───
+# ─── Install Workflows ───
 echo -e "${GREEN}Installing workflows...${NC}"
 cp "$SCRIPT_DIR/workflows/init-project.md" "$WORKFLOWS_DIR/init-project.md"
 echo "  ✓ init-project"
 
-# ─── Install Setup Tasks (Phase 3.5) ───
+# ─── Install Setup Tasks ───
 echo -e "${GREEN}Installing setup tasks...${NC}"
 SETUP_TASKS=("package-manager")
 
@@ -91,47 +74,38 @@ for task in "${SETUP_TASKS[@]}"; do
   echo "  ✓ $task (will run on first session)"
 done
 
-# ─── Install Extensions (based on profile) ───
+# ─── Install Extensions (all start dormant) ───
 install_extension() {
   local ext_name="$1"
   mkdir -p "$EXTENSIONS_DIR/$ext_name"
   cp "$SCRIPT_DIR/extensions/$ext_name/SKILL.md" "$EXTENSIONS_DIR/$ext_name/SKILL.md"
-  echo "  ✓ $ext_name (installed, dormant - activate in extensions.json)"
+  echo "  ✓ $ext_name"
 }
 
-if [[ "$PROFILE" -ge 2 ]]; then
-  echo -e "${GREEN}Installing infrastructure extensions...${NC}"
-  install_extension "cloudflare-mcp"
-fi
-
-if [[ "$PROFILE" -ge 3 ]]; then
-  echo -e "${GREEN}Installing research extensions...${NC}"
-  install_extension "notebooklm-research"
-  install_extension "orbit-planning"
-fi
-
-if [[ "$PROFILE" -ge 4 ]]; then
-  echo -e "${GREEN}Installing advanced extensions...${NC}"
-  install_extension "extended-git"
-  install_extension "beads-workflow"
-fi
+echo -e "${GREEN}Installing extensions (all start dormant - activate when ready)...${NC}"
+EXT_COUNT=0
+for ext_dir in "$SCRIPT_DIR/extensions"/*/; do
+  ext_name=$(basename "$ext_dir")
+  install_extension "$ext_name"
+  EXT_COUNT=$((EXT_COUNT + 1))
+done
 
 # ─── Summary ───
 echo ""
 echo -e "${PURPLE}═══════════════════════════════════════════${NC}"
 echo -e "${GREEN}✅ Installation complete!${NC}"
 echo ""
-echo -e "  ${BLUE}Profile:${NC}        $([ "$PROFILE" = "1" ] && echo "Starter" || ([ "$PROFILE" = "2" ] && echo "Builder" || ([ "$PROFILE" = "3" ] && echo "Researcher" || echo "Full")))"
 echo -e "  ${BLUE}GEMINI.md:${NC}      $GEMINI_DIR/GEMINI.md"
 echo -e "  ${BLUE}Skills:${NC}         $SKILLS_DIR/ (${#CORE_SKILLS[@]} core skills)"
+echo -e "  ${BLUE}Extensions:${NC}     $SKILLS_DIR/ ($EXT_COUNT extensions, all dormant)"
 echo -e "  ${BLUE}Setup tasks:${NC}    $SETUP_DIR/ (${#SETUP_TASKS[@]} pending)"
 echo -e "  ${BLUE}Workflows:${NC}      $WORKFLOWS_DIR/"
-echo -e "  ${BLUE}Extensions:${NC}     $SETTINGS_DIR/extensions.json"
+echo -e "  ${BLUE}Settings:${NC}       $SETTINGS_DIR/extensions.json"
 echo ""
 echo -e "${YELLOW}Next steps:${NC}"
 echo "  1. Open any project and start a conversation with your AI agent"
-echo "  2. The agent will automatically follow F.O.R.G.E. methodology"
-echo "  3. To activate extensions, edit: $SETTINGS_DIR/extensions.json"
-echo "  4. When you activate an extension, the agent auto-installs its dependencies on first use"
+echo "  2. On first session, the agent will auto-detect your system and install developer tools"
+echo "  3. To activate extensions, set them to true in: $SETTINGS_DIR/extensions.json"
+echo "  4. The agent handles MCP setup and configuration when you activate an extension"
 echo ""
 echo -e "${PURPLE}═══════════════════════════════════════════${NC}"

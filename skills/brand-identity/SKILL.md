@@ -12,7 +12,7 @@ description: "Design tokens and CSS architecture for the Antigravity visual iden
 <!-- ═══════════════════════════════════════════════════ -->
 
 ## What Is This?
-A ready-to-use design system with CSS custom properties, utility classes, and theming rules. CSS is the visual design code that makes your build look good. Drop this into any project and immediately get a premium, cohesive visual identity.
+A ready-to-use design system with CSS custom properties, utility classes, and theming rules. CSS is the visual design code that makes your build look good. Drop this into any project and immediately get a premium, cohesive visual identity without having to describe it everytime, it's like a design template.
 
 ## Why Does It Exist?
 Without a design system, every project starts with random colors and inconsistent spacing. This gives the agent a concrete library so every UI looks intentional and polished.

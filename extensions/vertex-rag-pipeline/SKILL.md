@@ -5,13 +5,26 @@ description: "RAG Level 2 - Enterprise-grade RAG with Google Vertex AI, Cloud Ru
 
 # Vertex RAG Pipeline - RAG Level 2
 
-> Enterprise-grade RAG - Google Vertex AI + Cloud Run + BigQuery - for industries where precision is a legal requirement. Auditing, financial analysis, legal due diligence, healthcare compliance. Upload 50,000+ documents, connect massive numerical datasets via BigQuery, and get answers with grounding controls and confidence scoring.
+> This will literally allow you to build something that someone in your industry would pay a million dollars for, seriously. This is the enterprise-grade RAG system - Google Vertex AI + Cloud Run + BigQuery - for industries where precision isn't a nice-to-have, it's a legal and hyper professional requirement.
+
+Enterprise-grade RAG - Google Vertex AI + Cloud Run + BigQuery - for industries where precision is a legal requirement. Auditing, financial analysis, legal due diligence, healthcare compliance. Upload 50,000+ documents, connect massive numerical datasets via BigQuery, and get answers with grounding controls and confidence scoring.
 
 > [!IMPORTANT]
 > **Start with RAG Level 1 first.** Build `autorag-pipeline` (Level 1) first. It teaches RAG concepts on a free platform, and the frontend architecture transfers directly to Level 2. You're just swapping the backend brain.
 
 > [!NOTE]
 > **This skill is currently an outline.** Detailed implementation instructions will be added when we build (estimated: one month after Level 1 is complete).
+
+---
+
+## Why Level 2 Exists (when we got auto-rag lvl 1 with cloudflare?)
+
+RAG Level 1 (Cloudflare AutoRAG) is incredible for document search, knowledge bases, and general Q&A and it's great for businesses and use cases where there's room for either creativity or broad knowledge and assumptions where numbers, and very strict rules are not a requirement - rules and parameters where if you get it wrong there's not major professional consequences. That's not to say that Level 1 is not a serious tool for serious businesses, it's just that Level 2 with Vertex Rag is for businesses that need to be absolutely sure about their numbers and rules and typically businesses who work in regulated industries.
+
+**Summary:** 
+Level 1 is a text retrieval system that's easy to deploy, very fast to build and incredibly useful for many use cases. 
+
+Level 2 is a precision analysis platform that can handle both unstructured documents AND structured numerical data with enterprise compliance.
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- USER OVERVIEW                                      -->

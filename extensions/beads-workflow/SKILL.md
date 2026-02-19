@@ -97,7 +97,7 @@ Beads is a system-wide tool (like `git`). Do NOT clone the repo into your projec
 | **Script** | `curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh \| bash` | Any platform | Re-run script |
 | **Go** | `go install github.com/steveyegge/beads/cmd/bd@latest` | Go devs (1.24+) | Re-run command |
 
-> **New to Homebrew?** If you don't have it installed, check the Homebrew skill guide - it walks you through from scratch.
+> **New to Homebrew?** If you don't have it installed, check the Homebrew skill guide - it walks you through from scratch just ask you agent to look at it.
 
 ### Step 2: Verify
 

@@ -24,7 +24,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | ⚔️ **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | ⚡ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
-| 🔌 **8 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, web scraping, live documentation, Google Cloud, and session memory so your AI remembers yesterday |
+| 🔌 **9 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, minibook creation, web scraping, live documentation, Google Cloud, and session memory so your AI remembers yesterday |
 | 🏆 **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 
@@ -64,30 +64,21 @@ chmod +x install.sh
 <details>
 <summary><strong>What happens when you run this?</strong></summary>
 
-The installer runs a 5-phase setup that takes about 30 seconds:
+The installer copies everything to `~/.gemini/` in about 30 seconds:
 
-1. **Profile selection** - Choose Starter, Builder, Researcher, or Full (see table below)
-2. **Core identity** - Installs `GEMINI.md` (global rules) and `extensions.json` (activation settings) to `~/.gemini/`
-3. **7 core skills** - Copies the essential skills (F.O.R.G.E., security, error handling, git, brand identity, tech stack, skill template) to `~/.gemini/skills/`
-4. **Workflows** - Installs the `init-project` workflow for scaffolding new projects
-5. **Setup tasks** - Registers one-time tasks (like package manager detection) that run automatically on your first Antigravity session
-6. **Extensions** - Installs optional extensions based on your chosen profile. All extensions start **dormant** - they're available but inactive until you enable them in `extensions.json` (symlinks to `~/.gemini/skills/` for every new project so you have a visual overview of what's available) | note: A symlink is a file or directory that points to another file or directory. It's a way to create a link between two files or directories.
+1. **Core identity** - Installs `GEMINI.md` (global rules) and `extensions.json` (activation settings)
+2. **7 core skills** - F.O.R.G.E., security, error handling, git, brand identity, tech stack, and skill template
+3. **Workflows** - The `init-project` workflow for scaffolding new projects
+4. **Setup tasks** - One-time tasks (developer tools detection) that run automatically on your first session
+5. **All extensions** - Every extension gets installed **dormant**, available but inactive until you turn them on in `extensions.json`
 
 Nothing runs in the background. Nothing phones home. Everything stays in `~/.gemini/` on your machine.
 
 </details>
 
-Choose your profile when prompted:
+**After the install**, you're set up globally. Every new Antigravity session, in any project, anywhere on your machine, will have these skills and extensions available.
 
-| Profile | What You Get |
-|---|---|
-| **1. Starter** | Core AI skills and workflows (recommended for most users) |
-| **2. Builder** | 1 + deploy to the web, manage databases and storage via Cloudflare |
-| **3. Researcher** | 1 + 2 + deep research pipelines and strategic project planning |
-| **4. Full** | Everything enabled |
-
-
-**After the install**, you're set up globally. Every new Antigravity session - in any project, anywhere on your machine - will have these skills active.
+On your **first session**, the agent auto-detects your system and installs developer tools (brew, bun, git, GitHub CLI) if needed. No manual configuration required.
 
 > [!TIP]
 > **Using cloud agents?** (OpenClaw, Cursor Cloud, Cloud Code for Web, etc.)
@@ -135,16 +126,19 @@ You can delete the `liftoff` folder whenever you want - it already did its job.
 
 ### 🔌 Extensions (Opt-In)
 
-| Extension | Profile | What It Does |
-|---|---|---|
-| `cloudflare-mcp` | Builder+ | Deploy to the web, manage databases and storage via Cloudflare |
-| `orbit-planning` | Researcher+ | O.R.B.I.T. - Deep Professional Project Planning before you build |
-| `notebooklm-research` | Researcher+ | Connect to NotebookLM via MCP for grounded, citation-backed research directly from the agent |
-| `extended-git` | Full | Graphite stacked PRs + Greptile AI code review |
-| `beads-workflow` | Full | Cross-session context persistence |
-| `firecrawl` | Builder+ | Scrape, crawl, and convert any website to clean structured data |
-| `context7` | Builder+ | Always up-to-date library docs so the agent never uses outdated APIs |
-| `google-cloud` | Builder+ | Google Cloud Run deployment + Vertex AI model access |
+All extensions are installed dormant. Activate any of them by setting to `true` in `~/.gemini/settings/extensions.json`.
+
+| Extension | What It Does |
+|---|---|
+| `cloudflare-mcp` | Deploy to the web, manage databases and storage via Cloudflare |
+| `orbit-planning` | O.R.B.I.T. - Deep Professional Project Planning before you build |
+| `notebooklm-research` | Connect to NotebookLM via MCP for grounded, citation-backed research directly from the agent |
+| `minibook-pipeline` | End-to-end minibook creation: write from research, generate chapter imagery, publish to Notion |
+| `extended-git` | Graphite stacked PRs + Greptile AI code review |
+| `beads-workflow` | Cross-session context persistence |
+| `firecrawl` | Scrape, crawl, and convert any website to clean structured data |
+| `context7` | Always up-to-date library docs so the agent never uses outdated APIs |
+| `google-cloud` | Google Cloud Run deployment + Vertex AI model access |
 
 
 <details>
@@ -313,7 +307,8 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── firecrawl/SKILL.md             # (extension)
 │   ├── context7/SKILL.md              # (extension)
 │   ├── google-cloud/SKILL.md          # (extension)
-│   └── notebooklm-research/SKILL.md   # (extension)
+│   ├── notebooklm-research/SKILL.md   # (extension)
+│   └── minibook-pipeline/SKILL.md     # (extension)
 └── workflows/
     └── init-project.md                # Project scaffolding
 ```
