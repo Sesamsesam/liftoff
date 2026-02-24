@@ -9,6 +9,13 @@ Whether you're in finance, marketing, sales, design, or deep in code, this is th
 
 ---
 
+**This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** 
+One install, and your AI agent goes from a blank slate to a guided, battle-tested expert loaded with tools, ammo and best practices.
+
+Think of it like this: Antigravity on its own is like going on an expedition with a map, a compass, a first aid kit, and the world's best wilderness expert to guide you. It's great... but it's not everything you need to move faster, with more accuracy, more confidence, and least risk.
+
+With Liftoff, you get a satellite radio, GPS, a mobile kitchen and stove, medical supplies, mechanic-tools, and a jeep all loaded into a helicopter to follow your expedition - you and your wilderness expert now control the expedition from a mobile command center, with greater comfort, speed and power. The difference in the distance you can cover is big.
+
 ## What Is This?
 
 The world changed. AI is no longer a tool reserved for engineers - it's the new operating layer for every professional. Accountants are automating reports. Salespeople are building custom CRMs. Marketers are spinning up landing pages before lunch. Video editors are programmatically creating their vids.
@@ -17,13 +24,12 @@ The professionals who thrive in the next decade won't be the ones who learned to
 
 That's what Antigravity is - an AI-powered workspace where you talk to an intelligent agent, and it builds, searches, connects, and automates on your behalf. You don't need to memorize syntax or understand server architecture. You describe what you want, and the agent handles the rest.
 
-**This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** One install, and your AI agent goes from a blank slate to a guided, battle-tested partner loaded with tools, ammo and best practices:
 
 
 | What You Get | Why It Matters |
 |---|---|
 | ⚔️ **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
-| ⚡ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
+| ⚡ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and a template for creating your own |
 | 🔌 **7 optional extensions** | Cloudflare infrastructure, RAG document chat, strategic project planning, research pipelines, minibook creation, web scraping, and session memory so your AI remembers yesterday |
 | 🏆 **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
@@ -36,9 +42,9 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 <br>
 No more boilerplate security setups, no more forgotten <code>.gitignore</code> files, no more explaining your stack to a new AI session. This is the upgrade that makes your agent feel like a senior engineer instead of an intern.
 <br><br>
-But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://graphite.dev">Graphite</a> (stacked PRs that make your Git workflow feel like it's from the future), and <a href="https://github.com/steveyegge/beads">Beads</a> (session persistence by Steve Yegge, ex-Google and ex-Amazon, so your AI never forgets what you worked on).
+But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://github.com/steveyegge/beads">Beads</a> (session persistence by Steve Yegge, ex-Google and ex-Amazon, so your AI never forgets what you worked on), and <a href="https://www.firecrawl.dev/">Firecrawl</a> (scrape, crawl, and convert any website to clean data for your agent). More advanced tools like <a href="https://graphite.dev">Graphite</a> (stacked PRs) and Google Cloud Vertex AI are coming soon.
 <br><br>
-It also wires up MCP connections to <a href="https://docs.convex.dev">Convex MCP</a>, <a href="https://developers.cloudflare.com/agents/guides/remote-mcp-server/">Cloudflare MCP</a> (D1, R2, Workers, AI Gateway, AutoRAG), <a href="https://cloud.google.com/run">Google Cloud Run & Vertex AI</a>, and <a href="https://www.firecrawl.dev/">Firecrawl</a> (scrape, crawl, and convert any website to clean data for your agent) - plus research pipelines that turn NotebookLM into a grounded implementation engine.
+It also wires up MCP connections to <a href="https://docs.convex.dev">Convex MCP</a>, <a href="https://developers.cloudflare.com/agents/guides/remote-mcp-server/">Cloudflare MCP</a> (D1, R2, Workers, AI Gateway, AutoRAG), and <a href="https://www.firecrawl.dev/">Firecrawl</a> - plus research pipelines that turn NotebookLM into a grounded implementation engine.
 <br><br>
 The landscape moves fast, and some of the sharpest people still run outdated stacks simply because they haven't had time to explore what's new. This closes that gap instantly.
 <br><br>
@@ -168,7 +174,7 @@ The agent walks you through 5 phases:
 </details>
 
 
-Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Cloudflare, Convex, Firecrawl, or Google Cloud).
+Some extensions connect to third-party tools through **MCP servers** (think of them as bridges between Antigravity and external services like Cloudflare, Convex, and Firecrawl).
 
 Every extension comes with a **complete setup guide built in** - you don't need to hunt for documentation. 🫰
 
@@ -238,7 +244,7 @@ my-project/
 
 ## How Skills Work
 
-> **Important:** Every skill and extension is written as documentation so you can learn what each tool does and how it works if it interest you (I recommend reading the skills if you want to become GREAT at AI and Antigravity, but it's not needed for you to use any of this if you don't want to). 
+> **Important:** Every skill and extension is written as documentation so you can learn what each tool does and how it works if it interests you (I recommend reading the skills if you want to become GREAT at AI and Antigravity, but it's not needed for you to use any of this if you don't want to).
 
 You never need to set anything up yourself. The agent reads these guides and handles installation, configuration, and usage automatically. If there's ever a step that requires your input (like creating an account or entering a password), the agent will tell you exactly what to do and when.
 
