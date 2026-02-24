@@ -106,3 +106,20 @@
 - If credential rotation tracking exists: check dates, warn if overdue
 - Check `.gitignore` includes `.env*` if project has a `.env` file
 - On first session with new project: verify Git init and `.gitignore` hygiene
+
+## Cloud Agent Support
+- When the user says they're using a cloud agent (OpenClaw, Cursor Cloud, Cloud Code for Web, etc.), skills must be **copied** into the project because cloud servers don't have access to `~/.gemini/`
+- Run these steps automatically:
+  1. `cp -r ~/.gemini/skills/ .gemini/skills/`
+  2. `cp ~/.gemini/GEMINI.md .gemini/GEMINI.md`
+  3. `cp -r ~/.gemini/settings/ .gemini/settings/`
+  4. If symlinks from `init-project` already exist, replace them with the actual files
+  5. Add `.gemini/skills/`, `.gemini/GEMINI.md`, and `.gemini/settings/` to `.gitignore` unless the user wants them committed
+- Tell the user: "Copied your skills into the project so your cloud agent can see them."
+- This only needs to happen once per project
+
+## Cross-Platform Support
+- **macOS/Linux**: Use `ln -s` for symlinks (default behavior)
+- **Windows**: Use `mklink /J` for directory junctions and `mklink /H` for file hard links instead of `ln -s`. These work without admin privileges
+- If junctions or hard links fail on Windows, fall back to **copies** and inform the user
+- On `init-project`, detect the OS and use the correct linking method automatically

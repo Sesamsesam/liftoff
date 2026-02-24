@@ -198,15 +198,17 @@ Extensions are installed **dormant** (all set to `false` by default). To activat
 It's as if it doesn't exist.
 
 
-**What happens when you activate it?** Setting an extension to `true` makes it available **globally** - meaning every new agent session, in any project, can now use that extension.
+**What happens when you activate it?** Setting an extension to `true` makes it available **globally** - meaning every new agent session, in any project, can now use that extension. You only need to flip it once.
 
-You only need to flip it once.
+Most extensions include setup steps - things like connecting an MCP server, authenticating with an API, or configuring a service. **Every setup step is already documented inside the extension's guide.** The agent walks you through each one when you activate it. You don't need to hunt for documentation or figure anything out on your own.
 
-**Why not just activate everything?** Some extensions change how the agent behaves in ways you might not always want.
+**Why not just activate everything?** Two reasons:
 
-For example, `beads-workflow` makes the agent track session context and manage task persistence between conversations. That's powerful when you need it, but if you're doing a quick one-off task, you don't want the agent spending time on session management overhead.
+1. **Setup overhead.** Most extensions (5 out of 7) require connecting external services. Activating everything at once means running through multiple installations back-to-back of every tool. If you don't need Cloudflare infrastructure or web scraping today, there's no reason to set them up today because it can take a while - or you can just do everything at once to get it over with but if you are a beginner I DO NOT RECOMMEND IT.
 
-The toggle lets you control exactly which behaviors are active, so the agent stays focused on what matters for how you work right now.
+2. **Behavioral changes.** Some extensions change how the agent works. For example, `beads-workflow` makes the agent track session context and manage task persistence between conversations. That's powerful when you need it, but if you're doing a quick one-off task, you don't want the agent spending time on session management overhead.
+
+Activate what you need, when you need it. The agent handles the rest.
 
 ---
 
