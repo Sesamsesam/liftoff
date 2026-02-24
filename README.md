@@ -24,7 +24,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | ⚔️ **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | ⚡ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and integrations with NotebookLM and Notion |
-| 🔌 **9 optional extensions** | Cloudflare infrastructure, strategic project planning, advanced Git workflows, research pipelines, minibook creation, web scraping, live documentation, Google Cloud, and session memory so your AI remembers yesterday |
+| 🔌 **7 optional extensions** | Cloudflare infrastructure, RAG document chat, strategic project planning, research pipelines, minibook creation, web scraping, and session memory so your AI remembers yesterday |
 | 🏆 **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 
@@ -38,7 +38,7 @@ No more boilerplate security setups, no more forgotten <code>.gitignore</code> f
 <br><br>
 But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://graphite.dev">Graphite</a> (stacked PRs that make your Git workflow feel like it's from the future), and <a href="https://github.com/steveyegge/beads">Beads</a> (session persistence by Steve Yegge, ex-Google and ex-Amazon, so your AI never forgets what you worked on).
 <br><br>
-It also wires up MCP connections to <a href="https://docs.convex.dev">Convex MCP</a>, <a href="https://developers.cloudflare.com/agents/guides/remote-mcp-server/">Cloudflare MCP</a> (D1, R2, Workers, AI Gateway, AutoRAG), <a href="https://cloud.google.com/run">Google Cloud Run & Vertex AI</a>, <a href="https://www.firecrawl.dev/">Firecrawl</a> (scrape, crawl, and convert any website to clean data for your agent), and <a href="https://context7.com/">Context7</a> (always up-to-date library documentation so the agent never hallucinates outdated APIs) - plus research pipelines that turn NotebookLM into a grounded implementation engine.
+It also wires up MCP connections to <a href="https://docs.convex.dev">Convex MCP</a>, <a href="https://developers.cloudflare.com/agents/guides/remote-mcp-server/">Cloudflare MCP</a> (D1, R2, Workers, AI Gateway, AutoRAG), <a href="https://cloud.google.com/run">Google Cloud Run & Vertex AI</a>, and <a href="https://www.firecrawl.dev/">Firecrawl</a> (scrape, crawl, and convert any website to clean data for your agent) - plus research pipelines that turn NotebookLM into a grounded implementation engine.
 <br><br>
 The landscape moves fast, and some of the sharpest people still run outdated stacks simply because they haven't had time to explore what's new. This closes that gap instantly.
 <br><br>
@@ -134,11 +134,11 @@ All extensions are installed dormant. Activate any of them by setting to `true` 
 | `orbit-planning` | O.R.B.I.T. - Deep Professional Project Planning before you build |
 | `notebooklm-research` | Connect to NotebookLM via MCP for grounded, citation-backed research directly from the agent |
 | `minibook-pipeline` | End-to-end minibook creation: write from research, generate chapter imagery, publish to Notion |
-| `extended-git` | Graphite stacked PRs + Greptile AI code review |
 | `beads-workflow` | Cross-session context persistence |
 | `firecrawl` | Scrape, crawl, and convert any website to clean structured data |
-| `context7` | Always up-to-date library docs so the agent never uses outdated APIs |
-| `google-cloud` | Google Cloud Run deployment + Vertex AI model access |
+| `autorag-pipeline` | RAG Level 1: R2 + AutoRAG + chat interface (20-min setup) |
+
+> **More extensions coming soon.** See `updates-pending/` for advanced extensions in development (extended-git, vertex-rag-pipeline, google-cloud).
 
 
 <details>
@@ -180,10 +180,10 @@ Extensions are installed **dormant** (all set to `false` by default). To activat
 ```json
 // Example: activating orbit-planning while keeping the others off
 {
-  "extended-git": false,
   "beads-workflow": false,
   "notebooklm-research": false,
-  "orbit-planning": true  // ← changed to true to activate
+  "orbit-planning": true,  // ← changed to true to activate
+  "cloudflare-mcp": false
 }
 ```
 
@@ -302,11 +302,9 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── antigravity-standard/SKILL.md  # Skill template
 │   ├── cloudflare-mcp/SKILL.md        # (extension)
 │   ├── orbit-planning/SKILL.md        # (extension)
-│   ├── extended-git/SKILL.md          # (extension)
 │   ├── beads-workflow/SKILL.md        # (extension)
 │   ├── firecrawl/SKILL.md             # (extension)
-│   ├── context7/SKILL.md              # (extension)
-│   ├── google-cloud/SKILL.md          # (extension)
+│   ├── autorag-pipeline/SKILL.md      # (extension)
 │   ├── notebooklm-research/SKILL.md   # (extension)
 │   └── minibook-pipeline/SKILL.md     # (extension)
 └── workflows/

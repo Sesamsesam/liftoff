@@ -47,7 +47,26 @@ fi
 # ─── Install Core Identity ───
 echo -e "${GREEN}Installing core identity...${NC}"
 cp "$SCRIPT_DIR/global/GEMINI.md" "$GEMINI_DIR/GEMINI.md"
-cp "$SCRIPT_DIR/settings/extensions.json" "$SETTINGS_DIR/extensions.json"
+if [ -f "$SETTINGS_DIR/extensions.json" ]; then
+  echo -e "  ${YELLOW}Existing extensions.json found - preserving your settings${NC}"
+  # Merge: add any new keys from source while keeping existing user values
+  TEMP_MERGED=$(mktemp)
+  # Start with user's existing file, then add any keys from source that don't exist yet
+  python3 -c "
+import json, sys
+with open('$SETTINGS_DIR/extensions.json') as f: existing = json.load(f)
+with open('$SCRIPT_DIR/settings/extensions.json') as f: source = json.load(f)
+for k, v in source.items():
+    if k not in existing:
+        existing[k] = v
+        print(f'  + Added new entry: {k}', file=sys.stderr)
+with open('$TEMP_MERGED', 'w') as f: json.dump(existing, f, indent=2)
+" 2>&1 | while read line; do echo -e "  ${GREEN}$line${NC}"; done
+  cp "$TEMP_MERGED" "$SETTINGS_DIR/extensions.json"
+  rm -f "$TEMP_MERGED"
+else
+  cp "$SCRIPT_DIR/settings/extensions.json" "$SETTINGS_DIR/extensions.json"
+fi
 
 # ─── Install Core Skills ───
 echo -e "${GREEN}Installing core skills...${NC}"

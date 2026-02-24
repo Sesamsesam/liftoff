@@ -1,11 +1,10 @@
 {
   "setup-package-manager": "pending",
-  "extended-git": false,
   "beads-workflow": false,
   "notebooklm-research": false,
   "orbit-planning": false,
   "cloudflare-mcp": false,
+  "firecrawl": false,
   "minibook-pipeline": false,
-  "autorag-pipeline": false,
-  "vertex-rag-pipeline": false
+  "autorag-pipeline": false
 }
