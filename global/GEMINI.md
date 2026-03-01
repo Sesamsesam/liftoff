@@ -62,8 +62,8 @@
 - **All projects live in `~/dev/`** (or `%USERPROFILE%\dev\` on Windows) - this is a hard convention, no exceptions
 - If `~/dev/` does not exist, create it automatically (`mkdir -p ~/dev/`)
 - **Never rename project folders** once created - renaming breaks git remotes, symlinks, and cached paths. If a different name is needed, create a new project from scratch
-- **"Liftoff" trigger**: When the user says "liftoff", run the `init-project` workflow immediately. This is a hard rule that cannot be misinterpreted
-- **Auto-detect empty projects**: If the agent is in a folder inside `~/dev/` that has no `.gemini/` directory (meaning `init-project` has not run), automatically run `init-project` regardless of what the user says. The user does not need to ask - the agent detects and acts
+- **"Liftoff" trigger**: When the user says "liftoff", first check that `setup-package-manager` is `"done"` in `extensions.json`. If done: read `~/.gemini/workflows/init-project.md` and execute the workflow immediately. If still `"pending"`: the global install has not completed yet. Say: "Before we can liftoff, we need to finish the global setup first. Let me run that now." Then execute the `setup-package-manager` skill instead
+- **Auto-detect empty projects**: If the agent is in a folder inside `~/dev/` that has no `.gemini/` directory AND `setup-package-manager` is `"done"`, automatically run `init-project`. If `setup-package-manager` is still `"pending"`, run the setup first. The user does not need to ask - the agent detects and acts
 
 ## Server Management
 - **Never auto-start dev servers** unless explicitly asked
@@ -82,13 +82,25 @@
 - Every feature gets enterprise-grade error handling, security, and validation automatically
 - **Liftoff source repo sync**: When modifying the Liftoff source itself (adding/removing skills, extensions, workflows), always update `README.md` to reflect current counts, tables, and file tree before committing
 
+## Extension Activation Guard
+- **NEVER activate, install, or configure extensions if:**
+  1. `setup-package-manager` is still `"pending"` (global install incomplete), OR
+  2. The current workspace is the Liftoff source repository (contains `install.sh` and `TODO.md` in root), OR
+  3. The agent is currently executing the `setup-package-manager` setup flow (Steps 0-9)
+- **If user requests an extension during setup/handoff**, redirect:
+  > "Great choice! I'll set that up for you. But first, let's finish creating your project folder - extensions should be installed inside your project, not here. What should we name the folder?"
+- **If user insists on working inside the Liftoff folder** (asks a second time), warn:
+  > "Sami strongly recommends going to your new project folder first - otherwise you won't have proper project structure. Are you sure you want to proceed here instead of creating/going to a project folder? (not recommended)"
+- **If user insists a third time**, comply but note:
+  > "Understood - proceeding here against recommendation. Note that project features like symlinks, git setup, and init-project won't apply in this folder."
+
 ## Skill Discovery
 - Auto-detect when a skill is relevant to the current task and apply it
 - Skills load on-demand  - they are not always in context
 - Check `~/.gemini/extensions/extensions.json` for active extensions
 - If a skill is listed in `extensions.json`, it's an extension (togglable). If not listed, it's a core skill (always active)
 - If an extension is dormant but relevant, offer once with plain explanation - then never ask again
-- **Auto-toggle**: When the user asks to use an extension (e.g., "I want to use Cloudflare MCP"), set it to `true` in `extensions.json` automatically. Never tell the user to go edit the file themselves - just do it and confirm
+- **Auto-toggle**: When the user asks to use an extension (e.g., "I want to use Cloudflare MCP"), set it to `true` in `extensions.json` automatically. Never tell the user to go edit the file themselves - just do it and confirm. **Exception:** This rule is overridden by the Extension Activation Guard above - never auto-toggle during setup or inside the Liftoff source directory
 
 ## Skill Creation
 - **NEVER create skills inside a project directory.** All skills live at the global canonical location `~/.gemini/` - no exceptions

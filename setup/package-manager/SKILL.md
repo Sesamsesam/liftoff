@@ -20,6 +20,16 @@ description: "One-time bootstrap: detect OS, install/verify system package manag
 
 When `extensions.json` has `"setup-package-manager": "pending"`, execute this flow. Run each check in order. If a tool is already installed, skip to the next one.
 
+### 0. Welcome
+
+Start the session with this message:
+
+> "Welcome Astronaut to samihermes.ai Liftoff! Are you ready to move with rocket speed and get an AI upgrade?
+>
+> I'm going to set up your developer toolkit now to give you a super boost - this will take just a few minutes. I'll install everything automatically and ask you only when I need your help. Enjoy the magic!"
+
+Then proceed to Step 1.
+
 ### 1. Detect OS
 
 The system context includes `OS version: mac` or `OS version: windows`. Use this to branch.
@@ -109,10 +119,16 @@ Most systems ship with git. Check first.
    - This command will hang waiting for confirmation. The agent **must** use its stdin/send-input tool to send `Y` followed by Enter (`\n`) to the terminal process
    - If the agent cannot send keystrokes, tell the user: "Press Enter in the terminal to continue"
    - Once the command outputs a one-time code, the agent **must** capture that code and write in chat:
-     > "A browser should have opened. Log in to GitHub and enter this code: **[CODE]**"
+     > "A browser should have opened. Log in to GitHub and enter this code: **[CODE]**
+     >
+     > Reply with **'Done'** when you've completed the authorization."
+   - Wait for the user to confirm before proceeding
+   - After user says "Done", verify with `gh auth status`. If auth is NOT successful, tell the user:
+     > "Hmm, it looks like the connection didn't go through yet. Did you enter the code **[CODE]** and click Authorize on GitHub? Try again and reply with 'Done' when connected."
+   - Repeat until `gh auth status` confirms authentication
 5. If the user doesn't have a GitHub account:
    > "You'll need a GitHub account to store your code. Head to github.com/signup, create a free account, then come back here and we'll finish connecting."
-6. Verify with `gh auth status`
+6. Verify with `gh auth status` (skip if already verified in step 4 above)
 
 ### 6. Write to GEMINI.md
 
@@ -158,6 +174,9 @@ Tell the user:
 
 Wait for the user's response. If they describe what they're building, generate a lowercase, hyphenated folder name from their description (e.g., "I want to build a recipe sharing app" becomes `recipe-share`).
 
+> [!CAUTION]
+> **Extension activation guardrail:** If the user's response mentions an extension or tool name (NotebookLM, Cloudflare, Firecrawl, etc.), do NOT activate the extension. Treat their response purely as a project description and generate a folder name from it. Example: "I want to do notebookLM research" -> folder name: `notebooklm-research`. Extensions are set up AFTER the user opens their new project folder - never inside the Liftoff source directory.
+
 #### 9.2 Create the project folder
 
 **Always use `~/dev/` as the parent directory.** This is a hard convention - all projects live in `~/dev/`. Create it if it doesn't exist.
@@ -174,11 +193,19 @@ New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\dev\<project-name>"
 
 After creating, tell the user:
 
-> "I've created `~/dev/<project-name>/` for you!
+> "Your Antigravity is now juiced up! Instead of moving on foot, you now have a rocket.
 >
-> **A note from Sami:** he strongly recommends keeping all your projects inside `~/dev/` - that's the convention used throughout this guide for everything going forward. Also, once a folder is created, **never rename it** - renaming breaks git remotes, symlinks, and cached paths. If you want a different name, it's better to create a new project from scratch.
+> Sami says hi and congratulations for making it through the installation! This will truly set you apart and give you a major advantage.
 >
-> **Next step:** Please open the folder `~/dev/<project-name>/` in a new Antigravity window (use your editor's 'Open Folder' menu) and close this current window. Once the new window is open, just say **liftoff** and I'll scaffold your entire project, set up Git, and help you configure any extensions you need!"
+> **A note from Sami:** Keep all your projects inside `~/dev/` - that's the convention for everything going forward. And once a folder is created, **never rename it** - renaming breaks git remotes, symlinks, and cached paths. If you want a different name, create a new project from scratch.
+>
+> Now, to start building, open your new project folder:
+>
+> **Step 1:** In Antigravity, go to File > Open Folder (or use Cmd+O on Mac / Ctrl+O on Windows)
+> **Step 2:** Navigate to `~/dev/<project-name>/` and open it
+> **Step 3:** In the new window, say the word **liftoff**
+>
+> **Important:** Don't say liftoff here - you need to be in your new project folder first!"
 
 #### 9.3 What happens in the new window
 
