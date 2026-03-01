@@ -57,9 +57,9 @@ I've watched people with six months of AI-assisted experience outship developers
 
 The install takes 30 seconds. You clone this repo, run the installer, and you're done - the skills get copied to your global Antigravity config.
 
-After that, you can delete the cloned folder. It's just the delivery vehicle.
+**Keep this folder after install** - the agent uses it to check for updates automatically. You never have to do anything, it just happens.
 
-(copy this and give it to Antigravity, or paste it into your terminal)
+**macOS / Linux** (copy this and give it to Antigravity, or paste it into your terminal):
 ```bash
 git clone https://github.com/sesamsesam/liftoff.git
 cd liftoff
@@ -67,16 +67,24 @@ chmod +x install.sh
 ./install.sh
 ```
 
+**Windows** (open PowerShell and run):
+```powershell
+git clone https://github.com/sesamsesam/liftoff.git
+cd liftoff
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
+
 <details>
 <summary><strong>What happens when you run this?</strong></summary>
 
 The installer copies everything to `~/.gemini/` in about 30 seconds:
 
-1. **Core identity** - Installs `GEMINI.md` (global rules) and `extensions.json` (activation settings)
+1. **Core identity** - Installs `GEMINI.md` (global rules) and `extensions.json` (activation config, inside `extensions/`)
 2. **7 core skills** - F.O.R.G.E., security, error handling, git, brand identity, tech stack, and skill template
 3. **Workflows** - The `init-project` workflow for scaffolding new projects
 4. **Setup tasks** - One-time tasks (developer tools detection) that run automatically on your first session
 5. **All extensions** - Every extension gets installed **dormant**, available but inactive until you turn them on in `extensions.json`
+6. **Auto-update tracking** - Saves the repo path so the agent can check for updates automatically
 
 Nothing runs in the background. Nothing phones home. Everything stays in `~/.gemini/` on your machine.
 
@@ -109,8 +117,6 @@ mkdir my-project && cd my-project  # create your actual project
 
 Open that folder in your editor, start a conversation with Antigravity, and it will follow F.O.R.G.E. automatically.
 
-You can delete the `liftoff` folder whenever you want - it already did its job.
-
 
 ---
 
@@ -132,7 +138,7 @@ You can delete the `liftoff` folder whenever you want - it already did its job.
 
 ### 🔌 Extensions (Opt-In)
 
-All extensions are installed dormant. Activate any of them by setting to `true` in `~/.gemini/settings/extensions.json`.
+All extensions are installed dormant. Activate any of them by setting to `true` in `~/.gemini/extensions/extensions.json`.
 
 | Extension | What It Does |
 |---|---|
@@ -181,11 +187,12 @@ Every extension comes with a **complete setup guide built in** - you don't need 
 Just activate the extension and ask the agent to help you set it up. It already knows the exact steps, where to get API keys, and how to connect everything.
 
 
-Extensions are installed **dormant** (all set to `false` by default). To activate one, change its value to `true` in `~/.gemini/settings/extensions.json`:
+Extensions are installed **dormant** (all set to `false` by default). To activate one, change its value to `true` in `~/.gemini/extensions/extensions.json`:
 
 ```json
 // Example: activating orbit-planning while keeping the others off
 {
+  "_instructions": "Set any extension to true to activate it. The agent handles the rest.",
   "beads-workflow": false,
   "notebooklm-research": false,
   "orbit-planning": true,  // ← changed to true to activate
@@ -220,11 +227,10 @@ When you scaffold a new project with `init-project`, the agent creates a `.gemin
 my-project/
 ├── .gemini/
 │   ├── GEMINI.md              → ~/.gemini/GEMINI.md
-│   ├── settings/              → ~/.gemini/settings/
-│   │   └── extensions.json
-│   └── extensions/
-│       ├── cloudflare-mcp/    → ~/.gemini/skills/cloudflare-mcp/
-│       ├── orbit-planning/    → ~/.gemini/skills/orbit-planning/
+│   └── extensions/            → ~/.gemini/extensions/
+│       ├── extensions.json    ← config file, right here
+│       ├── cloudflare-mcp/
+│       ├── orbit-planning/
 │       └── ...                   (all extensions, including dormant)
 ├── src/
 └── ...
@@ -232,14 +238,14 @@ my-project/
 
 **Why this matters:**
 
-- **See what's available.** Browse `.gemini/extensions/` anytime to see every extension you have, even the ones you haven't activated yet.
+- **See what's available.** Browse `.gemini/extensions/` anytime to see every extension and the config file to toggle them.
 - **Toggle from any project.** Open `extensions.json` through the symlink - edits go straight to the global file, so one change applies everywhere.
 - **No copies, no drift.** Everything points to the canonical files in `~/.gemini/`. There's nothing to sync.
 - **Git-safe.** The symlinks are `.gitignored` by default - they never leak into your repo.
 
 **Windows note:** On Windows, the agent uses NTFS junctions (for directories) and hard links (for files) instead of symbolic links. These work without admin privileges and behave identically.
 
-**Creating your own skills:** When you ask the agent to create a new skill, it always creates the skill globally at `~/.gemini/skills/<skill-name>/SKILL.md`, adds it to `extensions.json` as dormant (`false`), and asks if you want to activate it. If the current project has a `.gemini/extensions/` directory, the agent also creates a symlink so the new skill is immediately visible locally.
+**Creating your own skills:** When you ask the agent to create a new skill, it creates it globally at `~/.gemini/extensions/<skill-name>/SKILL.md`, adds it to `extensions.json` as dormant (`false`), and asks if you want to activate it. Since every project symlinks to the global `extensions/` folder, new skills appear everywhere immediately.
 
 
 ---
@@ -296,25 +302,25 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 ```
 ~/.gemini/
 ├── GEMINI.md                          # Global identity + rules
-├── settings/
-│   └── extensions.json                # Extension + setup task activation
+├── extensions/
+│   ├── extensions.json                # Extension activation config
+│   ├── cloudflare-mcp/SKILL.md         # (extension)
+│   ├── orbit-planning/SKILL.md         # (extension)
+│   ├── beads-workflow/SKILL.md         # (extension)
+│   ├── firecrawl/SKILL.md              # (extension)
+│   ├── autorag-pipeline/SKILL.md       # (extension)
+│   ├── notebooklm-research/SKILL.md    # (extension)
+│   └── minibook-pipeline/SKILL.md      # (extension)
 ├── setup/
 │   └── package-manager/SKILL.md       # One-time OS + package manager detection
 ├── skills/
 │   ├── forge-methodology/SKILL.md     # Core workflow
 │   ├── security-guardian/SKILL.md     # Security checklist
 │   ├── error-handling/SKILL.md        # Error patterns
-│   ├── git-flow/SKILL.md             # Git workflow
+│   ├── git-flow/SKILL.md              # Git workflow
 │   ├── brand-identity/SKILL.md        # Design tokens
 │   ├── stack-pro-max/SKILL.md         # Tech stack
-│   ├── antigravity-standard/SKILL.md  # Skill template
-│   ├── cloudflare-mcp/SKILL.md        # (extension)
-│   ├── orbit-planning/SKILL.md        # (extension)
-│   ├── beads-workflow/SKILL.md        # (extension)
-│   ├── firecrawl/SKILL.md             # (extension)
-│   ├── autorag-pipeline/SKILL.md      # (extension)
-│   ├── notebooklm-research/SKILL.md   # (extension)
-│   └── minibook-pipeline/SKILL.md     # (extension)
+│   └── antigravity-standard/SKILL.md  # Skill template
 └── workflows/
     └── init-project.md                # Project scaffolding
 ```
@@ -324,11 +330,11 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 ```
 my-project/.gemini/
 ├── GEMINI.md                → symlink to ~/.gemini/GEMINI.md
-├── settings/                → symlink to ~/.gemini/settings/
-└── extensions/
-    ├── cloudflare-mcp/      → symlink to ~/.gemini/skills/cloudflare-mcp/
-    ├── orbit-planning/      → symlink to ~/.gemini/skills/orbit-planning/
-    └── ...                     (all extensions)
+└── extensions/              → symlink to ~/.gemini/extensions/
+    ├── extensions.json
+    ├── cloudflare-mcp/
+    ├── orbit-planning/
+    └── ...
 ```
 
 > These are symlinks (macOS/Linux) or junctions (Windows) - not copies. They are `.gitignored` by default.
@@ -350,17 +356,19 @@ A: The installer backs up your existing `GEMINI.md` before overwriting. All othe
 
 
 **Q: How do I update when new skills or extensions are added?**
-A: Pull the latest version and re-run the installer. It will copy any new or updated files without touching your `extensions.json` settings.
+A: If you kept the cloned folder (recommended), the agent checks for updates automatically on each session start. It pulls new changes and reinstalls silently, then tells you what's new in plain language. Your extension settings are always preserved.
+
+If you deleted the folder, re-clone and re-run:
 
 ```bash
+git clone https://github.com/sesamsesam/liftoff.git
 cd liftoff
-git pull
 ./install.sh
 ```
 
 
 **Q: Can I customize the skills or create my own?**
-A: Yes. Every skill is a markdown file - edit them directly, and the agent picks up changes at runtime. To create a new skill, make a folder under `~/.gemini/skills/` with a `SKILL.md` inside. The `antigravity-standard` skill is a template you can copy.
+A: Yes. Every skill is a markdown file - edit them directly, and the agent picks up changes at runtime. To create a new skill, just ask the agent - it handles the file creation and registration automatically. Or you can manually create a folder under `~/.gemini/extensions/` with a `SKILL.md` inside. The `antigravity-standard` skill is a template you can copy.
 
 
 **Q: Do I need all the tools listed in `stack-pro-max`?**

@@ -209,7 +209,7 @@ Optional environment variables for power users (add to the `env` block in `mcp_c
 ---
 
 ## Activation
-- Enable in `~/.gemini/settings/extensions.json`: `"firecrawl": true`
+- Enable in `~/.gemini/extensions/extensions.json`: `"firecrawl": true`
 - Triggered by: web scraping, site crawling, data extraction, content migration, competitive analysis
 
 ---

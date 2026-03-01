@@ -17,14 +17,14 @@ When a user asks to create a minibook, the agent must run through these prerequi
 
 ### Check 1: Is NotebookLM connected?
 
-Look for the `notebooklm-research` extension in `~/.gemini/settings/extensions.json`.
+Look for the `notebooklm-research` extension in `~/.gemini/extensions/extensions.json`.
 
 - **If active (`true`):** Proceed to Check 2.
 - **If dormant (`false`):** Tell the user:
   > "To create a minibook, we first need research to write from. The best way is through NotebookLM. Let me help you activate and set up the `notebooklm-research` extension first."
   
   Then activate it (`set to true` in extensions.json) and walk them through the NotebookLM setup per that extension's SKILL.md.
-- **If missing entirely:** Tell the user the `notebooklm-research` extension needs to be installed. Guide them through running the Liftoff installer, or manually copying the extension to `~/.gemini/skills/notebooklm-research/`.
+- **If missing entirely:** Tell the user the `notebooklm-research` extension needs to be installed. Guide them through running the Liftoff installer, or manually copying the extension to `~/.gemini/extensions/notebooklm-research/`.
 
 > [!NOTE]
 > NotebookLM is the recommended research source, but not the only one. If the user already has research materials (PDFs, articles, notes, reports) they want to use instead, skip straight to Check 3.

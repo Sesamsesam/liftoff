@@ -46,8 +46,7 @@ Write the `.gitignore` from the `git-flow` skill template (covers node_modules, 
 ```gitignore
 # Antigravity global symlinks - these point to ~/.gemini/ and are local-only
 .gemini/GEMINI.md        # → global identity + rules
-.gemini/settings/        # → global extensions.json + settings
-.gemini/extensions/      # → global skill directories (all extensions)
+.gemini/extensions/      # → global extension directories + extensions.json
 ```
 
 ### 5. Create `.env.example`
@@ -83,48 +82,30 @@ git remote add origin https://github.com/<username>/<project-name>.git
 
 ### 8. Link global extensions and settings
 
-Create the `.gemini/` directory in the project, then symlink global extensions, settings, and GEMINI.md so the user always has visibility into their toolkit.
+Create the `.gemini/` directory in the project, then symlink global extensions and GEMINI.md so the user always has visibility into their toolkit.
 
 **macOS / Linux:**
 ```bash
 # turbo
-mkdir -p .gemini/extensions
+mkdir -p .gemini
 
 # Symlink GEMINI.md
 ln -sf ~/.gemini/GEMINI.md .gemini/GEMINI.md
 
-# Symlink settings directory
-ln -sf ~/.gemini/settings .gemini/settings
-
-# Symlink each extension from the skills directory
-for ext_dir in ~/.gemini/skills/*/; do
-  ext_name=$(basename "$ext_dir")
-  # Skip core skills (they don't appear in extensions.json)
-  if grep -q "\"$ext_name\"" ~/.gemini/settings/extensions.json 2>/dev/null; then
-    ln -sf "$ext_dir" ".gemini/extensions/$ext_name"
-  fi
-done
+# Symlink entire extensions directory (contains extension folders + extensions.json)
+ln -sf ~/.gemini/extensions .gemini/extensions
 ```
 
 **Windows (PowerShell):**
 ```powershell
 # turbo
-New-Item -ItemType Directory -Force -Path .gemini\extensions
-
-# Junction for settings directory (no admin needed)
-cmd /c mklink /J .gemini\settings $env:USERPROFILE\.gemini\settings
+New-Item -ItemType Directory -Force -Path .gemini
 
 # Hard link for GEMINI.md (no admin needed, same drive)
 cmd /c mklink /H .gemini\GEMINI.md $env:USERPROFILE\.gemini\GEMINI.md
 
-# Junction for each extension
-$extensions = Get-Content "$env:USERPROFILE\.gemini\settings\extensions.json" | ConvertFrom-Json
-$extensions.PSObject.Properties | Where-Object { $_.Name -notlike "setup-*" } | ForEach-Object {
-  $extPath = "$env:USERPROFILE\.gemini\skills\$($_.Name)"
-  if (Test-Path $extPath) {
-    cmd /c mklink /J ".gemini\extensions\$($_.Name)" $extPath
-  }
-}
+# Junction for extensions directory (no admin needed)
+cmd /c mklink /J .gemini\extensions $env:USERPROFILE\.gemini\extensions
 ```
 
 **What this creates in the project:**
@@ -132,11 +113,10 @@ $extensions.PSObject.Properties | Where-Object { $_.Name -notlike "setup-*" } | 
 my-project/
 ├── .gemini/
 │   ├── GEMINI.md              → ~/.gemini/GEMINI.md
-│   ├── settings/              → ~/.gemini/settings/
-│   │   └── extensions.json
-│   └── extensions/
-│       ├── cloudflare-mcp/    → ~/.gemini/skills/cloudflare-mcp/
-│       ├── orbit-planning/    → ~/.gemini/skills/orbit-planning/
+│   └── extensions/            → ~/.gemini/extensions/
+│       ├── extensions.json    ← config file, right here
+│       ├── cloudflare-mcp/
+│       ├── orbit-planning/
 │       └── ...                   (all extensions, including dormant)
 ├── src/
 └── ...
@@ -160,7 +140,7 @@ After everything is set up, tell the user:
 > 1. **NotebookLM** - AI-powered research assistant for grounded, citation-backed content
 > 2. **Notion** - Knowledge base and project documentation
 >
-> I can set either of these up right now, or you can activate any extension later from `.gemini/settings/extensions.json`."
+> I can set either of these up right now, or you can activate any extension later from `.gemini/extensions/extensions.json`."
 
 Only suggest, never auto-activate. If the user picks one, set it to `true` in `extensions.json` and follow that extension's SKILL.md setup instructions.
 
@@ -169,10 +149,10 @@ Only suggest, never auto-activate. If the user picks one, set it to `true` in `e
 - [ ] `.gitignore` covers all sensitive patterns and Antigravity symlinks
 - [ ] `.env.example` exists (`.env.local` does NOT exist in repo)
 - [ ] CSS tokens are in place
-- [ ] `.gemini/extensions/` shows all extensions from `extensions.json`
-- [ ] `.gemini/settings/extensions.json` is a working symlink
+- [ ] `.gemini/extensions/` shows all extensions and `extensions.json`
+- [ ] `.gemini/extensions/extensions.json` is accessible via the symlink
 - [ ] `.gemini/GEMINI.md` is a working symlink
 - [ ] GitHub repo exists and is private
 
 ### 12. Report
-Tell the user: "Project scaffolded with [type]. Git initialized, pushed to GitHub (private). Your extensions and settings are linked in `.gemini/` - browse them anytime to see what's available or toggle extensions on and off."
+Tell the user: "Project scaffolded with [type]. Git initialized, pushed to GitHub (private). Your extensions and config are linked in `.gemini/extensions/` - browse there to see what's available or toggle extensions on and off."

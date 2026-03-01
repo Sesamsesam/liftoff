@@ -27,7 +27,7 @@ You answer questions. The agent builds your blueprint. By the end you have a cle
 ---
 
 ## Activation
-- Enable in `~/.gemini/settings/extensions.json`: `"orbit-planning": true`
+- Enable in `~/.gemini/extensions/extensions.json`: `"orbit-planning": true`
 - Trigger: "Let's plan a project," "Start ORBIT," or "Help me plan this app"
 
 <!-- ═══════════════════════════════════════════════════ -->

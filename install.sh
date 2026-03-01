@@ -18,9 +18,9 @@ NC='\033[0m' # No Color
 GEMINI_DIR="$HOME/.gemini"
 SKILLS_DIR="$GEMINI_DIR/skills"
 WORKFLOWS_DIR="$GEMINI_DIR/workflows"
-SETTINGS_DIR="$GEMINI_DIR/settings"
+EXTENSIONS_DIR="$GEMINI_DIR/extensions"
 SETUP_DIR="$GEMINI_DIR/setup"
-EXTENSIONS_DIR="$SKILLS_DIR"  # Extensions are stored alongside skills
+SKILL_EXTENSIONS_DIR="$EXTENSIONS_DIR"  # Extension skills stored in extensions/ alongside extensions.json
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo -e "${PURPLE}"
@@ -34,7 +34,7 @@ echo -e "${NC}"
 echo -e "${BLUE}Creating directories...${NC}"
 mkdir -p "$SKILLS_DIR"
 mkdir -p "$WORKFLOWS_DIR"
-mkdir -p "$SETTINGS_DIR"
+mkdir -p "$EXTENSIONS_DIR"
 mkdir -p "$SETUP_DIR"
 
 # ─── Backup existing GEMINI.md ───
@@ -47,25 +47,32 @@ fi
 # ─── Install Core Identity ───
 echo -e "${GREEN}Installing core identity...${NC}"
 cp "$SCRIPT_DIR/global/GEMINI.md" "$GEMINI_DIR/GEMINI.md"
-if [ -f "$SETTINGS_DIR/extensions.json" ]; then
+
+# Migrate from old location if needed
+if [ -f "$GEMINI_DIR/settings/extensions.json" ] && [ ! -f "$EXTENSIONS_DIR/extensions.json" ]; then
+  echo -e "  ${YELLOW}Migrating extensions.json from settings/ to extensions/...${NC}"
+  cp "$GEMINI_DIR/settings/extensions.json" "$EXTENSIONS_DIR/extensions.json"
+fi
+
+if [ -f "$EXTENSIONS_DIR/extensions.json" ]; then
   echo -e "  ${YELLOW}Existing extensions.json found - preserving your settings${NC}"
   # Merge: add any new keys from source while keeping existing user values
   TEMP_MERGED=$(mktemp)
   # Start with user's existing file, then add any keys from source that don't exist yet
   python3 -c "
 import json, sys
-with open('$SETTINGS_DIR/extensions.json') as f: existing = json.load(f)
-with open('$SCRIPT_DIR/settings/extensions.json') as f: source = json.load(f)
+with open('$EXTENSIONS_DIR/extensions.json') as f: existing = json.load(f)
+with open('$SCRIPT_DIR/extensions/extensions.json') as f: source = json.load(f)
 for k, v in source.items():
     if k not in existing:
         existing[k] = v
         print(f'  + Added new entry: {k}', file=sys.stderr)
 with open('$TEMP_MERGED', 'w') as f: json.dump(existing, f, indent=2)
 " 2>&1 | while read line; do echo -e "  ${GREEN}$line${NC}"; done
-  cp "$TEMP_MERGED" "$SETTINGS_DIR/extensions.json"
+  cp "$TEMP_MERGED" "$EXTENSIONS_DIR/extensions.json"
   rm -f "$TEMP_MERGED"
 else
-  cp "$SCRIPT_DIR/settings/extensions.json" "$SETTINGS_DIR/extensions.json"
+  cp "$SCRIPT_DIR/extensions/extensions.json" "$EXTENSIONS_DIR/extensions.json"
 fi
 
 # ─── Install Core Skills ───
@@ -96,8 +103,8 @@ done
 # ─── Install Extensions (all start dormant) ───
 install_extension() {
   local ext_name="$1"
-  mkdir -p "$EXTENSIONS_DIR/$ext_name"
-  cp "$SCRIPT_DIR/extensions/$ext_name/SKILL.md" "$EXTENSIONS_DIR/$ext_name/SKILL.md"
+  mkdir -p "$SKILL_EXTENSIONS_DIR/$ext_name"
+  cp "$SCRIPT_DIR/extensions/$ext_name/SKILL.md" "$SKILL_EXTENSIONS_DIR/$ext_name/SKILL.md"
   echo "  ✓ $ext_name"
 }
 
@@ -109,6 +116,13 @@ for ext_dir in "$SCRIPT_DIR/extensions"/*/; do
   EXT_COUNT=$((EXT_COUNT + 1))
 done
 
+# ─── Version Tracking (for auto-update) ───
+if command -v git &> /dev/null && [ -d "$SCRIPT_DIR/.git" ]; then
+  git -C "$SCRIPT_DIR" rev-parse HEAD > "$GEMINI_DIR/.liftoff-version" 2>/dev/null
+  echo "$SCRIPT_DIR" > "$GEMINI_DIR/.liftoff-source"
+  echo -e "${GREEN}Version tracking enabled (auto-updates on session start)${NC}"
+fi
+
 # ─── Summary ───
 echo ""
 echo -e "${PURPLE}═══════════════════════════════════════════${NC}"
@@ -116,15 +130,17 @@ echo -e "${GREEN}✅ Installation complete!${NC}"
 echo ""
 echo -e "  ${BLUE}GEMINI.md:${NC}      $GEMINI_DIR/GEMINI.md"
 echo -e "  ${BLUE}Skills:${NC}         $SKILLS_DIR/ (${#CORE_SKILLS[@]} core skills)"
-echo -e "  ${BLUE}Extensions:${NC}     $SKILLS_DIR/ ($EXT_COUNT extensions, all dormant)"
+echo -e "  ${BLUE}Extensions:${NC}     $EXTENSIONS_DIR/ ($EXT_COUNT extensions, all dormant)"
+echo -e "  ${BLUE}Config:${NC}         $EXTENSIONS_DIR/extensions.json"
 echo -e "  ${BLUE}Setup tasks:${NC}    $SETUP_DIR/ (${#SETUP_TASKS[@]} pending)"
 echo -e "  ${BLUE}Workflows:${NC}      $WORKFLOWS_DIR/"
-echo -e "  ${BLUE}Settings:${NC}       $SETTINGS_DIR/extensions.json"
 echo ""
 echo -e "${YELLOW}Next steps:${NC}"
 echo "  1. Open any project and start a conversation with your AI agent"
 echo "  2. On first session, the agent will auto-detect your system and install developer tools"
-echo "  3. To activate extensions, set them to true in: $SETTINGS_DIR/extensions.json"
+echo "  3. To activate extensions, set them to true in: $EXTENSIONS_DIR/extensions.json"
 echo "  4. The agent handles MCP setup and configuration when you activate an extension"
+echo ""
+echo -e "${YELLOW}Important:${NC} Keep this cloned folder - the agent checks it for updates automatically."
 echo ""
 echo -e "${PURPLE}═══════════════════════════════════════════${NC}"

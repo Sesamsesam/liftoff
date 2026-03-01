@@ -78,16 +78,17 @@
 ## Skill Discovery
 - Auto-detect when a skill is relevant to the current task and apply it
 - Skills load on-demand  - they are not always in context
-- Check `~/.gemini/settings/extensions.json` for active extensions
+- Check `~/.gemini/extensions/extensions.json` for active extensions
 - If a skill is listed in `extensions.json`, it's an extension (togglable). If not listed, it's a core skill (always active)
-- If an extension is dormant but relevant, offer once with plain explanation  - then never ask again
+- If an extension is dormant but relevant, offer once with plain explanation - then never ask again
+- **Auto-toggle**: When the user asks to use an extension (e.g., "I want to use Cloudflare MCP"), set it to `true` in `extensions.json` automatically. Never tell the user to go edit the file themselves - just do it and confirm
 
 ## Skill Creation
-- **NEVER create skills inside a project directory.** All skills live at the global canonical location `~/.gemini/skills/` - no exceptions
-- When the user asks to create a new skill, create it at `~/.gemini/skills/<skill-name>/SKILL.md` (global)
-- Add `"<skill-name>": false` to `~/.gemini/settings/extensions.json` (treats it as an extension)
+- **NEVER create skills inside a project directory.** All skills live at the global canonical location `~/.gemini/` - no exceptions
+- **Core skills** go in `~/.gemini/skills/<skill-name>/SKILL.md`
+- **User-created extensions** go in `~/.gemini/extensions/<skill-name>/SKILL.md` (so they're visible in every project's extensions symlink)
+- Add `"<skill-name>": false` to `~/.gemini/extensions/extensions.json` (treats it as an extension)
 - Ask the user: "Want to activate this skill now?" - if yes, set to `true`
-- If the current project has `.gemini/extensions/`, create a symlink: `.gemini/extensions/<skill-name>` pointing to `~/.gemini/skills/<skill-name>`
 - User-created skills are always extensions - core skills are only the ones shipped with Liftoff
 
 ## Skill Execution - Do It, Don't Teach It
@@ -99,8 +100,15 @@
 - This applies to ALL skills, extensions, and workflows without exception
 
 ## Session Start (Run Every Time)
-- Check `~/.gemini/settings/extensions.json` for active extensions and pending setup tasks
+- Check `~/.gemini/extensions/extensions.json` for active extensions and pending setup tasks
 - If any `setup-*` entries are `"pending"`: read the matching `~/.gemini/setup/*/SKILL.md`, execute it, then mark `"done"`
+- **Liftoff auto-update**: If `~/.gemini/.liftoff-source` exists:
+  1. Run `git -C <source_path> fetch --quiet 2>/dev/null`
+  2. Compare local HEAD with `~/.gemini/.liftoff-version`
+  3. If newer commits exist: run `git -C <source_path> pull --quiet` then run the installer:
+     - **macOS/Linux**: `<source_path>/install.sh`
+     - **Windows**: `powershell -ExecutionPolicy Bypass -File "<source_path>/install.ps1"`
+  4. After update, tell the user in plain language what changed (new extensions, updated skills). For new extensions, explain what each one does in one sentence and note it's turned off by default. Tell them: "To turn one on, open `extensions.json` in your `.gemini/extensions/` folder and set it to `true`."
 - If Beads active: run `bd ready` to find pending tasks
 - If ORBIT active and `orbit.md` exists: check it before starting work
 - If credential rotation tracking exists: check dates, warn if overdue
@@ -110,11 +118,16 @@
 ## Cloud Agent Support
 - When the user says they're using a cloud agent (OpenClaw, Cursor Cloud, Cloud Code for Web, etc.), skills must be **copied** into the project because cloud servers don't have access to `~/.gemini/`
 - Run these steps automatically:
-  1. `cp -r ~/.gemini/skills/ .gemini/skills/`
-  2. `cp ~/.gemini/GEMINI.md .gemini/GEMINI.md`
-  3. `cp -r ~/.gemini/settings/ .gemini/settings/`
+  - **macOS/Linux**:
+    1. `cp -r ~/.gemini/skills/ .gemini/skills/`
+    2. `cp ~/.gemini/GEMINI.md .gemini/GEMINI.md`
+    3. `cp -r ~/.gemini/extensions/ .gemini/extensions/`
+  - **Windows (PowerShell)**:
+    1. `Copy-Item -Recurse -Force "$env:USERPROFILE\.gemini\skills" ".gemini\skills"`
+    2. `Copy-Item -Force "$env:USERPROFILE\.gemini\GEMINI.md" ".gemini\GEMINI.md"`
+    3. `Copy-Item -Recurse -Force "$env:USERPROFILE\.gemini\extensions" ".gemini\extensions"`
   4. If symlinks from `init-project` already exist, replace them with the actual files
-  5. Add `.gemini/skills/`, `.gemini/GEMINI.md`, and `.gemini/settings/` to `.gitignore` unless the user wants them committed
+  5. Add `.gemini/skills/`, `.gemini/GEMINI.md`, and `.gemini/extensions/` to `.gitignore` unless the user wants them committed
 - Tell the user: "Copied your skills into the project so your cloud agent can see them."
 - This only needs to happen once per project
 

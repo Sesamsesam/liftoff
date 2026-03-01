@@ -74,7 +74,7 @@ Done. The agent handles `bd ready` / `bd sync` automatically from here.
 ---
 
 ## Activation
-- Enable in `~/.gemini/settings/extensions.json`: `"beads-workflow": true`
+- Enable in `~/.gemini/extensions/extensions.json`: `"beads-workflow": true`
 - The agent checks for Beads during Session Start (see `GEMINI.md`)
 
 ## Enforcement

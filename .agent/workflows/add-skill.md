@@ -13,7 +13,7 @@ description: "Checklist of every file to update when adding a new skill, extensi
 | Component Type | Source Dir | Installed To | Tracked In |
 |---|---|---|---|
 | Core Skill | `skills/<name>/SKILL.md` | `~/.gemini/skills/<name>/` | `install.sh` CORE_SKILLS array |
-| Extension | `extensions/<name>/SKILL.md` | `~/.gemini/skills/<name>/` | `install.sh` install_extension calls + `extensions.json` |
+| Extension | `extensions/<name>/SKILL.md` | `~/.gemini/extensions/<name>/` | `install.sh` install_extension calls + `extensions.json` |
 | Setup Task | `setup/<name>/SKILL.md` | `~/.gemini/setup/<name>/` | `install.sh` SETUP_TASKS array + `extensions.json` |
 | Workflow | `workflows/<name>.md` | `~/.gemini/workflows/` | `install.sh` (manual cp line) |
 
@@ -43,7 +43,7 @@ description: "Checklist of every file to update when adding a new skill, extensi
 | # | File | What to update | Line/Section |
 |---|---|---|---|
 | 1 | `extensions/<name>/SKILL.md` | **Create** the extension file | New file |
-| 2 | `settings/extensions.json` | Add `"<name>": false` entry | Alphabetical among extensions |
+| 2 | `extensions/extensions.json` | Add `"<name>": false` entry | Alphabetical among extensions |
 | 3 | `install.sh` | Add `install_extension "<name>"` under the correct profile tier | Profile section (~Lines 102-117) |
 | 4 | `README.md` | Add row to **Extensions** table with correct profile tier | "What's Inside > Extensions" section |
 | 5 | `README.md` | Add entry to **File Structure > Global** tree with `(extension)` tag | "File Structure" section |
@@ -70,7 +70,7 @@ Profile 4 (Full):           Lines 113-117   - Advanced workflows
 |---|---|---|---|
 | 1 | `setup/<name>/SKILL.md` | **Create** the setup task file | New file |
 | 2 | `install.sh` | Add `"<name>"` to `SETUP_TASKS` array | ~Line 86 |
-| 3 | `settings/extensions.json` | Add `"setup-<name>": "pending"` entry | Top of file, before extensions |
+| 3 | `extensions/extensions.json` | Add `"setup-<name>": "pending"` entry | Top of file, before extensions |
 | 4 | `README.md` | Add entry to **File Structure > Global** tree under `setup/` | "File Structure" section |
 
 ### Important:
@@ -117,7 +117,7 @@ echo "install.sh:" && grep -oP 'install_extension "([^"]+)"' install.sh | sed 's
 echo "" && \
 echo "=== Extensions in dir vs extensions.json ===" && \
 echo "Dir:" && ls extensions/ | sort && \
-echo "JSON:" && grep -oP '"([^"]+)":\s*(false|true)' settings/extensions.json | sed 's/"//g;s/:.*//' | sort && \
+echo "JSON:" && grep -oP '"([^"]+)":\s*(false|true)' extensions/extensions.json | sed 's/"//g;s/:.*//' | sort && \
 echo "" && \
 echo "=== Setup in dir vs install.sh ===" && \
 echo "Dir:" && ls setup/ | sort && \

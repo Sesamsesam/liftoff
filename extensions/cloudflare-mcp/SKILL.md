@@ -185,7 +185,7 @@ Source: [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-ser
 ---
 
 ## Activation
-- Enable in `~/.gemini/settings/extensions.json`: `"cloudflare-mcp": true`
+- Enable in `~/.gemini/extensions/extensions.json`: `"cloudflare-mcp": true`
 - Triggered by: Cloudflare setup, backend infrastructure, D1, R2, Workers, deployment
 
 ---

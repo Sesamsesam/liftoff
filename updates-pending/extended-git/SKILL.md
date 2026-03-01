@@ -27,7 +27,7 @@ The agent creates stacked PRs via Graphite when you finish a feature. Greptile a
 ---
 
 ## Activation
-- Enable in `~/.gemini/settings/extensions.json`: `"extended-git": true`
+- Enable in `~/.gemini/extensions/extensions.json`: `"extended-git": true`
 - Agent suggests this on team projects or code review requests
 
 > [!IMPORTANT]

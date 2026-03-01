@@ -115,7 +115,7 @@ If the section already exists (re-run scenario), update it instead of duplicatin
 
 ### 7. Mark Complete
 
-Update `~/.gemini/settings/extensions.json`: change `"setup-package-manager"` from `"pending"` to `"done"`.
+Update `~/.gemini/extensions/extensions.json`: change `"setup-package-manager"` from `"pending"` to `"done"`.
 
 ### 8. Confirm to User
 
