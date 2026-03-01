@@ -65,9 +65,12 @@ Note any step that fails or behaves unexpectedly. Specifically:
 
 ## 2. Windows Test (GitHub Actions)
 
+> **No new user needed.** GitHub Actions provides a free, real Windows VM in the cloud. You push a workflow file, GitHub spins up a fresh Windows machine, clones the repo, runs `install.ps1`, and reports results. Fully automated.
+
 After Mac test passes and any fixes are applied to `install.sh`:
 
 - [ ] Mirror any Mac fixes into `install.ps1`
-- [ ] Create GitHub Actions workflow to run `install.ps1` on `windows-latest`
-- [ ] Verify identical directory structure to Mac install
-- [ ] Verify `extensions.json` merge works with PowerShell native JSON
+- [ ] Create `.github/workflows/test-windows.yml` workflow file
+- [ ] Push to GitHub - the action runs automatically on `windows-latest`
+- [ ] Verify output: correct directory structure, all files installed, `extensions.json` merge works
+- [ ] Fix any failures, re-push, repeat until green
