@@ -53,7 +53,6 @@ One command. Full context. No re-explaining.
 
 Session start: agent runs `bd ready` and picks up where you left off. Session end: agent runs `bd sync` to save progress. You just build.
 
-
 > **First-time setup:** See [SETUP.md](./SETUP.md) in this folder for CLI installation, project initialization, and editor integration.
 
 ---

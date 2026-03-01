@@ -153,7 +153,8 @@ Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "  1. Open any project and start a conversation with your AI agent"
 Write-Host "  2. On first session, the agent will auto-detect your system and install developer tools"
-Write-Host "  3. To activate extensions, set them to true in: $ExtJsonDest"
+Write-Host "  3. To activate an extension, just ask your agent (e.g. 'I want to use Cloudflare MCP')"
+Write-Host "     Or manually set it to true in: $ExtJsonDest"
 Write-Host "  4. The agent handles MCP setup and configuration when you activate an extension"
 Write-Host ""
 Write-Host "Important: Keep this cloned folder - the agent checks it for updates automatically." -ForegroundColor Yellow

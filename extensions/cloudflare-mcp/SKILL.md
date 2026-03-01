@@ -13,6 +13,8 @@ What used to require 3-5+ years of DevOps experience, you now control through na
 
 The connection uses an **MCP Portal** - a single URL bundling all Cloudflare tools behind one secure entry point. Once set up, everything from creating a database to deploying a Worker happens right here in conversation.
 
+> **First-time setup:** See [SETUP.md](./SETUP.md) in this folder for MCP Portal creation, server selection, access policies, and agent config.
+
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- BEFORE VS AFTER                                    -->
 <!-- ═══════════════════════════════════════════════════ -->
@@ -38,9 +40,6 @@ The connection uses an **MCP Portal** - a single URL bundling all Cloudflare too
 
 **With MCP:**
 > "Create a D1 database and set up a users table." Done in one message.
-
-
-> **First-time setup:** See [SETUP.md](./SETUP.md) in this folder for MCP Portal creation, server selection, access policies, and agent config.
 
 ---
 

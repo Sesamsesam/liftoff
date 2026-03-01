@@ -116,7 +116,7 @@
      - **macOS/Linux**: `<source_path>/install.sh`
      - **Windows**: `powershell -ExecutionPolicy Bypass -File "<source_path>/install.ps1"`
   4. After update, tell the user in plain language what changed (new extensions, updated skills). For new extensions, explain what each one does in one sentence and note it's turned off by default. Tell them: "To turn one on, open `extensions.json` in your `.gemini/extensions/` folder and set it to `true`."
-- **Project init fallback**: If `setup-package-manager` is `"done"` and the current workspace has no `.gemini/` directory, the project has not been initialized yet. Automatically run the `init-project` workflow (see Project Directory Convention). This check ensures users who closed the window during the handoff or skipped it are not left stranded. Only trigger this once per session - do not loop
+- **Project init fallback**: If `setup-package-manager` is `"done"` and the current workspace has no `.gemini/` directory, the project has not been initialized yet. Read `~/.gemini/workflows/init-project.md` and execute the workflow (see Project Directory Convention). This check ensures users who closed the window during the handoff or skipped it are not left stranded. Only trigger this once per session - do not loop
 - If Beads active: run `bd ready` to find pending tasks
 - If ORBIT active and `orbit.md` exists: check it before starting work
 - If credential rotation tracking exists: check dates, warn if overdue
