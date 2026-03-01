@@ -7,6 +7,15 @@ description: "One-time bootstrap: detect OS, install/verify system package manag
 
 > **This is a one-time setup task.** The agent runs it automatically on first session, notes the results, and never loads it again.
 
+## Universal Fallback Principle
+
+> [!IMPORTANT]
+> **Never give up on installing a tool.** If the system package manager (brew on macOS, winget on Windows) is locked, broken, or permission-denied, the agent must automatically pivot to alternative installation methods:
+> - **macOS/Linux**: Use `curl` scripts or direct binary downloads
+> - **Windows**: Use PowerShell web requests (`irm`) or direct `.msi`/`.zip` downloads
+>
+> Do **not** attempt to fix package manager permissions (e.g., `chown` or `chmod` on brew directories) as this risks breaking other users' setups on shared machines.
+
 ## Instructions for the Agent
 
 When `extensions.json` has `"setup-package-manager": "pending"`, execute this flow. Run each check in order. If a tool is already installed, skip to the next one.
@@ -19,8 +28,10 @@ The system context includes `OS version: mac` or `OS version: windows`. Use this
 
 **macOS:**
 1. Run `which brew`
-2. If found: skip to step 3
-3. If not found: tell the user you're installing Homebrew, then run:
+2. If found: verify it actually works by running `brew --version`
+   - If `brew --version` succeeds: brew is healthy, use it for subsequent installs
+   - If `brew --version` fails (permission denied, errors): brew is **unusable** on this account. Note `Package Manager: unavailable (permission denied)` and use curl/direct-download for all subsequent tool installs. Do **not** reinstall brew or modify permissions - this would break other users on the same machine
+3. If `which brew` returns nothing (brew not installed): tell the user you're installing Homebrew, then run:
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
@@ -31,7 +42,7 @@ The system context includes `OS version: mac` or `OS version: windows`. Use this
    eval "$(/opt/homebrew/bin/brew shellenv)"
    ```
 5. Verify with `brew --version`
-6. If install fails (permission denied, corporate restrictions): note `Package Manager: manual (brew install blocked)` and move on
+6. If fresh install also fails: note `Package Manager: unavailable` and use curl/direct-download for all subsequent tools
 
 **Windows:**
 1. Run `where winget` or `winget --version`
@@ -41,8 +52,8 @@ The system context includes `OS version: mac` or `OS version: windows`. Use this
 5. If none found: ask the user:
    > "Do you have a preferred package manager? If you don't know, just say 'I don't know'."
    - If they name one: note it
-   - If "I don't know": `winget` ships with Windows 10/11 - verify with `winget --version`. If truly missing, install via the App Installer package from the Microsoft Store, or note `manual` and move on
-6. If install fails: note `Package Manager: manual` and move on
+   - If "I don't know": `winget` ships with Windows 10/11 - verify with `winget --version`. If truly missing, install via the App Installer package from the Microsoft Store, or note `Package Manager: unavailable` and use PowerShell/direct-download for all subsequent tools
+6. If install fails: note `Package Manager: unavailable` and move on
 
 **Linux:**
 1. Detect which is available: `which apt`, `which dnf`, `which pacman`, `which zypper`
@@ -50,17 +61,18 @@ The system context includes `OS version: mac` or `OS version: windows`. Use this
 
 ### 3. Install bun
 
-| OS | Command |
-|---|---|
-| macOS | `brew install oven-sh/bun/bun` |
-| Windows | `winget install Oven-sh.Bun` (or `powershell -c "irm bun.sh/install.ps1 \| iex"`) |
-| Linux | `curl -fsSL https://bun.sh/install \| bash` |
-
 1. Run `which bun` (or `where bun` on Windows)
 2. If found: note the version and skip
-3. If not found: install using the command above
+3. If not found: install using the table below - try the **primary** method first, if it fails use the **fallback**:
+
+| OS | Primary (package manager) | Fallback (direct install) |
+|---|---|---|
+| macOS | `brew install oven-sh/bun/bun` | `curl -fsSL https://bun.sh/install \| bash` |
+| Windows | `winget install Oven-sh.Bun` | `powershell -c "irm bun.sh/install.ps1 \| iex"` |
+| Linux | `curl -fsSL https://bun.sh/install \| bash` | Same (curl is the primary method) |
+
 4. Verify with `bun --version`
-5. If install fails: note `Runtime: manual (bun install blocked)` and move on
+5. If both methods fail: note `Runtime: manual (bun install blocked)` and provide the user with: https://bun.sh/docs/installation
 
 ### 4. Install git
 
@@ -68,32 +80,36 @@ Most systems ship with git. Check first.
 
 1. Run `git --version`
 2. If found: note the version and skip
-3. If not found:
+3. If not found: install using the table below:
 
-| OS | Command |
-|---|---|
-| macOS | `brew install git` (or Xcode CLT: `xcode-select --install`) |
-| Windows | `winget install Git.Git` |
-| Linux | `sudo apt install git` / `sudo dnf install git` |
+| OS | Primary (package manager) | Fallback |
+|---|---|---|
+| macOS | `brew install git` | `xcode-select --install` (opens a system dialog - tell the user: "A dialog will appear asking to install Command Line Tools. Click Install and wait for it to finish.") |
+| Windows | `winget install Git.Git` | Tell the user: "Please download Git from https://git-scm.com/download/win and run the installer. Use the default settings." |
+| Linux | `sudo apt install git` / `sudo dnf install git` | Always available via system package manager |
 
 4. Verify with `git --version`
 
 ### 5. Install GitHub CLI
 
 1. Run `gh --version`
-2. If found but not authenticated: run `gh auth status`
-   - If not logged in: run `gh auth login` and guide the user through the browser flow
-3. If not found: install it:
+2. If found but not authenticated: go to step 5.4
+3. If not found: install using the table below:
 
-| OS | Command |
-|---|---|
-| macOS | `brew install gh` |
-| Windows | `winget install GitHub.cli` |
-| Linux | See [gh install docs](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) |
+| OS | Primary (package manager) | Fallback (direct install) |
+|---|---|---|
+| macOS | `brew install gh` | `curl -sS https://webi.sh/gh \| bash` |
+| Windows | `winget install GitHub.cli` | `powershell -c "irm https://webi.sh/gh \| iex"` |
+| Linux | See [gh install docs](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) | `curl -sS https://webi.sh/gh \| bash` |
 
-4. After install, authenticate: `gh auth login`
-   - Choose: GitHub.com > HTTPS > Login with a web browser
-   - The agent should tell the user: "A browser window will open. Log in to GitHub and paste the code shown in your terminal."
+4. **Authenticate** (non-interactive):
+   ```bash
+   gh auth login --hostname github.com --git-protocol https --web
+   ```
+   - This command will hang waiting for confirmation. The agent **must** use its stdin/send-input tool to send `Y` followed by Enter (`\n`) to the terminal process
+   - If the agent cannot send keystrokes, tell the user: "Press Enter in the terminal to continue"
+   - Once the command outputs a one-time code, the agent **must** capture that code and write in chat:
+     > "A browser should have opened. Log in to GitHub and enter this code: **[CODE]**"
 5. If the user doesn't have a GitHub account:
    > "You'll need a GitHub account to store your code. Head to github.com/signup, create a free account, then come back here and we'll finish connecting."
 6. Verify with `gh auth status`
@@ -105,7 +121,7 @@ Append a `## Machine Environment` section to the user's `~/.gemini/GEMINI.md` (b
 ```markdown
 ## Machine Environment
 - OS: [macOS / Windows / Linux] ([architecture if detectable])
-- Package Manager: [brew / winget / choco / scoop / apt / dnf / pacman / manual]
+- Package Manager: [brew / winget / choco / scoop / apt / dnf / pacman / unavailable]
 - Runtime: bun [version]
 - Git: [version]
 - GitHub CLI: gh [version] (authenticated as @[username])
@@ -141,8 +157,10 @@ The agent should use the correct commands based on what was noted:
 
 **"brew: command not found" after install**: Shell env not loaded. Run the Step 2 shell env commands, then restart terminal.
 
+**brew exists but permission denied**: Multi-user Mac. Do **not** fix permissions. Note `Package Manager: unavailable` and use curl/direct-download for all tools.
+
 **"winget is not recognized"**: Windows version too old (pre-10) or App Installer not installed. Direct user to Microsoft Store to install "App Installer".
 
 **"gh: command not found" after install**: Restart terminal or run `eval "$(/opt/homebrew/bin/brew shellenv)"` on macOS.
 
-**Permission denied on any OS**: Corporate/managed machine. Note `manual` in Machine Environment and move on. The agent will provide manual download links instead of package manager commands.
+**Permission denied on any OS**: Corporate/managed machine. Note `unavailable` in Machine Environment and move on. The agent will provide manual download links instead of package manager commands.
