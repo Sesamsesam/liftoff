@@ -63,14 +63,37 @@ Note any step that fails or behaves unexpectedly. Specifically:
 
 ---
 
-## 2. Windows Test (GitHub Actions)
-
-> **No new user needed.** GitHub Actions provides a free, real Windows VM in the cloud. You push a workflow file, GitHub spins up a fresh Windows machine, clones the repo, runs `install.ps1`, and reports results. Fully automated.
+## 2. Windows Test
 
 After Mac test passes and any fixes are applied to `install.sh`:
+
+### Phase A: Installer Validation (GitHub Actions)
+
+> **Automated, free.** GitHub Actions runs `install.ps1` on a real Windows VM in the cloud. Validates the script itself.
 
 - [ ] Mirror any Mac fixes into `install.ps1`
 - [ ] Create `.github/workflows/test-windows.yml` workflow file
 - [ ] Push to GitHub - the action runs automatically on `windows-latest`
 - [ ] Verify output: correct directory structure, all files installed, `extensions.json` merge works
 - [ ] Fix any failures, re-push, repeat until green
+
+### Phase B: Full End-to-End (Azure Windows VM)
+
+> **Real Windows machine in the cloud.** Azure free trial gives $200 credit (30 days). A small VM costs ~$0.50/hour, so the whole test costs ~$2-3.
+
+#### Setup
+- [ ] Sign up at [azure.microsoft.com/free](https://azure.microsoft.com/free) ($200 free credit)
+- [ ] Create a Windows 11 VM (B2s size)
+- [ ] Connect via Microsoft Remote Desktop (free Mac app)
+
+#### Test Script (same phases as Mac test)
+- [ ] Install Antigravity (Gemini Code Assist)
+- [ ] Clone the Liftoff repo: `git clone https://github.com/sesamsesam/liftoff.git`
+- [ ] Run `powershell -ExecutionPolicy Bypass -File install.ps1`
+- [ ] Verify `%USERPROFILE%\.gemini\` directory structure matches Mac equivalent
+- [ ] Open a project, start a conversation - verify first-session tool detection
+- [ ] Test `init-project` - verify junctions (`mklink /J`) work correctly
+- [ ] Test extension auto-toggle - ask agent to activate an extension
+
+#### Cleanup
+- [ ] Delete the Azure VM when done (stops all billing)
