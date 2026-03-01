@@ -195,7 +195,7 @@ After creating, tell the user:
 
 > "Your Antigravity is now juiced up ⚡️! Instead of moving on foot, you now have a rocket 🚀
 >
-> Sami says hi 👋 and congratulations for making it through the installation! This will truly set you apart and give you a major advantage.
+> Sami says hi 👋 😊 and congratulations 🎉 - you just unlocked what 99% of builders don't have. This is your unfair but totally fair advantage 😉.
 >
 > **A note from Sami:** Keep all your projects inside `~/dev/` - that's the convention for everything going forward. And once a folder is created, **never rename it** - renaming breaks git remotes, symlinks, and cached paths. If you want a different name, create a new project from scratch.
 >
