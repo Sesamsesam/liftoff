@@ -13,68 +13,9 @@ A free AI research tool from Google. Unlike general AI, NotebookLM **only answer
 
 It can produce reports, mind maps, audio discussions, quizzes, flashcards, slide decks, and structured data tables - all grounded in your documents.
 
----
-
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- AGENT SETUP - The user can ignore everything below -->
-<!-- until the "Automated Workflow" section.            -->
-<!-- ═══════════════════════════════════════════════════ -->
-
-## MCP Setup (Agent-Only)
-
-> [!NOTE]
-> **Users can skip this section.** The agent reads these instructions to auto-install and configure everything. You only need to act when the agent explicitly asks you.
-
-### Prerequisites
-
-- **uv** (Python package manager) - auto-installed if missing
-- **Google Chrome** - required for one-time browser authentication
-- **A Google account** with access to [notebooklm.google.com](https://notebooklm.google.com)
-
-### Installation
-
-```bash
-uv tool install notebooklm-mcp-cli    # Install CLI + MCP
-nlm login                              # One-time auth (opens Chrome)
-nlm doctor                             # Verify connection
-```
-
-- Credentials: `~/.notebooklm-mcp-cli/profiles/default`
-- If auto mode fails: `nlm login --manual --file cookies.txt`
-- **Never share or commit the credentials directory**
-
-### MCP Config
-
-Add to `~/.gemini/antigravity/mcp_config.json`:
-
-```json
-"notebooklm": {
-  "command": "uvx",
-  "args": ["--from", "notebooklm-mcp-cli", "notebooklm-mcp"]
-}
-```
-
-This gives the agent 29 native MCP tools. **Always prefer MCP tools over CLI commands.**
-
-> [!IMPORTANT]
-> **Context window warning:** 29 tools is a lot. Disable this MCP when not actively using NotebookLM.
-
-### Auto-Setup Behavior
-
-When this extension is activated and setup hasn't been completed:
-
-1. Check `which uv` - install if missing
-2. Check `which nlm` - install via `uv tool install notebooklm-mcp-cli` if missing
-3. Check MCP config for `"notebooklm"` entry - add if missing
-4. Check auth via `nlm login --check` - guide user through `nlm login` if needed
-5. Verify with `nlm doctor`
-6. Inform user to reload IDE so MCP tools become available
+> **First-time setup:** See [SETUP.md](./SETUP.md) in this folder for MCP installation and configuration.
 
 ---
-
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- AUTOMATED WORKFLOW - This is the core skill.       -->
-<!-- ═══════════════════════════════════════════════════ -->
 
 ## Automated Workflow
 
@@ -275,10 +216,6 @@ After all reports are downloaded, update `research/index.md`.
 
 ---
 
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- AGENT BEHAVIORS - Rules the agent always follows   -->
-<!-- when this extension is active.                     -->
-<!-- ═══════════════════════════════════════════════════ -->
 
 ## Agent Behaviors
 

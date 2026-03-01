@@ -13,7 +13,7 @@ description: "Checklist of every file to update when adding a new skill, extensi
 | Component Type | Source Dir | Installed To | Tracked In |
 |---|---|---|---|
 | Core Skill | `skills/<name>/SKILL.md` | `~/.gemini/skills/<name>/` | `install.sh` CORE_SKILLS array |
-| Extension | `extensions/<name>/SKILL.md` | `~/.gemini/extensions/<name>/` | `install.sh` install_extension calls + `extensions.json` |
+| Extension | `extensions/<name>/SKILL.md` (+ optional `SETUP.md`) | `~/.gemini/extensions/<name>/` | `install.sh` install_extension calls + `extensions.json` |
 | Setup Task | `setup/<name>/SKILL.md` | `~/.gemini/setup/<name>/` | `install.sh` SETUP_TASKS array + `extensions.json` |
 | Workflow | `workflows/<name>.md` | `~/.gemini/workflows/` | `install.sh` (manual cp line) |
 
@@ -59,6 +59,7 @@ Profile 4 (Full):           Lines 113-117   - Advanced workflows
 
 ### Optional:
 - `global/GEMINI.md` - Only if extension requires new agent rules or references
+- `extensions/<name>/SETUP.md` - If extension requires one-time MCP, CLI, or API setup. The installer copies this automatically alongside SKILL.md. See `antigravity-standard` for guidance on when to use
 
 ---
 

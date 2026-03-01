@@ -268,6 +268,8 @@ skills/
 
 **One folder = one topic. One SKILL.md = all the related patterns for that topic.**
 
+Extensions that require MCP or CLI setup also have a `SETUP.md` - a separate file for one-time installation instructions. The agent reads it once during activation, then only uses `SKILL.md` going forward. This keeps the workflow file focused and the setup instructions self-contained.
+
 You don't create a new folder for every small thing. Instead, you add new patterns as sections inside the existing `SKILL.md`. For example, `notebooklm-research/SKILL.md` could contain:
 
 - **Skill 1**: The Research-to-Production pipeline (research → extract → ground → implement)
@@ -303,14 +305,14 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 ~/.gemini/
 ├── GEMINI.md                          # Global identity + rules
 ├── extensions/
-│   ├── extensions.json                # Extension activation config
-│   ├── cloudflare-mcp/SKILL.md         # (extension)
-│   ├── orbit-planning/SKILL.md         # (extension)
-│   ├── beads-workflow/SKILL.md         # (extension)
-│   ├── firecrawl/SKILL.md              # (extension)
-│   ├── autorag-pipeline/SKILL.md       # (extension)
-│   ├── notebooklm-research/SKILL.md    # (extension)
-│   └── minibook-pipeline/SKILL.md      # (extension)
+│   ├── extensions.json                       # Extension activation config
+│   ├── cloudflare-mcp/SKILL.md + SETUP.md     # (extension)
+│   ├── orbit-planning/SKILL.md                # (extension)
+│   ├── beads-workflow/SKILL.md + SETUP.md     # (extension)
+│   ├── firecrawl/SKILL.md + SETUP.md          # (extension)
+│   ├── autorag-pipeline/SKILL.md              # (extension)
+│   ├── notebooklm-research/SKILL.md + SETUP.md # (extension)
+│   └── minibook-pipeline/SKILL.md             # (extension)
 ├── setup/
 │   └── package-manager/SKILL.md       # One-time OS + package manager detection
 ├── skills/
@@ -368,7 +370,7 @@ cd liftoff
 
 
 **Q: Can I customize the skills or create my own?**
-A: Yes. Every skill is a markdown file - edit them directly, and the agent picks up changes at runtime. To create a new skill, just ask the agent - it handles the file creation and registration automatically. Or you can manually create a folder under `~/.gemini/extensions/` with a `SKILL.md` inside. The `antigravity-standard` skill is a template you can copy.
+A: Yes. Every skill is a markdown file - edit them directly, and the agent picks up changes at runtime. To create a new skill, just ask the agent - it handles the file creation and registration automatically. Or you can manually create a folder under `~/.gemini/extensions/` with a `SKILL.md` inside (and optionally a `SETUP.md` for one-time setup). The `antigravity-standard` skill is a template you can copy.
 
 
 **Q: Do I need all the tools listed in `stack-pro-max`?**

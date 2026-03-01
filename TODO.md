@@ -61,9 +61,18 @@ Create a new macOS user to simulate a first-time install with no dependencies.
 - [ ] Let the agent install brew, then bun
 - [ ] Verify `extensions.json` updates `setup-package-manager` from `"pending"` to `"done"`
 
-#### Phase 4: Init Project
-- [ ] Ask the agent: "Initialize this as a new project" (or `/init-project`)
-- [ ] Verify it creates `.gemini/` in the project with:
+#### Phase 3.5: Handoff to Project Init
+- [ ] Verify agent does NOT stop after tool setup - it immediately prompts for a project name
+- [ ] Provide a project name (or describe what you're building) and verify the agent picks a good folder name
+- [ ] Verify `~/dev/<project-name>/` is created
+- [ ] Verify Sami's recommendation message appears (mentions ~/dev/ convention + never rename folders)
+- [ ] Verify agent tells you to open the new folder and say "liftoff"
+- [ ] Open the new folder in a separate Antigravity window
+- [ ] Say "liftoff" and verify `init-project` runs automatically
+- [ ] **Fallback test**: Close the window without saying liftoff, reopen it, say something unrelated - verify agent still auto-detects the empty project and runs `init-project`
+
+#### Phase 4: Init Project (flows from Phase 3.5)
+- [ ] Verify init-project creates `.gemini/` in the project with:
   - Symlink to `~/.gemini/GEMINI.md`
   - Symlink to `~/.gemini/extensions/`
 - [ ] Verify `extensions.json` is visible inside the project via the symlink

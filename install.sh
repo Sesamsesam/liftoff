@@ -105,6 +105,10 @@ install_extension() {
   local ext_name="$1"
   mkdir -p "$SKILL_EXTENSIONS_DIR/$ext_name"
   cp "$SCRIPT_DIR/extensions/$ext_name/SKILL.md" "$SKILL_EXTENSIONS_DIR/$ext_name/SKILL.md"
+  # Copy SETUP.md if it exists (one-time setup instructions, separate from workflow)
+  if [ -f "$SCRIPT_DIR/extensions/$ext_name/SETUP.md" ]; then
+    cp "$SCRIPT_DIR/extensions/$ext_name/SETUP.md" "$SKILL_EXTENSIONS_DIR/$ext_name/SETUP.md"
+  fi
   echo "  ✓ $ext_name"
 }
 

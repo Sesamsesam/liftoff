@@ -53,23 +53,8 @@ One command. Full context. No re-explaining.
 
 Session start: agent runs `bd ready` and picks up where you left off. Session end: agent runs `bd sync` to save progress. You just build.
 
----
 
-## TL;DR Setup (macOS)
-
-```bash
-brew install beads       # 1. Install (need Homebrew? See the Homebrew skill)
-cd your-project          # 2. Go to your project folder
-bd init                  # 3. Initialize Beads in your project
-```
-
-Done. The agent handles `bd ready` / `bd sync` automatically from here.
-
-> Windows/Linux or other install methods? See full setup below.
-
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- SETUP & CONFIGURATION                              -->
-<!-- ═══════════════════════════════════════════════════ -->
+> **First-time setup:** See [SETUP.md](./SETUP.md) in this folder for CLI installation, project initialization, and editor integration.
 
 ---
 
@@ -80,81 +65,6 @@ Done. The agent handles `bd ready` / `bd sync` automatically from here.
 ## Enforcement
 - Agent MUST run `bd ready` at session start and `bd sync` at session end
 - Agent MUST guide installation if Beads is not found
-
----
-
-## Setup Guide
-
-### Step 1: Install the Beads CLI
-
-Beads is a system-wide tool (like `git`). Do NOT clone the repo into your project.
-
-| Method | Command | Best For | Updates |
-|---|---|---|---|
-| **Homebrew** | `brew install beads` | macOS/Linux | `brew upgrade beads` |
-| **bun** | `bun install -g --trust @beads/bd` | JS developers | `bun update -g @beads/bd` |
-| **pnpm** | `pnpm install -g @beads/bd` | JS fallback | `pnpm update -g @beads/bd` |
-| **Script** | `curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh \| bash` | Any platform | Re-run script |
-| **Go** | `go install github.com/steveyegge/beads/cmd/bd@latest` | Go devs (1.24+) | Re-run command |
-
-> **New to Homebrew?** If you don't have it installed, check the Homebrew skill guide - it walks you through from scratch just ask you agent to look at it.
-
-### Step 2: Verify
-
-```bash
-bd version
-bd help
-```
-
-If you see a version number and the help menu, you're good.
-
-**"bd: command not found"?** Close and reopen your terminal, or run `source ~/.zshrc` (macOS) / `source ~/.bashrc` (Linux). Or just ask the agent to fix it for you.
-
-### Step 3: Initialize in Your Project
-
-```bash
-cd your-project
-bd init
-```
-
-Creates `.beads/` in your project (tracked by git so context persists across machines).
-
-**Init options:**
-```bash
-bd init --quiet        # Minimal output
-bd init --stealth      # Local only, nothing committed (for shared repos)
-bd init --contributor  # Open-source contributions (stores in ~/.beads-planning)
-```
-
-### Step 4: Editor Integration
-
-**Cursor:**
-```bash
-bd setup cursor
-```
-Creates `.cursor/rules/beads.mdc` so the agent knows about Beads.
-
-**VS Code (MCP Server):**
-```bash
-uv tool install beads-mcp
-```
-Then create `.vscode/mcp.json`:
-```json
-{
-  "servers": {
-    "beads": {
-      "command": "beads-mcp"
-    }
-  }
-}
-```
-Run `bd init --quiet` and reload VS Code.
-
-**Gemini / Antigravity:** No additional setup needed - this extension handles everything.
-
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- DAY-TO-DAY FLOW                                    -->
-<!-- ═══════════════════════════════════════════════════ -->
 
 ---
 

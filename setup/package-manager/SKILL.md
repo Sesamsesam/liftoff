@@ -139,7 +139,50 @@ Tell the user:
 
 > "Your developer tools are set up: [brew/winget], bun, git, and GitHub CLI. Everything is ready - I'll use the right commands for your system automatically from now on."
 
-Keep it to one or two sentences. Don't over-explain.
+Keep it to one or two sentences. Don't over-explain. Then immediately proceed to Step 9.
+
+### 9. Handoff to Project Init
+
+> [!IMPORTANT]
+> **Do not stop after Step 8.** New users will not know what to do next. This step bridges the gap between global setup and their first project.
+
+#### 9.1 Prompt for project name
+
+Tell the user:
+
+> "Global setup is complete! Now let's create your first project folder. This is where your application will be built - you should not build inside this setup folder.
+>
+> What would you like to name your project? You can either:
+> - Give me a name directly (e.g., `my-portfolio`, `ai-chat-app`)
+> - Or describe what you want to build in a sentence and I'll pick a good name for you"
+
+Wait for the user's response. If they describe what they're building, generate a lowercase, hyphenated folder name from their description (e.g., "I want to build a recipe sharing app" becomes `recipe-share`).
+
+#### 9.2 Create the project folder
+
+**Always use `~/dev/` as the parent directory.** This is a hard convention - all projects live in `~/dev/`. Create it if it doesn't exist.
+
+**macOS/Linux:**
+```bash
+mkdir -p ~/dev/<project-name>
+```
+
+**Windows (PowerShell):**
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\dev\<project-name>"
+```
+
+After creating, tell the user:
+
+> "I've created `~/dev/<project-name>/` for you!
+>
+> **A note from Sami:** he strongly recommends keeping all your projects inside `~/dev/` - that's the convention used throughout this guide for everything going forward. Also, once a folder is created, **never rename it** - renaming breaks git remotes, symlinks, and cached paths. If you want a different name, it's better to create a new project from scratch.
+>
+> **Next step:** Please open the folder `~/dev/<project-name>/` in a new Antigravity window (use your editor's 'Open Folder' menu) and close this current window. Once the new window is open, just say **liftoff** and I'll scaffold your entire project, set up Git, and help you configure any extensions you need!"
+
+#### 9.3 What happens in the new window
+
+The agent in the new window will detect an empty, un-initialized project folder (no `.gemini/` directory) and should automatically run the `init-project` workflow. The user saying "liftoff" confirms this, but even if they say something else, the auto-detection should trigger. See the `Session Start` rules in `GEMINI.md` and the "Liftoff" rule for details.
 
 ## Common Commands Reference
 

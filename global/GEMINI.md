@@ -58,6 +58,13 @@
 - Always check `which bun` before defaulting to pnpm
 - See `stack-pro-max` skill for init commands + database-first setup
 
+## Project Directory Convention
+- **All projects live in `~/dev/`** (or `%USERPROFILE%\dev\` on Windows) - this is a hard convention, no exceptions
+- If `~/dev/` does not exist, create it automatically (`mkdir -p ~/dev/`)
+- **Never rename project folders** once created - renaming breaks git remotes, symlinks, and cached paths. If a different name is needed, create a new project from scratch
+- **"Liftoff" trigger**: When the user says "liftoff", run the `init-project` workflow immediately. This is a hard rule that cannot be misinterpreted
+- **Auto-detect empty projects**: If the agent is in a folder inside `~/dev/` that has no `.gemini/` directory (meaning `init-project` has not run), automatically run `init-project` regardless of what the user says. The user does not need to ask - the agent detects and acts
+
 ## Server Management
 - **Never auto-start dev servers** unless explicitly asked
 - Assume the user already has their local environment running
@@ -109,6 +116,7 @@
      - **macOS/Linux**: `<source_path>/install.sh`
      - **Windows**: `powershell -ExecutionPolicy Bypass -File "<source_path>/install.ps1"`
   4. After update, tell the user in plain language what changed (new extensions, updated skills). For new extensions, explain what each one does in one sentence and note it's turned off by default. Tell them: "To turn one on, open `extensions.json` in your `.gemini/extensions/` folder and set it to `true`."
+- **Project init fallback**: If `setup-package-manager` is `"done"` and the current workspace has no `.gemini/` directory, the project has not been initialized yet. Automatically run the `init-project` workflow (see Project Directory Convention). This check ensures users who closed the window during the handoff or skipped it are not left stranded. Only trigger this once per session - do not loop
 - If Beads active: run `bd ready` to find pending tasks
 - If ORBIT active and `orbit.md` exists: check it before starting work
 - If credential rotation tracking exists: check dates, warn if overdue

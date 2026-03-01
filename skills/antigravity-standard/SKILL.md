@@ -87,10 +87,42 @@ A skill passes the quality bar if:
 | **Concrete** | Does it have code examples, commands, or checklists? (Not just philosophy) |
 | **Non-overlapping** | Does it duplicate content from another skill? If yes → merge or reference |
 | **Beginner-friendly** | Would a first-week developer understand the README block? |
-| **Under 200 lines** | Is it focused enough to fit in ~200 lines? If not → split into two skills |
+| **Under 200 lines** | Is the SKILL.md focused enough to fit in ~200 lines? If not, move one-time setup to SETUP.md or split into two skills |
 | **Actionable** | Does every section tell the agent what to DO, not just what to think about? |
 
 ---
+
+## File Structure
+
+Each skill/extension lives in its own folder. Most have just one file:
+
+```
+extension-name/
+  SKILL.md          ← Required. Workflow, rules, usage (read every session)
+```
+
+If the extension requires one-time MCP, CLI, or API setup, add a separate file:
+
+```
+extension-name/
+  SKILL.md          ← Workflow + rules (read every session)
+  SETUP.md          ← One-time install + config (read once on activation)
+```
+
+**When to use SETUP.md:**
+- The extension needs MCP server configuration, API keys, or CLI installation
+- The setup is genuinely one-time (not repeated per project or per session)
+- Separating it keeps SKILL.md focused on the workflow the agent runs daily
+
+**When NOT to use SETUP.md:**
+- The skill has no installation or configuration steps (pure behavioral rules)
+- The "setup" runs every time (like prerequisite checks) - keep in SKILL.md
+- The skill is already under 200 lines - no need to split
+
+**Cross-reference pattern:** SKILL.md must reference SETUP.md at the top:
+```markdown
+> **First-time setup:** See [SETUP.md](./SETUP.md) in this folder for [brief description].
+```
 
 ## Anti-Patterns
 

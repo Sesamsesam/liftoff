@@ -115,6 +115,11 @@ Get-ChildItem -Path $ExtSourceDir -Directory | ForEach-Object {
     $destDir = Join-Path $ExtensionsDir $extName
     New-Item -ItemType Directory -Force -Path $destDir | Out-Null
     Copy-Item (Join-Path $_.FullName "SKILL.md") (Join-Path $destDir "SKILL.md") -Force
+    # Copy SETUP.md if it exists (one-time setup instructions, separate from workflow)
+    $setupFile = Join-Path $_.FullName "SETUP.md"
+    if (Test-Path $setupFile) {
+        Copy-Item $setupFile (Join-Path $destDir "SETUP.md") -Force
+    }
     Write-Host "  + $extName" -ForegroundColor Gray
     $script:ExtCount++
 }
