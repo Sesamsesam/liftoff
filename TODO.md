@@ -2,6 +2,29 @@
 
 > Last updated: 2026-03-01
 
+## Context for New Agents
+
+This is the Liftoff source repo (`antigravity-source-setup/`) - a one-command installer for AI agent guardrails, skills, and extensions. It installs to `~/.gemini/` and provides core skills, optional extensions, and workflows for Antigravity (Gemini Code Assist).
+
+### What Was Done in Previous Sessions
+
+1. **Restructured extensions** - Moved `extensions.json` from `settings/` to `extensions/`. Deleted `settings/` folder. Updated all 26 files with cross-references.
+2. **Added auto-update** - `install.sh` tracks version via git. GEMINI.md Session Start checks for updates and re-runs installer.
+3. **Created `install.ps1`** - Full PowerShell equivalent of `install.sh` for Windows users. Uses native `ConvertFrom-Json` (no Python dependency).
+4. **Updated GEMINI.md** - Auto-update detects OS (runs `install.sh` or `install.ps1`). Cloud Agent Support has both bash and PowerShell commands.
+5. **Updated README** - Quick Start shows both macOS/Linux and Windows install commands.
+6. **Fixed `package-manager/SKILL.md`** - Added brew health check (catches permission-denied on multi-user Macs), universal fallback principle (never give up - use curl/direct-download), and non-interactive `gh auth login` with keystroke instructions.
+
+### Current Testing Status
+
+- **Install structure**: PASSED on fresh Mac user. All 7 skills, 7 extensions, workflows, setup tasks, extensions.json land correctly.
+- **Package manager bootstrap**: PASSED after fix. Brew permission issue on multi-user Mac caught and handled. Bun installed via curl fallback. Git and gh detected. gh auth completed.
+- **Init-project**: NOT YET TESTED on fresh user.
+- **Extension auto-toggle**: NOT YET TESTED on fresh user.
+- **Windows**: NOT YET TESTED. `install.ps1` created but needs GitHub Actions + Azure VM testing.
+
+---
+
 ## 1. End-to-End Mac Test (Fresh User)
 
 Create a new macOS user to simulate a first-time install with no dependencies.
