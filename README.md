@@ -15,7 +15,7 @@ Whether you're in finance, marketing, sales, design, or deep in code, this is th
 > [!TIP]
 > **Quick Install:** Copy this and paste it into your AI agent's chat:
 > ```
-> https://github.com/sesamsesam/liftoff - follow the readme
+> https://github.com/sesamsesam/liftoff - follow the readme.md
 > ```
 ---
 
