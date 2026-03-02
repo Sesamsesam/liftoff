@@ -182,6 +182,7 @@ Wait for the user's response. If they describe what they're building, generate a
 
 > [!CAUTION]
 > **Extension activation guardrail:** If the user's response mentions an extension or tool name (NotebookLM, Cloudflare, Firecrawl, etc.), do NOT activate the extension. Treat their response purely as a project description and generate a folder name from it. Example: "I want to do notebookLM research" -> folder name: `notebooklm-research`. Extensions are set up AFTER the user opens their new project folder - never inside the Liftoff source directory.
+The idea here is only to understand what the user wants generate a folder name from it. 
 
 #### 9.2 Create the project folder
 
