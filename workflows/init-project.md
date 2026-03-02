@@ -184,7 +184,9 @@ git push -u origin main
 
 After everything is set up, tell the user:
 
-> "Your project is ready and pushed to GitHub (private). Before we start building, would you like to connect any tools? The two most popular ones to start with are:
+> "Your project is ready and pushed to GitHub (private).
+>
+> Before we start building, would you like to connect any tools? The two most popular ones to start with are:
 >
 > 1. **NotebookLM** - AI-powered research assistant for grounded, citation-backed content
 > 2. **Notion** - Knowledge base and project documentation
@@ -204,4 +206,11 @@ Only suggest, never auto-activate. If the user picks one, set it to `true` in `e
 - [ ] GitHub repo exists and is private
 
 ### 12. Report
-Tell the user: "Project scaffolded with [type]. Git initialized, pushed to GitHub (private). Your extensions and config are linked in `.gemini/extensions/` - browse there to see what's available or toggle extensions on and off."
+Tell the user:
+
+> "Project scaffolded with [type].
+>
+> - Git initialized and pushed to GitHub (private)
+> - Extensions and config linked in `.gemini/extensions/`
+>
+> Browse `.gemini/extensions/` to see what's available or toggle extensions on and off."

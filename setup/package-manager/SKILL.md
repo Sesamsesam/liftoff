@@ -192,7 +192,14 @@ Update `~/.gemini/extensions/extensions.json`: change `"setup-package-manager"` 
 
 Tell the user:
 
-> "Your developer tools are set up: [brew/winget], bun, git, and GitHub CLI. Everything is ready - I'll use the right commands for your system automatically from now on."
+> "Your developer tools are set up:
+>
+> - [brew/winget]
+> - bun
+> - git
+> - GitHub CLI
+>
+> Everything is ready - I'll use the right commands for your system automatically from now on."
 
 Keep it to one or two sentences. Don't over-explain. Then immediately proceed to Step 9.
 

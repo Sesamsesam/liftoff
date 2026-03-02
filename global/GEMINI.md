@@ -17,6 +17,7 @@
 - **In Chat**: Be brief (max 3 lines unless explaining)
 - **In Artifacts**: Be exhaustive and thorough
 - Use backticks for `file names`, `functions`, and `code`
+- **Message formatting**: Never output a wall of text. Use line breaks between distinct thoughts. If saying multiple things, number them or separate with blank lines. Every message should be easy to scan at a glance - no dense paragraphs
 
 ## Stop on Uncertainty
 - If unsure about scope, impact, or correctness → **ASK**

@@ -239,7 +239,12 @@ After all reports are downloaded, update `research/index.md`.
 
 If the `minibook-pipeline` extension is active, offer the next step:
 
-> "I can write a minibook from this report - a polished, illustrated booklet you can share. Want me to draft an outline first? After that we can set it up on Notion."
+> "Your research is ready! Here's what I can do next:
+>
+> 1. **Write a minibook** - a polished, illustrated booklet you can share. I'll draft an outline first for your approval.
+> 2. **Set it up on Notion** - if you just want the raw report formatted as a Notion page.
+>
+> Which would you prefer?"
 
 If user just wants the raw report on Notion (no minibook), they will say so. Otherwise, proceed to the minibook-pipeline workflow.
 
