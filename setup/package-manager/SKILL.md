@@ -248,6 +248,11 @@ mkdir -p ~/dev/<project-name>
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\dev\<project-name>"
 ```
 
+**Before showing the closing message**, delete the progress tracker:
+```bash
+rm -f ~/.gemini/setup/setup-progress.md
+```
+
 After creating, tell the user:
 
 > "Your Antigravity is now juiced up ⚡️! Instead of moving on foot, you now have a rocket 🚀
@@ -260,7 +265,7 @@ After creating, tell the user:
 >
 > **Step 1:** In Antigravity at the top, find **File** > **Open Folder** (or use Cmd+O on Mac / Ctrl+O on Windows)
 > **Step 2:** Navigate to `~/dev/<project-name>/` and open it
-> *(If a dialog asks to save changes, click **Save**)*
+> *(If a dialog asks to save changes, click **Don't Save** - the setup is already done)*
 > **Step 3:** In the new window, say the word **liftoff**
 >
 > 👋🏼 **Important:** Don't say liftoff here - you need to be in your new project folder first! Follow the steps above."
