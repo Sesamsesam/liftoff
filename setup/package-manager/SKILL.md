@@ -149,14 +149,20 @@ Most systems ship with git. Check first.
 | Windows | `winget install GitHub.cli` | `powershell -c "irm https://webi.sh/gh \| iex"` |
 | Linux | See [gh install docs](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) | `curl -sS https://webi.sh/gh \| bash` |
 
-4. **Authenticate** (non-interactive):
+4. **Authenticate** (fully automated - no user interaction at the terminal):
    ```bash
    gh auth login --hostname github.com --git-protocol https --web
    ```
    > [!CAUTION]
-   > **The command will prompt "Press Enter to open github.com in your browser..." and WAIT.** The agent **MUST immediately** send Enter (`\n`) via its stdin/send-input tool. Do NOT wait for user input. Do NOT ask the user to press Enter. Just send it automatically, immediately, without hesitation.
+   > **This command has TWO interactive prompts. The agent MUST handle BOTH automatically:**
+   >
+   > **Prompt 1:** `? Authenticate Git with your GitHub credentials? (Y/n)` - The agent MUST immediately send `Y\n` (the letter Y followed by Enter) via stdin/send-input. Do NOT wait. Do NOT ask the user. Just send it.
+   >
+   > **Prompt 2:** `Press Enter to open github.com in your browser...` - The agent MUST immediately send `\n` (Enter) via stdin/send-input. Do NOT wait. Do NOT ask the user. Just send it.
+   >
+   > **Both of these are mandatory automated actions.** The user cannot interact with the terminal - there is no button for them to click. The agent is the only one who can send input. If the agent does not have permission to send input, it must request permission to do so - but it must NEVER ask the user to type in the terminal.
 
-   - After sending Enter, the command outputs a one-time code and opens a browser
+   - After both prompts are handled, the command outputs a one-time code and opens a browser
    - The agent **must** capture that code and write in chat:
      > "A browser should have opened. Log in to GitHub and enter this code: **[CODE]**
      >
