@@ -12,7 +12,11 @@
 
 Whether you're in finance, marketing, sales, design, or deep in code, this is the toolkit that makes it click. If you want to see what else I'm working on, come say hi at [samihermes.ai](https://samihermes.ai).
 
-
+> [!TIP]
+> **Quick Install:** Paste this into your AI agent's chat and say **"follow the readme"**:
+> ```
+> https://github.com/sesamsesam/liftoff
+> ```
 ---
 
 **This repo - Liftoff - is the startup pack that makes Antigravity extremely good at its job.** 
