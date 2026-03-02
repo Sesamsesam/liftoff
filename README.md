@@ -1,4 +1,6 @@
-<!-- AGENT: After running install.sh, read ~/.gemini/GEMINI.md "Session Start" section and follow it. -->
+<!-- AGENT: First, create ~/dev/ if it doesn't exist (mkdir -p ~/dev) and clone this repo INTO ~/dev/. -->
+<!-- AGENT: Run: mkdir -p ~/dev && cd ~/dev && git clone <repo-url> && cd liftoff && chmod +x install.sh && ./install.sh -->
+<!-- AGENT: After install.sh finishes, read ~/.gemini/GEMINI.md "Session Start" section and follow it. -->
 <!-- AGENT: If setup-package-manager is "pending" in ~/.gemini/extensions/extensions.json, -->
 <!-- AGENT: read ~/.gemini/setup/package-manager/SKILL.md and execute Steps 0 through 9. Do NOT stop after install.sh. -->
 
