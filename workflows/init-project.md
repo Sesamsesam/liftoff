@@ -40,9 +40,9 @@ Based on the answers, silently classify into one of three scaffold types:
 
 **Never ask the user** "Is this a dynamic app or a static site?" - this is jargon they may not understand. The classification is always an internal agent decision.
 
-#### Create PROBE Plan (artifact)
+#### Create PROBE Plan
 
-After discovery, create a shorthand plan artifact (`probe-plan.md` in the project root) containing:
+After discovery, create `probe-plan.md` in the project root containing:
 
 1. **Project summary** (one paragraph, from the user's own words)
 2. **Classified type** (App / Static Site / Research / Tools)
@@ -80,7 +80,11 @@ bun install
 ```
 
 **For research / tools (bare repo):**
-No framework scaffolding. Just create a `README.md` with the project name and description from the PROBE plan. The project is ready for extension configuration.
+No framework scaffolding. Create these files directly:
+- `README.md` with `# <project-name>` as the heading and the PROBE summary as the description
+- `.gitignore` from the `git-flow` skill template
+
+The project is ready for extension configuration.
 
 ### 3. Initialize Git
 ```bash
