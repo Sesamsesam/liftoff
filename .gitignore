@@ -1,3 +1,7 @@
+# Dev-only (not part of the production install)
+TODO.md
+updates-pending/
+
 # macOS
 .DS_Store
 .AppleDouble
