@@ -198,16 +198,13 @@ Update `~/.gemini/extensions/extensions.json`: change `"setup-package-manager"` 
 
 Tell the user:
 
-> "Your developer tools are set up:
+> "Global setup is complete! 🥳 Everything is ready ✅
 >
-> - [brew/winget]
-> - bun
-> - git
-> - GitHub CLI
+> I'll use the right commands for your system automatically from now on.
 >
-> Everything is ready - I'll use the right commands for your system automatically from now on."
+> I'm juiced up and boosted ⚡️"
 
-Keep it to one or two sentences. Don't over-explain. Then immediately proceed to Step 9.
+Then immediately proceed to Step 9.
 
 ### 9. Handoff to Project Init
 
@@ -218,11 +215,18 @@ Keep it to one or two sentences. Don't over-explain. Then immediately proceed to
 
 Tell the user:
 
-> "Global setup is complete! Now let's create your first project folder. This is where your application will be built - you should not build inside this setup folder.
+> "Now let's create your first project folder.
+> This is where your first project will be built.
 >
-> What would you like to name your project? You can either:
+> ‼️ You should not build inside this setup folder. ‼️
+>
+> So let's create a new one and I will guide you.
+>
+> What would you like to name your project?
+>
+> You can either:
 > - Give me a name directly (e.g., `my-portfolio`, `ai-chat-app`)
-> - Or describe what you want to build in a sentence and I'll pick a good name for you"
+> - Or describe what you want to do for your next project in a few sentences and I'll pick a good name for you"
 
 Wait for the user's response. If they describe what they're building, generate a lowercase, hyphenated folder name from their description (e.g., "I want to build a recipe sharing app" becomes `recipe-share`).
 
@@ -248,17 +252,18 @@ After creating, tell the user:
 
 > "Your Antigravity is now juiced up ⚡️! Instead of moving on foot, you now have a rocket 🚀
 >
-> Sami says hi 👋 😊 and congratulations 🎉 - you just unlocked what 99% of builders don't have. This is your unfair but totally fair advantage 😉.
+> Sami says hi 👋 😊 and congratulations 🎉 - you just unlocked what 99% of builders don't have. This is your unfair but totally fair advantage 😉 you will see once you start using Antigravity.
 >
-> **A note from Sami:** Keep all your projects inside `~/dev/` - that's the convention for everything going forward. And once a folder is created, **never rename it** - renaming breaks git remotes, symlinks, and cached paths. If you want a different name, create a new project from scratch. Don't worry - your agent will also know all of this automatically!
+> ‼️ **A note from Sami:** Keep all your projects inside `~/dev/` - that's the convention for everything going forward. And once a folder is created, **never rename it** - renaming breaks git remotes, symlinks, and cached paths. If you want a different name, create a new project from scratch. Don't worry - your agent will also know all of this automatically!
 >
-> Now, to start building, open your new project folder:
+> 👉 Now, to start building, open your new project folder:
 >
-> **Step 1:** In Antigravity, go to File > Open Folder (or use Cmd+O on Mac / Ctrl+O on Windows)
+> **Step 1:** In Antigravity at the top, find **File** > **Open Folder** (or use Cmd+O on Mac / Ctrl+O on Windows)
 > **Step 2:** Navigate to `~/dev/<project-name>/` and open it
+> *(If a dialog asks to save changes, click **Save**)*
 > **Step 3:** In the new window, say the word **liftoff**
 >
-> **Important:** Don't say liftoff here - you need to be in your new project folder first!"
+> 👋🏼 **Important:** Don't say liftoff here - you need to be in your new project folder first! Follow the steps above."
 
 #### 9.3 What happens in the new window
 
