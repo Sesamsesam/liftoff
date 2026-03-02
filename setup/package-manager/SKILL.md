@@ -53,17 +53,17 @@ When `extensions.json` has `"setup-package-manager": "pending"`, execute this fl
 
 ### 0. Welcome
 
-Start the session with this message:
+Start the session with this message (include the line breaks exactly as shown):
 
 > "Welcome Astronaut 🧑‍🚀 to samihermes.ai Liftoff! 🚀 Are you ready to move with rocket speed and get an AI upgrade?
 >
-> I'm going to set up your developer toolkit now to give you a super boost ⚡️ - this will take just a few minutes. I'll install everything automatically and ask you only when I need your help. Enjoy the magic 🪄"
-
-Then check GitHub readiness:
-
-> "First things first - do you have a GitHub account? GitHub is essential for working with AI going forward. If you don't have one, Sami strongly recommends creating one now at [github.com/signup](https://github.com/signup) - you'll eventually become familiar with it and it's a must-have going forward.
+> I'm going to set up your developer toolkit now to give you a super boost ⚡️ - this will take just a few minutes. I'll install everything automatically and ask you only when I need your help. Enjoy the magic 🪄
 >
-> If you already have one, make sure you're logged in. Reply with **'Ready'** when you're set!"
+> 1. First things first - do you have a GitHub account? If you don't, create one right now as the first step at [github.com/signup](https://github.com/signup) - this is essential and mandatory to move on.
+> (don't worry, you will learn what it is and how to use it over time working with me)
+>
+> If you already have an account, go and sign in right now.
+> Reply with **'Ready'** when you have done this."
 
 Wait for the user to confirm before proceeding to Step 1.
 
@@ -153,9 +153,11 @@ Most systems ship with git. Check first.
    ```bash
    gh auth login --hostname github.com --git-protocol https --web
    ```
-   - This command will hang waiting for confirmation. The agent **must** use its stdin/send-input tool to send `Y` followed by Enter (`\n`) to the terminal process
-   - If the agent cannot send keystrokes, tell the user: "Press Enter in the terminal to continue"
-   - Once the command outputs a one-time code, the agent **must** capture that code and write in chat:
+   > [!CAUTION]
+   > **The command will prompt "Press Enter to open github.com in your browser..." and WAIT.** The agent **MUST immediately** send Enter (`\n`) via its stdin/send-input tool. Do NOT wait for user input. Do NOT ask the user to press Enter. Just send it automatically, immediately, without hesitation.
+
+   - After sending Enter, the command outputs a one-time code and opens a browser
+   - The agent **must** capture that code and write in chat:
      > "A browser should have opened. Log in to GitHub and enter this code: **[CODE]**
      >
      > Reply with **'Done'** when you've completed the authorization."
