@@ -150,12 +150,16 @@ Write-Host "  Config:         $ExtJsonDest" -ForegroundColor Blue
 Write-Host "  Setup tasks:    $SetupDir\ ($($SetupTasks.Count) pending)" -ForegroundColor Blue
 Write-Host "  Workflows:      $WorkflowsDir\" -ForegroundColor Blue
 Write-Host ""
-Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "  1. Open any project and start a conversation with your AI agent"
-Write-Host "  2. On first session, the agent will auto-detect your system and install developer tools"
-Write-Host "  3. To activate an extension, just ask your agent (e.g. 'I want to use Cloudflare MCP')"
-Write-Host "     Or manually set it to true in: $ExtJsonDest"
-Write-Host "  4. The agent handles MCP setup and configuration when you activate an extension"
+Write-Host "  IMPORTANT: Installation is NOT complete yet." -ForegroundColor Yellow
+Write-Host ""
+Write-Host "  The files are installed. Now the agent needs to run the guided setup."
+Write-Host '  Say "run the setup" to your agent, or it will detect the pending setup automatically.'
+Write-Host ""
+Write-Host "  What happens next: developer tools, GitHub connection, and your first project folder." -ForegroundColor Blue
+Write-Host "  Time needed: about 5 minutes." -ForegroundColor Blue
+Write-Host ""
+Write-Host "AGENT: Read ~/.gemini/setup/package-manager/SKILL.md and execute Steps 0-9 now." -ForegroundColor Yellow
+Write-Host "AGENT: Do NOT stop here. The setup is not complete until Step 9 is finished." -ForegroundColor Yellow
 Write-Host ""
 Write-Host "Important: Keep this cloned folder - the agent checks it for updates automatically." -ForegroundColor Yellow
 Write-Host ""

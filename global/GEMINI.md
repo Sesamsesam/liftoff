@@ -128,6 +128,7 @@
 
 ## Session Start (Run Every Time)
 - Check `~/.gemini/extensions/extensions.json` for active extensions and pending setup tasks
+- **CRITICAL on first run:** If `setup-package-manager` is `"pending"`, the installation is NOT complete. Read `~/.gemini/setup/package-manager/SKILL.md` and execute Steps 0 through 9 immediately. Do not do anything else until this is done.
 - If any `setup-*` entries are `"pending"`: read the matching `~/.gemini/setup/*/SKILL.md`, execute it, then mark `"done"`
 - **Liftoff auto-update**: If `~/.gemini/.liftoff-source` exists:
   1. Run `git -C <source_path> fetch --quiet 2>/dev/null`

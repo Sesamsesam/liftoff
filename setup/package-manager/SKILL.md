@@ -19,6 +19,37 @@ description: "One-time bootstrap: detect OS, install/verify system package manag
 ## Instructions for the Agent
 
 When `extensions.json` has `"setup-package-manager": "pending"`, execute this flow. Run each check in order. If a tool is already installed, skip to the next one.
+### Setup Progress Tracker
+
+**At the very start (before the welcome message)**, create a checklist file at `~/.gemini/setup/setup-progress.md`:
+
+```markdown
+# Liftoff Setup Progress
+- [ ] Step 0: Welcome + GitHub check
+- [ ] Step 1: Detect OS
+- [ ] Step 2: Install Homebrew (macOS) / detect package manager
+- [ ] Step 3: Install bun
+- [ ] Step 4: Detect git
+- [ ] Step 5: Install and authenticate GitHub CLI
+- [ ] Step 6: Write Machine Environment
+- [ ] Step 7: Mark setup-package-manager as done
+- [ ] Step 8: Confirm all tools
+- [ ] Step 9: Handoff to project init
+```
+
+**After completing each step**, update the checklist:
+- Mark the step `[x]`
+- If the step failed and was resolved with an alternative, note it: `[x] Step 3: Install bun (fallback: curl install)`
+
+**If the agent gets interrupted, errors out, or loses context**, it should:
+1. Read `~/.gemini/setup/setup-progress.md`
+2. Find the first unchecked `[ ]` item
+3. Resume from that step
+
+**After Step 9 completes successfully**, delete the file - it's no longer needed.
+
+> [!IMPORTANT]
+> **Error recovery:** If any step fails, do NOT skip it and do NOT abandon the setup. Troubleshoot the issue, try alternative approaches (see fallback instructions in each step), and resolve it before moving on. After resolving, check off the step in `setup-progress.md` with a note about what was done differently, then continue from the next unchecked step.
 
 ### 0. Welcome
 

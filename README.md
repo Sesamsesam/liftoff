@@ -1,3 +1,7 @@
+<!-- AGENT: After running install.sh, read ~/.gemini/GEMINI.md "Session Start" section and follow it. -->
+<!-- AGENT: If setup-package-manager is "pending" in ~/.gemini/extensions/extensions.json, -->
+<!-- AGENT: read ~/.gemini/setup/package-manager/SKILL.md and execute Steps 0 through 9. Do NOT stop after install.sh. -->
+
 # Antigravity Source Setup
 
 > **From 1,000 hours of trial and error to 50 hours of guided mastery.** This is your AI command center - whether you've never opened a code editor or you've been shipping software for a decade.
@@ -55,7 +59,7 @@ I've watched people with six months of AI-assisted experience outship developers
 
 ## Quick Start
 
-The install takes 30 seconds. You clone this repo, run the installer, and you're done - the skills get copied to your global Antigravity config.
+The install copies files in 30 seconds. After that, the agent guides you through a one-time setup (developer tools, GitHub connection, first project) that takes about 5 minutes.
 
 **Keep this folder after install** - the agent uses it to check for updates automatically. You never have to do anything, it just happens.
 
@@ -63,8 +67,7 @@ The install takes 30 seconds. You clone this repo, run the installer, and you're
 ```bash
 git clone https://github.com/sesamsesam/liftoff.git
 cd liftoff
-chmod +x install.sh
-./install.sh
+chmod +x install.sh && ./install.sh
 ```
 
 **Windows** (open PowerShell and run):
