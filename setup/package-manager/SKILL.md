@@ -28,7 +28,13 @@ Start the session with this message:
 >
 > I'm going to set up your developer toolkit now to give you a super boost ⚡️ - this will take just a few minutes. I'll install everything automatically and ask you only when I need your help. Enjoy the magic 🪄"
 
-Then proceed to Step 1.
+Then check GitHub readiness:
+
+> "First things first - do you have a GitHub account? GitHub is essential for working with AI going forward. If you don't have one, Sami strongly recommends creating one now at [github.com/signup](https://github.com/signup) - you'll eventually become familiar with it and it's a must-have going forward.
+>
+> If you already have one, make sure you're logged in. Reply with **'Ready'** when you're set!"
+
+Wait for the user to confirm before proceeding to Step 1.
 
 ### 1. Detect OS
 
@@ -197,7 +203,7 @@ After creating, tell the user:
 >
 > Sami says hi 👋 😊 and congratulations 🎉 - you just unlocked what 99% of builders don't have. This is your unfair but totally fair advantage 😉.
 >
-> **A note from Sami:** Keep all your projects inside `~/dev/` - that's the convention for everything going forward. And once a folder is created, **never rename it** - renaming breaks git remotes, symlinks, and cached paths. If you want a different name, create a new project from scratch.
+> **A note from Sami:** Keep all your projects inside `~/dev/` - that's the convention for everything going forward. And once a folder is created, **never rename it** - renaming breaks git remotes, symlinks, and cached paths. If you want a different name, create a new project from scratch. Don't worry - your agent will also know all of this automatically!
 >
 > Now, to start building, open your new project folder:
 >

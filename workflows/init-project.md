@@ -9,12 +9,58 @@ Run this workflow when creating a brand new project from scratch.
 
 ## Steps
 
-### 1. Choose project type
-Ask the user: "Is this a **dynamic app** (React + Vite) or a **static site** (Astro)?"
+### 1. P.R.O.B.E. Discovery
+
+**P**roject **R**equirements **O**utline and **B**uild **E**valuation
+
+Instead of asking a binary technical question, run a fluid conversational discovery. Ask questions one at a time (not all at once). Wait for each answer before asking the next.
+
+**Question 1 (always ask):**
+> "What are you looking to build or work on? Tell me in your own words - it can be as vague or specific as you want."
+
+**Question 2 (always ask):**
+> "Who is this for? Just yourself, a client, a team, or the public?"
+
+**Question 3 (always ask):**
+> "Do you have any existing materials (research, designs, documents) or are you starting completely from scratch?"
+
+**Question 4 (only if app-leaning):**
+> "Any features you already know you'll need? For example: user accounts, payments, a database, AI features?"
+
+#### Internal Classification (never share with user)
+
+Based on the answers, silently classify into one of three scaffold types:
+
+| Signal | Classification | Scaffold |
+|---|---|---|
+| Mentions building an app, website, dashboard, SaaS, tool with UI | **App** | React + Vite (stack-pro-max defaults) |
+| Mentions blog, portfolio, documentation, marketing page, landing page | **Static Site** | Astro |
+| Mentions research, MCP tools, NotebookLM, Notion, data analysis, no UI | **Research / Tools** | Bare repo (git + README + .gitignore only) |
+| Unclear or mixed | **Bare repo** | Can add framework later |
+
+**Never ask the user** "Is this a dynamic app or a static site?" - this is jargon they may not understand. The classification is always an internal agent decision.
+
+#### Create PROBE Plan (artifact)
+
+After discovery, create a shorthand plan artifact (`probe-plan.md` in the project root) containing:
+
+1. **Project summary** (one paragraph, from the user's own words)
+2. **Classified type** (App / Static Site / Research / Tools)
+3. **Recommended extensions** to activate
+4. **Scaffold decision** (what will be set up)
+5. **Immediate next steps** (3-5 bullet points)
+
+**If classified as App**, add this note at the top:
+
+> "This is a shorthand plan to get you started quickly. For a professional, comprehensive application, ask your agent to use **O.R.B.I.T.** to plan thoroughly before you build."
+
+Present the plan to the user for quick approval, then proceed to scaffolding.
 
 ### 2. Scaffold the project
 
-**For dynamic apps:**
+Based on the PROBE classification:
+
+**For apps (React + Vite):**
 ```bash
 # turbo
 bunx --bun create-vite@latest ./ -- --template react-ts
@@ -25,13 +71,16 @@ bun install
 > [!NOTE]
 > Convex, Clerk, and other integrations are added when the user chooses to use them, not during init. If the user asks for a backend or auth, refer to the `stack-pro-max` skill for setup commands.
 
-**For static sites:**
+**For static sites (Astro):**
 ```bash
 # turbo
 bunx --bun create-astro@latest ./ -- --template minimal --no-install --no-git
 # turbo
 bun install
 ```
+
+**For research / tools (bare repo):**
+No framework scaffolding. Just create a `README.md` with the project name and description from the PROBE plan. The project is ready for extension configuration.
 
 ### 3. Initialize Git
 ```bash

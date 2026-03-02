@@ -88,9 +88,9 @@ Every minibook follows a consistent folder layout inside the active project:
 
 ---
 
-## Workflow 1: Write
+## Workflow 1: Write and Illustrate
 
-Takes grounded research and produces a structured minibook manuscript.
+Takes grounded research and produces a structured minibook manuscript with chapter images in one continuous flow.
 
 ### Step 1 - Gather Sources
 
@@ -114,9 +114,31 @@ Before writing any prose, produce `outline.md` with:
 > [!IMPORTANT]
 > **Stop and get user approval on the outline before writing.** Never proceed to prose without explicit approval.
 
-### Step 3 - Write the Manuscript
+### Step 3 - Pre-Writing Questions
 
-Produce `manuscript.md` following these structural rules:
+After outline approval, ask these three questions **one at a time** (wait for each answer before asking the next):
+
+**Question 1 - Reading length:**
+> "How long should the book be? A 5-minute, 10-minute, 20-minute, or 30+ minute read?"
+
+Use this to calibrate character count and elaboration depth:
+- 5 min: ~5,000 characters, concise and punchy
+- 10 min: ~12,000 characters, moderate depth
+- 20 min: ~25,000 characters, thorough coverage
+- 30+ min: ~45,000+ characters, comprehensive deep-dive
+
+**Question 2 - Reader and angle:**
+> "Who is the reader, and what angle do you want them to walk away with?"
+
+**Question 3 - Image style:**
+> "What style of images? You can upload an example image in chat for me to match, or I can choose a style that fits the book's theme."
+
+If user uploads an example: extract the visual style markers (color palette, rendering style, mood) and use those for all images.
+If user says "you choose": select a style that complements the book's theme and tone.
+
+### Step 4 - Write Manuscript and Generate Images
+
+Produce `manuscript.md` AND generate all chapter images in one pass. Do not write the full manuscript first and then do images separately - alternate between writing and image generation per chapter for visual consistency.
 
 **Document structure:**
 ```
@@ -175,9 +197,9 @@ Produce `manuscript.md` following these structural rules:
 - The prelude must hook within the first two sentences
 - The conclusion must include actionable next steps
 
-### Step 4 - User Review
+### Step 5 - User Review
 
-Present the manuscript for review. Expect iterative edits. The user may:
+Present the complete manuscript and all generated images together for review. Expect iterative edits. The user may:
 - Rewrite passages in their own voice
 - Add personal commentary
 - Adjust data framing
@@ -185,47 +207,25 @@ Present the manuscript for review. Expect iterative edits. The user may:
 
 After edits, `manuscript.md` remains the source of truth.
 
----
-
-## Workflow 2: Illustrate
-
-Generates a cohesive set of chapter images using the `generate_image` tool.
-
-### Step 1 - Define Visual Style
-
-Before generating any images, agree on the visual direction with the user:
-
-- **Style reference** (e.g., "neon waves on dark backgrounds", "watercolor illustrations", "minimalist flat icons")
-- **Color palette** (tie to the book's theme)
-- **Consistency markers** (recurring visual elements across all images)
-
-> [!TIP]
-> The "AI Shift" used: neon gradient waves, dark clean backgrounds, colorful conceptual icons. This works well for technology-themed books. Adjust per topic.
-
-### Step 2 - Generate Images
+**Image generation rules (during Step 4):**
 
 Create N+1 images (cover + one per chapter):
 
 | Image | Naming | Prompt Strategy |
 |---|---|---|
 | Cover | `cover.png` | Captures the book's overarching theme/metaphor |
-| Chapter 1 | `ch1.png` | References the chapter's core metaphor (e.g., electricity grid for infrastructure) |
-| Chapter 2 | `ch2.png` | References the chapter's core concept (e.g., elite club for "5% Club") |
+| Chapter 1 | `ch1.png` | References the chapter's core metaphor |
+| Chapter 2 | `ch2.png` | References the chapter's core concept |
 | ... | `chN.png` | Each image ties to its chapter's central idea |
 
-**Rules:**
-- Generate all images in a single batch for visual consistency
+- Generate images as you write each chapter (not all at the end)
 - Save to `research/Minibook/<book-slug>/images/`
-- Each prompt should reference the agreed style markers
-- Ask user to review the full set before proceeding to publish
-
-### Step 3 - User Review
-
-Show all generated images. The user may request regeneration of specific chapters. Iterate until approved.
+- Each prompt should reference the agreed style markers from Step 3
+- Maintain visual consistency across all images
 
 ---
 
-## Workflow 3: Publish to Notion
+## Workflow 2: Publish to Notion
 
 Takes the finished manuscript + images and creates a formatted Notion page.
 
@@ -288,10 +288,11 @@ Map Markdown elements to Notion blocks:
 - **Never write prose without an approved outline.** The outline is the contract
 - **Ground all claims in sources.** Flag any assertion that lacks a citation
 - **Maintain consistent voice.** If the user edits passages, match their tone in subsequent writing
-- **Ask before generating images.** Confirm style direction before spending generation tokens
-- **Respect the image placement rules.** Never deviate from the layout principles in Workflow 3
+- **Generate images alongside writing.** Do not separate writing and illustration into two phases
+- **Respect the image placement rules.** Never deviate from the layout principles in Workflow 2
 - **Create the folder structure first.** Before any writing begins, set up the project directories
 - **One source of truth.** `manuscript.md` is always the canonical version. If edits happen elsewhere (Notion, a web component), sync back to `manuscript.md`
+- **Ask the 3 pre-writing questions.** After outline approval, always ask about reading length, reader/angle, and image style before writing
 
 ### Quality checklist (run before publishing)
 - [ ] Every chapter has at least one cited data point

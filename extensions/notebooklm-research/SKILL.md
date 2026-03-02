@@ -19,14 +19,23 @@ It can produce reports, mind maps, audio discussions, quizzes, flashcards, slide
 
 ## Automated Workflow
 
-**Every time you do deep research, this loop runs automatically:**
+**Every time you do deep research, this runs in two phases:**
+
+### Phase 1 - Autonomous Flow (no user interaction)
+Steps 1-7 run continuously without stopping. Do not ask permission between steps.
 
 1. **Start** - Launch research across notebooks
 2. **Poll** - Wait for completion
 3. **Import** - Auto-import all discovered sources
-4. **Summarize** - Show completion stats
-5. **Curate + Report** *(offered, not automatic)* - Filter to top-quality sources, generate consensus-driven reports
-6. **Brain Update** - Refresh `research/index.md`
+4. **Summary** - Show completion stats
+5. **Curate** - Auto-apply quality filter rules, remove low-quality sources
+6. **Consensus** - Map agreements and conflicts across sources
+7. **Brain Update** - Refresh `research/index.md`
+
+### Phase 2 - User Input Required
+8. **Report** - Ask the angle question, then generate
+9. **Download** - Save reports locally
+10. **Handoff** - Offer minibook creation if minibook-pipeline is active
 
 *(Without this skill, you'd manually import sources, clean up failures, and request reports every single time. Now it's automatic.)*
 
@@ -89,15 +98,11 @@ All [N] notebooks are ready to query.
 
 Always use live data - never hard-code numbers.
 
-### Step 5: Source Curation + Report Generation (On-Demand)
+### Step 5: Source Curation (Automatic)
 
-After the summary, **offer** this step:
+Immediately after the completion summary, auto-curate sources. Do NOT ask the user whether to curate - always do it.
 
-> "Want me to curate sources and generate a comprehensive report for each notebook?"
-
-If agreed, run sub-steps **for each notebook independently** in sequence.
-
-#### 5a. Source Curation
+#### 5a. Classify Sources
 
 Use `notebook_query` to have NotebookLM classify its own sources (it has already parsed every word of every source).
 
@@ -124,9 +129,15 @@ Be strict. If unsure about credibility, default to TIER_3. Format as a numbered 
 - **Remove:** Anything older than 12 months
 - **Remove:** DERIVATIVE sources when a higher-tier ORIGINAL covering the same findings exists
 
-**Present keep/remove lists to the user for confirmation before deleting.** Delete confirmed sources with `source_delete(source_id, confirm=True)`.
+**Auto-apply keep/remove rules - do not ask for confirmation.** Delete removed sources with `source_delete(source_id, confirm=True)`. Show a brief summary of what was kept and removed after the fact.
 
-#### 5b. Consensus Analysis
+#### 5b. Delete Low-Quality Sources
+
+After classification, immediately delete all sources marked for removal. Do not present the list for user approval - the rules above are strict enough to trust. Log what was removed in the completion summary.
+
+### Step 6: Consensus Analysis (Automatic)
+
+Run immediately after curation, no user interaction needed.
 
 Query each notebook to map agreement vs. conflict:
 
@@ -144,7 +155,17 @@ This consensus map guides report structure:
 - **Conflicts** are isolated into an appendix
 - **Single-source outliers** are noted as "worth monitoring"
 
-#### 5c. Report Generation
+Present the consensus/conflict map to the user, then update `research/index.md`.
+
+### Step 7: Update Research Index
+
+Update `research/index.md` with the consensus and conflict findings before proceeding to Phase 2.
+
+---
+
+## Phase 2: User Input Required
+
+### Step 8: Report Generation
 
 Ask **one focusing question** before generating:
 
@@ -213,6 +234,14 @@ notebook_query(
 > **Always download reports.** The research is not complete until report files exist in `research/reports/`.
 
 After all reports are downloaded, update `research/index.md`.
+
+### Step 10: Handoff
+
+If the `minibook-pipeline` extension is active, offer the next step:
+
+> "I can write a minibook from this report - a polished, illustrated booklet you can share. Want me to draft an outline first? After that we can set it up on Notion."
+
+If user just wants the raw report on Notion (no minibook), they will say so. Otherwise, proceed to the minibook-pipeline workflow.
 
 ---
 
