@@ -65,6 +65,7 @@ The install copies files in 30 seconds. After that, the agent guides you through
 
 **macOS / Linux** (copy this and give it to Antigravity, or paste it into your terminal):
 ```bash
+mkdir -p ~/dev && cd ~/dev
 git clone https://github.com/sesamsesam/liftoff.git
 cd liftoff
 chmod +x install.sh && ./install.sh
@@ -72,6 +73,8 @@ chmod +x install.sh && ./install.sh
 
 **Windows** (open PowerShell and run):
 ```powershell
+if (!(Test-Path "$HOME\dev")) { New-Item -ItemType Directory -Path "$HOME\dev" }
+cd "$HOME\dev"
 git clone https://github.com/sesamsesam/liftoff.git
 cd liftoff
 powershell -ExecutionPolicy Bypass -File install.ps1
