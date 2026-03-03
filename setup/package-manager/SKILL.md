@@ -205,18 +205,25 @@ Update `~/.gemini/extensions/extensions.json`: change `"setup-package-manager"` 
 
 ### 8. Confirm to User
 
-Tell the user:
+Tell the user (dynamic - reflect what you ACTUALLY did, do not hard-code):
 
 > "Global setup is complete! 🥳 Everything is ready ✅
 >
-> Here's what I just set up for you and why each one matters:
->
-> - **Homebrew** (or your system's package manager) - this is how I install tools on your machine. You'll never need to touch it yourself, but it's the engine under the hood.
-> - **bun** - the runtime that makes your projects fast. It handles dependencies and runs your code.
-> - **git** - tracks every change to your code, like an unlimited undo button. I manage it automatically.
-> - **GitHub CLI** - the bridge to your GitHub vault where everything gets stored safely.
->
-> I'll use the right commands for your system automatically from now on.
+> Here's what I just took care of and why each one matters:"
+
+Then list ONLY the tools that are relevant to the user's OS. For each tool, honestly state what happened:
+- **If you installed it fresh:** "**[tool]** - Installed! ✅ [one-sentence explanation of what it does]"
+- **If it was already installed:** "**[tool]** - Already set up, verified and healthy ✅ [one-sentence explanation of what it does]"
+- **If it was skipped or unavailable:** Don't list it at all
+
+Use these explanations (adapt to actual tool names on user's OS):
+- **Package manager** (Homebrew / winget / apt) - "this is how I install tools on your machine. You'll never need to touch it yourself, but it's the engine under the hood"
+- **bun** - "the runtime that makes your projects fast. It handles dependencies and runs your code"
+- **git** - "tracks every change to your code, like an unlimited undo button. I manage it automatically"
+- **GitHub CLI** - "the bridge to your GitHub vault where everything gets stored safely"
+
+End with:
+> "I'll use the right commands for your system automatically from now on.
 >
 > I'm juiced up and boosted ⚡️"
 

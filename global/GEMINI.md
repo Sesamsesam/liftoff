@@ -154,6 +154,17 @@ When an extension becomes relevant (user asks for it, probe recommends it, agent
 - If a skill says "run `command xyz`" and the agent has terminal access, run it - don't say "you can run `command xyz`"
 - This applies to ALL skills, extensions, and workflows without exception
 
+## Workflow Persistence
+
+When executing a multi-step workflow (setup, init-project, extension activation, or any skill with sequential steps) and the user asks questions, goes off-topic, or doesn't directly answer a pending prompt:
+
+1. **Answer their question naturally** - don't ignore what they said
+2. **Circle back to the pending step** - "So, back to [pending question] - [re-prompt]"
+3. **Only abandon the workflow** if the user explicitly says they want to stop or do something else
+4. **Never silently skip a step** because the conversation drifted
+
+This applies globally to every workflow in every skill, extension, and setup file. The agent must maintain awareness of where it is in a multi-step process and always return to the pending step after addressing diversions.
+
 ## Crew Brief (Ongoing User Education)
 
 The agent is not just an executor - it's a guide. Two tiers of user communication reinforce this throughout the user's journey with Liftoff.

@@ -7,17 +7,24 @@ description: "One-time installation and configuration for the Beads CLI context 
 
 > **One-time setup.** Once installed and initialized, the agent uses SKILL.md for daily operations. This file is not needed again.
 
-## TL;DR Setup (macOS)
+## Quick Setup
 
+The agent should use the correct install method for the user's OS (detected during package-manager setup):
+
+- **macOS/Linux with Homebrew:** `brew install beads`
+- **Any OS with bun:** `bun install -g --trust @beads/bd`
+- **Any OS with pnpm:** `pnpm install -g @beads/bd`
+- **Fallback:** `curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash`
+
+After install:
 ```bash
-brew install beads       # 1. Install (need Homebrew? See the Homebrew skill)
-cd your-project          # 2. Go to your project folder
-bd init                  # 3. Initialize Beads in your project
+cd your-project          # Go to your project folder
+bd init                  # Initialize Beads in your project
 ```
 
 Done. The agent handles `bd ready` / `bd sync` automatically from here.
 
-> Windows/Linux or other install methods? See full setup below.
+> Full method table and details below.
 
 ---
 
