@@ -166,13 +166,13 @@ gh repo view --json visibility -q '.visibility'
 <!-- CREW BRIEF -->
 > **After the repo is created, tell the user (use this text closely, do not summarize):**
 >
-> "Your code is now backed up on GitHub 🔒 - it's set to private so only you can see it.
+> "Your code is now backed up on GitHub 🤝🔒 - it's set to private so only you can see it.
 >
 > 👉 Check it out here: `https://github.com/<username>/<project-name>`
 >
-> If you go to your GitHub account you'll see I created a folder (called a repository) there for your project 📁. As you build and work with me, all your files get periodically saved there in the cloud - so at any time, from anywhere, your work is safe and accessible 🌐.
+> If you go to your GitHub account you'll see I created a folder (called a repository) there for your project 📁. As you build and work with me, all your files get periodically saved there in the cloud - so at any time, from anywhere, your work is safe and accessible 🌏.
 >
-> Think of it like saving a game at a specific point 🎮 - you can always go back to any previous version if you need to. And since you connected me to your GitHub earlier, I can always help you store, manage, and create new projects for you in the cloud. Pretty cool right! ✨
+> Think of it like saving a game at a specific point 🕺 - you can always go back to any previous version if you need to. And since you connected me to your GitHub earlier, I can always help you store, manage, and create new projects for you in the cloud. Pretty cool right! 😊✨
 >
 > I handle all the saving automatically - you don't need to think about it. Over time you'll learn how this works naturally."
 
