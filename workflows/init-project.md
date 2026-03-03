@@ -164,13 +164,17 @@ gh repo view --json visibility -q '.visibility'
 ```
 
 <!-- CREW BRIEF -->
-> **After the repo is created, tell the user:**
+> **After the repo is created, tell the user (use this text closely, do not summarize):**
 >
-> "Your code is now backed up on GitHub - it's set to private so only you can see it.
+> "Your code is now backed up on GitHub 🔒 - it's set to private so only you can see it.
 >
-> GitHub is like a vault for your code. Every change you make gets saved there, so you never lose your work. I handle all the saving automatically - you don't need to think about it.
+> 👉 Check it out here: `https://github.com/<username>/<project-name>`
 >
-> Over time, as you work with me, you'll learn how this works naturally."
+> If you go to your GitHub account you'll see I created a folder (called a repository) there for your project 📁. As you build and work with me, all your files get periodically saved there in the cloud - so at any time, from anywhere, your work is safe and accessible 🌐.
+>
+> Think of it like saving a game at a specific point 🎮 - you can always go back to any previous version if you need to. And since you connected me to your GitHub earlier, I can always help you store, manage, and create new projects for you in the cloud. Pretty cool right! ✨
+>
+> I handle all the saving automatically - you don't need to think about it. Over time you'll learn how this works naturally."
 
 ### 8. Link global extensions and settings
 
@@ -217,15 +221,15 @@ my-project/
 All symlinks point to the global canonical location. Edits made through the symlink update the global file directly - there is no copy, no drift, no sync needed.
 
 <!-- CREW BRIEF -->
-> **After completing the symlinks, tell the user:**
+> **After completing the symlinks, tell the user (use this text closely, do not summarize):**
 >
-> "I just connected your project to your Liftoff toolkit.
+> "I just connected your project to your Liftoff toolkit 🔗
 >
-> Look at the Explorer sidebar on the left (the icon that looks like two documents stacked on top of each other). You'll see a `.gemini/` folder - expand it.
+> 👉 Look at the Explorer sidebar on the left (the icon that looks like two documents stacked on top of each other 📄📄). You'll see a `.gemini/` folder - expand it and take a look 👀
 >
-> Inside, there's an `extensions/` folder. These are all the skills and extensions that exist in Liftoff right now - they get updated over time as Sami keeps adding new ones.
+> Inside, there's an `extensions/` folder. These are all the skills and extensions that currently exist in Liftoff - they get updated over time as Sami keeps adding new ones 🚀
 >
-> You don't need to do anything with these now. I'll recommend the right ones when your project needs them, and I handle all the setup. But feel free to browse - each folder has a SKILL.md that explains what it does if you're curious."
+> You don't need to do anything with these now. I'll recommend the right ones when your project needs them, and I handle all the setup. But feel free to browse - each folder has a SKILL.md that explains what it does if you're curious. They require a setup but I can guide you through that when the time comes 🪄"
 
 ### 9. Initial commit and push
 

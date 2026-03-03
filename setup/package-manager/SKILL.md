@@ -164,7 +164,7 @@ Most systems ship with git. Check first.
 
    - After both prompts are handled, the command outputs a one-time code and opens a browser
    - The agent **must** capture that code and write in chat:
-     > "A browser should have opened. Log in to GitHub and enter this code: **[CODE]**
+     > "👉 A browser should have opened. Log in to GitHub and enter this code: **[CODE]**
      >
      > Reply with **'Done'** when you've completed the authorization."
    - Wait for the user to confirm before proceeding
