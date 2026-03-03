@@ -228,6 +228,13 @@ All symlinks point to the global canonical location. Edits made through the syml
 > You don't need to do anything with these now. I'll recommend the right ones when your project needs them, and I handle all the setup. But feel free to browse - each folder has a SKILL.md that explains what it does if you're curious."
 
 ### 9. Initial commit and push
+
+Create the Liftoff init marker (this is how Session Start knows the project was initialized):
+```bash
+# turbo
+touch .gemini/.liftoff-init
+```
+
 ```bash
 git add .
 git commit -m "chore: scaffold project with Antigravity defaults"
