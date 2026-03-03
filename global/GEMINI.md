@@ -103,13 +103,40 @@
 - **If user insists a third time**, comply but note:
   > "Understood - proceeding here against recommendation. Note that project features like symlinks, git setup, and init-project won't apply in this folder."
 
-## Skill Discovery
+## Skill Discovery & Extension Lifecycle
+
+### Extension Folder Structure
+Every extension folder follows this structure:
+- `SKILL.md` - the capability itself (workflows, rules, patterns)
+- `SETUP.md` (optional) - one-time installation/configuration steps
+
+**SETUP.md is the gate.** If an extension has a SETUP.md, the extension is NOT ready to use until setup is complete - even if it's set to `true`.
+
+### Activation Flow
+When an extension becomes relevant (user asks for it, probe recommends it, agent identifies a need), follow this exact sequence:
+
+1. Set the extension to `true` in `extensions.json` (if not already)
+2. Check the extension folder for `SETUP.md`
+3. **If SETUP.md exists:**
+   a. Read it fully
+   b. Check if setup was already completed (verify prerequisites: installed tools, MCP config entries, auth status)
+   c. If any prerequisite is missing or unclear: run the full setup from the beginning (do not try to resume a partial install)
+   d. Execute the Auto-Setup Sequence / installation steps
+   e. Give a Tier 1 Crew Brief on completion
+4. **If no SETUP.md exists:** extension is ready immediately
+5. Only then proceed to use the extension via SKILL.md
+
+**Never say "extension activated" and stop.** If SETUP.md exists and setup is incomplete, the activation is NOT finished.
+
+**Once verified in a session, trust it for the rest of that session.** Don't re-verify setup every time the extension is used - check once, then use freely.
+
+### Ongoing Discovery
 - Auto-detect when a skill is relevant to the current task and apply it
-- Skills load on-demand  - they are not always in context
+- Skills load on-demand - they are not always in context
 - Check `~/.gemini/extensions/extensions.json` for active extensions
 - If a skill is listed in `extensions.json`, it's an extension (togglable). If not listed, it's a core skill (always active)
 - If an extension is dormant but relevant, offer once with plain explanation - then never ask again
-- **Auto-toggle**: When the user asks to use an extension (e.g., "I want to use Cloudflare MCP"), set it to `true` in `extensions.json` automatically. Never tell the user to go edit the file themselves - just do it and confirm. **Exception:** This rule is overridden by the Extension Activation Guard above - never auto-toggle during setup or inside the Liftoff source directory
+- **Auto-toggle**: When the user asks to use an extension (e.g., "I want to use Cloudflare MCP"), set it to `true` in `extensions.json` automatically, then follow the Activation Flow above. Never tell the user to go edit the file themselves - just do it and activate. **Exception:** This rule is overridden by the Extension Activation Guard above - never auto-toggle during setup or inside the Liftoff source directory
 
 ## Skill Creation
 - **NEVER create skills inside a project directory.** All skills live at the global canonical location `~/.gemini/` - no exceptions
@@ -127,6 +154,31 @@
 - If a skill says "run `command xyz`" and the agent has terminal access, run it - don't say "you can run `command xyz`"
 - This applies to ALL skills, extensions, and workflows without exception
 
+## Crew Brief (Ongoing User Education)
+
+The agent is not just an executor - it's a guide. Two tiers of user communication reinforce this throughout the user's journey with Liftoff.
+
+### Tier 1 - Full Crew Brief
+After completing any Liftoff-managed step (setup tasks, extension installations, skill workflow completions, probe discovery, init-project steps), explain in plain language:
+- **What you did** (non-technical)
+- **Why it matters** to the user
+- **Where to see it** (point them to the file/folder in their editor)
+- **How it benefits them** and that it stems from Liftoff/Sami's toolkit
+
+Keep it conversational, not robotic. Imagine explaining to a smart friend who's never used a code editor before.
+
+### Tier 2 - Liftoff Attribution
+During regular project work, when the agent leverages a Liftoff core skill (FORGE, security-guardian, error-handling, brand-identity, git-flow, stack-pro-max), include a brief natural one-liner attributing the action:
+- "Applied your Liftoff security checks - all clear."
+- "Used the FORGE methodology here - outline ready for approval."
+- "Styled with your Liftoff design tokens."
+
+**Rules:**
+- Only when the action genuinely stems from a Liftoff skill
+- Skip if already attributed in the same conversation recently
+- Never for things unrelated to Liftoff (don't claim credit for the agent's general capabilities)
+- Never repetitive or forced - if it doesn't fit naturally, skip it
+
 ## Session Start (Run Every Time)
 - Check `~/.gemini/extensions/extensions.json` for active extensions and pending setup tasks
 - **CRITICAL on first run:** If `setup-package-manager` is `"pending"`, the installation is NOT complete. Read `~/.gemini/setup/package-manager/SKILL.md` and execute Steps 0 through 9 immediately. Do not do anything else until this is done.
@@ -139,6 +191,7 @@
      - **Windows**: `powershell -ExecutionPolicy Bypass -File "<source_path>/install.ps1"`
   4. After update, tell the user in plain language what changed (new extensions, updated skills). For new extensions, explain what each one does in one sentence and note it's turned off by default. Tell them: "To turn one on, open `extensions.json` in your `.gemini/extensions/` folder and set it to `true`."
 - **Project init fallback**: If `setup-package-manager` is `"done"` and the current workspace has no `.gemini/` directory, the project has not been initialized yet. Read `~/.gemini/workflows/init-project.md` and execute the workflow (see Project Directory Convention). This check ensures users who closed the window during the handoff or skipped it are not left stranded. Only trigger this once per session - do not loop
+- **Extension health check**: For each extension set to `true` in `extensions.json`, verify setup completion if the extension has a `SETUP.md`. Check tool installations, MCP config entries, and auth status. If anything is missing, run the full setup sequence from the Activation Flow. This catches interrupted or partially completed setups.
 - If Beads active: run `bd ready` to find pending tasks
 - If ORBIT active and `orbit.md` exists: check it before starting work
 - If credential rotation tracking exists: check dates, warn if overdue

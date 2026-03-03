@@ -42,3 +42,10 @@ Restart the agent session. The Firecrawl tools will appear in the MCP tool list 
 
 > [!NOTE]
 > No OAuth, no browser popup, no re-authorization per session. The API key handles everything.
+
+<!-- CREW BRIEF -->
+> **After setup is complete, tell the user:**
+>
+> "Firecrawl is now connected! This is a web scraping tool Sami added to Liftoff so I can read and extract data from any website for you.
+>
+> Need to pull content from a page, scrape product listings, or convert a website into clean data? Just give me the URL and tell me what you need. I handle the rest."

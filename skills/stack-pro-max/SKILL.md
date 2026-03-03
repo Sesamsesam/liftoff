@@ -41,6 +41,25 @@ When you "start a new project," the agent sets up all these layers in the right 
 - When suggesting dependencies or tooling
 - When the user asks "what should I use for X?"
 
+## Backend Signals (Proactive Detection)
+
+Users - especially beginners - often describe features without knowing the technical terms. The agent must listen for natural language signals that imply backend needs and proactively suggest the right tools.
+
+**This applies at any point in a project, not just during init.** If someone says "how do my users log in?" three weeks into building, the agent should recognize this as an auth need and propose Clerk + Convex setup if not already configured.
+
+| Signal phrases | What it means | Suggest |
+|---|---|---|
+| "log in," "sign up," "user accounts," "members," "who's using it" | Auth needed | Clerk |
+| "save," "store," "remember," "database," "user data," "profiles" | Database needed | Convex |
+| "pay," "charge," "subscribe," "pricing," "checkout," "buy" | Payments needed | Stripe (manual setup, guide user) |
+| "deploy," "go live," "share the link," "put it online" | Hosting needed | Cloudflare (see `cloudflare-mcp` extension) |
+
+**How to suggest (beginner-friendly):**
+- Never say "you need a backend" - say "your app needs a place to store user data, let me set that up"
+- Never list tool options - just use the stack defaults and explain what they do
+- If the tools aren't set up yet, follow the setup commands in this skill
+- Give a Tier 1 Crew Brief after setup explaining what was added and why
+
 ---
 
 <!-- ═══════════════════════════════════════════════════ -->

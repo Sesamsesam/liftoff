@@ -90,3 +90,12 @@ One URL. One config entry. All 8 servers, 52 tools.
 
 > [!NOTE]
 > Each new session requires re-authorization via Zero Trust popup. Security feature, not a bug.
+
+<!-- CREW BRIEF -->
+> **After setup is complete, tell the user:**
+>
+> "Cloudflare is now connected! This is your infrastructure layer - Sami added it to Liftoff so you can deploy apps to the internet, manage databases, store files, and even use 50+ AI models, all from right here.
+>
+> You won't need to learn Cloudflare's dashboard - I handle everything through MCP tools. When your project is ready to go live, just tell me and I'll deploy it.
+>
+> One thing to know: each time you start a new session, a browser popup will ask you to re-authorize. That's a security feature from Cloudflare - just click through it."

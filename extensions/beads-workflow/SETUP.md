@@ -87,3 +87,12 @@ Then create `.vscode/mcp.json`:
 Run `bd init --quiet` and reload VS Code.
 
 **Gemini / Antigravity:** No additional setup needed - this extension handles everything.
+
+<!-- CREW BRIEF -->
+> **After setup is complete, tell the user:**
+>
+> "Beads is now active! This is a session memory tool Sami added to Liftoff so I can remember what we worked on between conversations.
+>
+> Without it, every time you start a new chat, I start fresh with no memory. With Beads, I pick up right where we left off - tasks, context, decisions, everything carries over.
+>
+> You don't need to do anything differently. I manage the memory automatically."

@@ -24,8 +24,8 @@ Instead of asking a binary technical question, run a fluid conversational discov
 **Question 3 (always ask):**
 > "Do you have any existing materials (research, designs, documents) or are you starting completely from scratch?"
 
-**Question 4 (only if app-leaning):**
-> "Any features you already know you'll need? For example: user accounts, payments, a database, AI features?"
+**Question 4 (always ask):**
+> "Any features or tools you already know you'll need? For example: user accounts, payments, AI features? Or if this is more for your work or career - things like researching topics, analyzing documents, scraping websites, or organizing knowledge?"
 
 #### Internal Classification (never share with user)
 
@@ -55,6 +55,28 @@ After discovery, create `probe-plan.md` in the project root containing:
 > "This is a shorthand plan to get you started quickly. For a professional, comprehensive application, ask your agent to use **O.R.B.I.T.** to plan thoroughly before you build."
 
 Present the plan to the user for quick approval, then proceed to scaffolding.
+
+#### Backend Detection (internal - never share with user)
+
+After classifying the project, scan the user's answers for signals that imply infrastructure needs they may not know how to articulate:
+
+| User says (examples) | What it means | Add to probe plan |
+|---|---|---|
+| "users log in," "accounts," "sign up," "members" | Auth needed | "Your app needs a way for users to log in. We use Clerk for that - I'll set it up when we start building." |
+| "save data," "remember," "store posts," "user profiles" | Database needed | "Your app needs a place to store data. We use Convex for that - it's real-time and handles everything automatically." |
+| "payments," "subscriptions," "charge," "buy," "pricing" | Payments needed | "Your app will handle money, so we'll need a payment system. We typically use Stripe for that." |
+| "deploy," "go live," "put it online," "share the link" | Hosting needed | "To put this on the internet, we'll use Cloudflare. I can set that up when you're ready to launch." |
+| "research," "analyze," "study," "sources" | Research tools needed | Recommend NotebookLM extension |
+| "scrape," "extract," "crawl," "pull data from" | Web scraping needed | Recommend Firecrawl extension |
+
+Include detected needs in the probe plan's "Immediate next steps" section, explained in plain language. Never use terms like "backend," "server," or "infrastructure" unless the user used them first - describe what things DO, not what they're called.
+
+<!-- CREW BRIEF -->
+> **After presenting the probe plan, tell the user:**
+>
+> "This probe discovery is something Sami built into Liftoff so that instead of jumping straight into building, you start with a light outline and a clearer picture of what you're creating. It gives you clarity and gives me better context to help you.
+>
+> Check `probe-plan.md` in your folder view on the left sidebar. You can edit it, expand on it by chatting with me ('let's expand the probe and tell me more'), or if you're happy with it, we move on to the next steps."
 
 ### 2. Scaffold the project
 
@@ -133,6 +155,23 @@ git remote add origin https://github.com/<username>/<project-name>.git
 > [!IMPORTANT]
 > **Always create repos as private by default.** New users often don't realize their code is public. Only make a repo public if the user explicitly asks.
 
+After creation, verify privacy:
+```bash
+# turbo
+gh repo view --json visibility -q '.visibility'
+# Expected: "PRIVATE". If not, fix immediately:
+# gh repo edit --visibility private
+```
+
+<!-- CREW BRIEF -->
+> **After the repo is created, tell the user:**
+>
+> "Your code is now backed up on GitHub - it's set to private so only you can see it.
+>
+> GitHub is like a vault for your code. Every change you make gets saved there, so you never lose your work. I handle all the saving automatically - you don't need to think about it.
+>
+> Over time, as you work with me, you'll learn how this works naturally."
+
 ### 8. Link global extensions and settings
 
 Create the `.gemini/` directory in the project, then symlink global extensions and GEMINI.md so the user always has visibility into their toolkit.
@@ -177,6 +216,17 @@ my-project/
 
 All symlinks point to the global canonical location. Edits made through the symlink update the global file directly - there is no copy, no drift, no sync needed.
 
+<!-- CREW BRIEF -->
+> **After completing the symlinks, tell the user:**
+>
+> "I just connected your project to your Liftoff toolkit.
+>
+> Look at the Explorer sidebar on the left (the icon that looks like two documents stacked on top of each other). You'll see a `.gemini/` folder - expand it.
+>
+> Inside, there's an `extensions/` folder. These are all the skills and extensions that exist in Liftoff right now - they get updated over time as Sami keeps adding new ones.
+>
+> You don't need to do anything with these now. I'll recommend the right ones when your project needs them, and I handle all the setup. But feel free to browse - each folder has a SKILL.md that explains what it does if you're curious."
+
 ### 9. Initial commit and push
 ```bash
 git add .
@@ -197,7 +247,7 @@ After everything is set up, tell the user:
 >
 > I can set either of these up right now, or you can activate any extension later from `.gemini/extensions/extensions.json`."
 
-Only suggest, never auto-activate. If the user picks one, set it to `true` in `extensions.json` and follow that extension's SKILL.md setup instructions.
+Only suggest, never auto-activate. If the user picks one, follow the **Activation Flow** from the Skill Discovery & Extension Lifecycle rules in GEMINI.md (set to `true`, check for SETUP.md, run setup if needed, give a Crew Brief, then the extension is ready).
 
 ### 11. Verify
 - [ ] `bun run dev` starts without errors (only if user asks to start the server)

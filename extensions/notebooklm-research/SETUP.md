@@ -51,3 +51,12 @@ When this extension is activated and setup hasn't been completed:
 4. Check auth via `nlm login --check` - guide user through `nlm login` if needed
 5. Verify with `nlm doctor`
 6. Inform user to reload IDE so MCP tools become available
+
+<!-- CREW BRIEF -->
+> **After setup is complete, tell the user:**
+>
+> "NotebookLM is now connected! This is a research tool Sami added to Liftoff so you can do deep, grounded research without leaving your workspace.
+>
+> Instead of going to NotebookLM yourself, you can tell me what you want to research and I'll handle it - finding sources, filtering quality, building reports. Everything stays citation-backed, so no made-up information.
+>
+> Just say something like 'research [topic]' and I'll take it from there."

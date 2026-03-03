@@ -175,6 +175,15 @@ Most systems ship with git. Check first.
    > "You'll need a GitHub account to store your code. Head to github.com/signup, create a free account, then come back here and we'll finish connecting."
 6. Verify with `gh auth status` (skip if already verified in step 4 above)
 
+<!-- CREW BRIEF -->
+> **After GitHub CLI is authenticated, tell the user:**
+>
+> "You're now connected to GitHub - this is where all your projects get safely stored and backed up.
+>
+> Think of GitHub as a cloud vault for everything you build. Every change I make gets saved there automatically, so you'll never lose your work. It also makes it easy to share projects or collaborate later.
+>
+> This connection is permanent - you won't need to do this again."
+
 ### 6. Write to GEMINI.md
 
 Append a `## Machine Environment` section to the user's `~/.gemini/GEMINI.md` (before the last section, or at the end):
@@ -199,6 +208,13 @@ Update `~/.gemini/extensions/extensions.json`: change `"setup-package-manager"` 
 Tell the user:
 
 > "Global setup is complete! 🥳 Everything is ready ✅
+>
+> Here's what I just set up for you and why each one matters:
+>
+> - **Homebrew** (or your system's package manager) - this is how I install tools on your machine. You'll never need to touch it yourself, but it's the engine under the hood.
+> - **bun** - the runtime that makes your projects fast. It handles dependencies and runs your code.
+> - **git** - tracks every change to your code, like an unlimited undo button. I manage it automatically.
+> - **GitHub CLI** - the bridge to your GitHub vault where everything gets stored safely.
 >
 > I'll use the right commands for your system automatically from now on.
 >
