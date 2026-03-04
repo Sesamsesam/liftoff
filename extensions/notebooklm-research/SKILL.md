@@ -55,12 +55,18 @@ For multiple notebooks, launch all `research_start` calls in parallel.
 ### Step 2: Poll Until Complete
 
 ```
-research_status(notebook_id, query="<original query>", poll_interval=30, max_wait=300)
+research_status(notebook_id, query="<original query>", poll_interval=<see below>, max_wait=<see below>)
 ```
 
+**Polling intervals by mode:**
+- **Fast mode:** `poll_interval=30, max_wait=180` (every 30s, up to 3 min)
+- **Deep mode:** `poll_interval=120, max_wait=900` (every 2 min, up to 15 min)
+
 - Always use `query` for matching (task IDs change during deep research)
-- If `max_wait` expires while still `in_progress`, poll again
+- If `max_wait` expires while still `in_progress`, tell the user:
+  > "Research is still running - these deep dives can take a while 🔬. I'll stop checking now. Take a look in a few minutes and when you think it's done, just tell me and I'll import the results!"
 - Poll multiple notebooks in parallel
+- **Auth recovery:** If any MCP call fails with an auth/session error during polling, run `nlm login` yourself (do not ask the user to run it), tell them a browser is opening, wait for confirmation, then resume polling
 
 ### Step 3: Auto-Import Sources
 
