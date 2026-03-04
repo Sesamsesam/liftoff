@@ -278,7 +278,7 @@ rm -f ~/.gemini/setup/setup-progress.md
 
 After creating, tell the user:
 
-> "Your Antigravity is now juiced up ⚡️! Instead of moving on foot, you now have a rocket 🚀
+> "We are ready for take-off ⚡️! Instead of moving on foot, you now have a rocket 🚀
 >
 > Sami says hi 👋 😊 and congratulations 🎉 - you just unlocked what 99% of builders don't have. This is your unfair but totally fair advantage 😉 you will see once you start using Antigravity.
 >

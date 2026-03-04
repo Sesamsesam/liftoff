@@ -48,7 +48,8 @@ When this extension is activated and setup hasn't been completed:
 1. Check `which uv` - install if missing
 2. Check `which nlm` - install via `uv tool install notebooklm-mcp-cli` if missing
 3. Check MCP config for `"notebooklm"` entry - add if missing
-4. Check auth via `nlm login --check` - guide user through `nlm login` if needed
+4. Check auth via `nlm login --check` - if auth is needed, the agent MUST run `nlm login` itself (do NOT ask the user to run it). This opens a Chrome window automatically. Tell the user:
+   > "👉 A browser window is opening now - sign in with your Google account, then come back here and let me know when it's done! 🔑✨"
 5. Verify with `nlm doctor`
 6. Inform user to reload IDE so MCP tools become available
 

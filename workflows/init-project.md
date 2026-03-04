@@ -168,13 +168,9 @@ gh repo view --json visibility -q '.visibility'
 >
 > "Your code is now backed up on GitHub 🤝🔒 - it's set to private so only you can see it.
 >
-> 👉 Check it out here: `https://github.com/<username>/<project-name>`
+> 👉 Check it out here: [https://github.com/<username>/<project-name>](https://github.com/<username>/<project-name>)
 >
-> If you go to your GitHub account you'll see I created a folder (called a repository) there for your project 📁. As you build and work with me, all your files get periodically saved there in the cloud - so at any time, from anywhere, your work is safe and accessible 🌏.
->
-> Think of it like saving a game at a specific point 🕺 - you can always go back to any previous version if you need to. And since you connected me to your GitHub earlier, I can always help you store, manage, and create new projects for you in the cloud. Pretty cool right! 😊✨
->
-> I handle all the saving automatically - you don't need to think about it. Over time you'll learn how this works naturally."
+> If you go to your GitHub account you'll see I created a folder (a repository) 📁. As you build and work with me, your files get periodically saved there in the cloud - so at any time, from anywhere, your work is safe and accessible 🌏. Pretty cool right! 😊✨"
 
 ### 8. Link global extensions and settings
 
@@ -223,13 +219,7 @@ All symlinks point to the global canonical location. Edits made through the syml
 <!-- CREW BRIEF -->
 > **After completing the symlinks, tell the user (use this text closely, do not summarize):**
 >
-> "I just connected your project to your Liftoff toolkit 🔗
->
-> 👉 Look at the Explorer sidebar on the left (the icon that looks like two documents stacked on top of each other 📄📄). You'll see a `.gemini/` folder - expand it and take a look 👀
->
-> Inside, there's an `extensions/` folder. These are all the skills and extensions that currently exist in Liftoff - they get updated over time as Sami keeps adding new ones 🚀
->
-> You don't need to do anything with these now. I'll recommend the right ones when your project needs them, and I handle all the setup. But feel free to browse - each folder has a SKILL.md that explains what it does if you're curious. They require a setup but I can guide you through that when the time comes 🪄"
+> "👉 Look at the Explorer sidebar on the left (the icon that looks like two documents stacked on top of each other 📄📄). You'll see a `.gemini/` folder - expand it and take a look 👀 Inside, there's an `extensions/` folder. These are all the skills and extensions that currently exist in Liftoff, they will help you automate work - over time as Sami keeps adding new ones they will be automatically updated 🚀 You don't need to do anything now, I'll recommend the right ones when your project needs them, and handle all the setup. 🪄"
 
 ### 9. Initial commit and push
 
