@@ -204,11 +204,13 @@ Offer the user a choice:
 Workflow complete. No further action needed.
 ```
 
-### Creating New Skills - Agent Checklist
+### Convention for Creating Skills
 
-When creating a new skill or adding workflows, the agent must ask:
+The agent applies this pattern automatically - do not ask the user about skill architecture.
 
-1. **"Will this skill have multiple distinct workflows?"** If yes, use the sub-file pattern
-2. **"What triggers each workflow?"** This builds the workflow table in SKILL.md
-3. **"At the end of each workflow, what happens next?"** This determines the chaining (next workflow, branch choices, or terminal)
-4. **"Does this workflow connect to any other extensions?"** If yes, add branch routing at the end
+- **Single workflow, under ~200 lines:** Keep everything in SKILL.md. No sub-files needed.
+- **Multiple sequential phases or growing past ~200 lines:** Automatically split into `workflows/` sub-files. Each file is self-contained, ends with a "Next Step" chain.
+- **Every workflow must end with a "Next Step"** - whether it chains to the next workflow, offers branch choices to other extensions, or declares the workflow terminal.
+- **If a workflow connects to other extensions** (e.g., handing off to `notion-publishing` or `minibook-pipeline`), add branch routing at the end with activation instructions.
+
+The agent determines the structure based on the content being created. If a skill starts simple and later grows, the agent refactors it into sub-files at that point.
