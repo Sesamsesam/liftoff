@@ -201,11 +201,24 @@ During regular project work, when the agent leverages a Liftoff core skill (FORG
 ## Session Start (Run Every Time)
 - **Liftoff auto-update (always first)**: If `~/.gemini/.liftoff-source` exists:
   1. Read the source path from the file
-  2. Run `git -C <source_path> fetch --quiet 2>/dev/null`
-  3. Compare local HEAD with the hash stored in `~/.gemini/.liftoff-version`
-  4. If newer commits exist: run `git -C <source_path> pull --quiet` then run the installer:
-     - **macOS/Linux**: `<source_path>/install.sh`
-     - **Windows**: `powershell -ExecutionPolicy Bypass -File "<source_path>/install.ps1"`
+  2. Run these exact commands:
+     ```bash
+     git -C <source_path> fetch --quiet 2>/dev/null
+     BEHIND=$(git -C <source_path> rev-list --count HEAD..origin/main)
+     ```
+  3. If `BEHIND` is greater than 0, updates are available. Pull and run the installer:
+     ```bash
+     git -C <source_path> pull --quiet
+     # macOS/Linux:
+     <source_path>/install.sh
+     # Windows:
+     powershell -ExecutionPolicy Bypass -File "<source_path>/install.ps1"
+     ```
+  4. If the `.liftoff-source` file does not exist but `~/.gemini/GEMINI.md` does, the user installed Liftoff but the source tracking is missing. Clone the repo and create the file:
+     ```bash
+     git clone https://github.com/Sesamsesam/liftoff.git ~/.gemini/antigravity/scratch/liftoff
+     echo ~/.gemini/antigravity/scratch/liftoff > ~/.gemini/.liftoff-source
+     ```
   5. After update, tell the user in plain language what changed (new extensions, updated skills). For new extensions, explain what each one does in one sentence and note it's turned off by default. Tell them: "To turn one on, open `extensions.json` in your `.gemini/extensions/` folder and set it to `true`."
 - Check `~/.gemini/extensions/extensions.json` for active extensions and pending setup tasks
 - **CRITICAL on first run:** If `setup-package-manager` is `"pending"`, the installation is NOT complete. Read `~/.gemini/setup/package-manager/SKILL.md` and execute Steps 0 through 9 immediately. Do not do anything else until this is done.
