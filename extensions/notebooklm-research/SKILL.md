@@ -23,6 +23,7 @@ When a user asks to research a topic, the agent runs the **full pipeline autonom
 
 | Step | File | What Happens |
 |---|---|---|
+| **Step 0** | `workflows/deep-research.md` | Research work order - user confirms notebook plan before autonomous execution |
 | **Steps 1-7** | `workflows/deep-research.md` | Start research, poll, import, curate sources, consensus analysis, update index |
 | **Steps 8-9** | `workflows/report-handoff.md` | Generate reports, download locally, update index |
 | **Step 10** | `minibook-pipeline` extension | Draft outline, write manuscript, generate images |

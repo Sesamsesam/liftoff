@@ -1,13 +1,14 @@
 ---
-description: "Autonomous research flow: start research, poll, import, curate, build consensus, and update the research index."
+description: "Autonomous research flow: plan work order, start research, poll, import, curate, build consensus, and update the research index."
 ---
 
 # Deep Research Workflow
 
-> **This entire workflow is autonomous.** Complete every step before stopping. After each step, check the list below and proceed to the next unchecked step.
+> **Step 0 is interactive** - pause for user confirmation. **Steps 1-7 are fully autonomous** - complete every step before stopping. After each step, check the list below and proceed to the next unchecked step.
 
 ## Checklist
 
+- [ ] Step 0: Research work order (user confirmation required)
 - [ ] Step 1: Start research
 - [ ] Step 2: Poll until complete
 - [ ] Step 3: Import sources
@@ -15,6 +16,45 @@ description: "Autonomous research flow: start research, poll, import, curate, bu
 - [ ] Step 5: Consensus analysis
 - [ ] Step 6: Update research index
 - [ ] Step 7: → Continue to `workflows/report-handoff.md` initiate without asking
+
+---
+
+### Step 0: Research Work Order
+
+**Always present a structured research plan before starting.** This is the one pause point in the pipeline - everything after this runs autonomously.
+
+**Two paths depending on user input:**
+
+**If the user provided detailed specs** (number of notebooks, specific topics, source quality criteria):
+- Parse their instructions into the plan table below
+- Do NOT simplify, reinterpret, or override anything they specified
+- Present for quick confirmation, then go
+
+**If the user gave a vague topic** (e.g. "research AI"):
+- Propose 3-5 notebooks with specific angles that cover the topic comprehensively
+- Default to deep mode for all notebooks
+- Default to high-quality source criteria (academic, major consultancies, official reports)
+- Present for approval - user confirms or adjusts
+
+**Present the plan as a table:**
+
+> | # | Notebook Title | Research Query | Mode | Source Quality |
+> |---|---|---|---|---|
+> | 1 | [title] | [specific search query] | Deep | [quality criteria if specified] |
+> | 2 | ... | ... | Deep | ... |
+>
+> Look good, or want to adjust anything?
+
+**Rules:**
+- If the user specified source quality preferences (e.g. "McKinsey, Gartner, scientific publications only"), carry those criteria forward into the research queries AND into the curation rules in Step 4
+- Always default to **deep** mode unless the user explicitly requests fast
+- Create the notebooks (`notebook_create`) only after the user confirms the plan
+- If the user adjusts the plan, present the updated table and confirm again
+
+> [!IMPORTANT]
+> **Never skip this step.** Even if the user seems ready to go, always present the plan table for confirmation. This is the user's only chance to direct the research before the autonomous pipeline takes over.
+
+> ✅ **User confirmed? Check Step 0 off the list. Continue to Step 1.**
 
 ---
 
