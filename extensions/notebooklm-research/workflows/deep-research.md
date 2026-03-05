@@ -35,25 +35,21 @@ For multiple notebooks, launch all `research_start` calls in parallel.
 
 ### Step 2: Poll Until Complete
 
-**Pass `max_wait` directly to the `research_status` tool call.** This makes the tool itself wait before returning, instead of the agent polling in a tight loop.
+**Pass `max_wait=1800` to the `research_status` tool call.** This makes the tool poll internally (every ~30 seconds) for up to 30 minutes before returning. The tool returns immediately when research completes - `max_wait` is just the ceiling.
 
 ```
-research_status(notebook_id, query="<original query>", max_wait=<see below>)
+research_status(notebook_id, query="<original query>", max_wait=1800)
 ```
 
-**`max_wait` values by mode:**
-- **Fast mode:** `max_wait=30` (tool waits up to 30 seconds before returning)
-- **Deep mode:** `max_wait=120` (tool waits up to 2 minutes before returning)
+**Use `max_wait=1800` for both fast and deep mode.** This is a buffer, not a target. Fast research typically finishes in under a minute and the tool returns as soon as it does. Deep research may take 5-15 minutes.
 
-If `status` is still `in_progress` after the call returns, call `research_status` again with the same `max_wait`. Repeat until `completed` or until total elapsed time exceeds:
-- **Fast mode:** 3 minutes total
-- **Deep mode:** 15 minutes total
+If `status` is still `in_progress` after the call returns (meaning 30 minutes passed without completion), call `research_status` again with the same `max_wait=1800` to continue waiting.
 
-> [!IMPORTANT]
-> **Never use `max_wait=0`.** This causes a tight polling loop that wastes tokens. Always pass at least `max_wait=30`.
+> [!NOTE]
+> **How `max_wait` works:** It is the total number of seconds the tool spends internally polling before returning a response. It is NOT a polling interval. With `max_wait=1800`, the tool makes one call, handles all waiting internally, and only returns when done or when 30 minutes have passed. This avoids rapid-fire agent-level tool calls.
 
 - Always use `query` for matching (task IDs change during deep research)
-- If total elapsed time exceeds the limit while still `in_progress`, tell the user:
+- If the tool returns `in_progress` after two consecutive 30-minute waits (60+ minutes total), tell the user:
   > "Research is still running. I'll stop checking now. Take a look in a few minutes and when you think it's done, just tell me and I'll import the results!"
 - Poll multiple notebooks in parallel
 - **Auth recovery:** If any MCP call fails with an auth/session error during polling, run `nlm login` yourself (do not ask the user to run it), tell them a browser is opening, wait for confirmation, then resume polling
