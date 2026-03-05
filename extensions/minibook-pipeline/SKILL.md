@@ -83,7 +83,7 @@ Before writing any prose, produce `outline.md` with:
 
 ### Step 3 - Pre-Writing Questions
 
-After outline approval, ask these three questions **one at a time** (wait for each answer before asking the next):
+After outline approval, ask these two questions **one at a time** (wait for each answer before asking the next):
 
 **Question 1 - Reading length:**
 > "How long should the book be? A 5-minute, 10-minute, 20-minute, or 30+ minute read?"
@@ -97,17 +97,13 @@ Use this to calibrate character count and elaboration depth:
 **Question 2 - Reader and angle:**
 > "Who is the reader, and what angle do you want them to walk away with?"
 
-**Question 3 - Image style:**
-> "What style of images? You can upload an example image in chat for me to match, or I can choose a style that fits the book's theme."
+### Step 4 - Write Manuscript
 
-If user uploads an example: extract the visual style markers (color palette, rendering style, mood) and use those for all images.
-If user says "you choose": select a style that complements the book's theme and tone.
+Write the **complete manuscript first**, then generate all images in Step 4b. This ensures every image is informed by the actual chapter content.
 
-### Step 4 - Write Manuscript and Generate Images
+Produce `manuscript.md` with placeholder image references:
 
-Produce `manuscript.md` AND generate all chapter images in one pass. Do not write the full manuscript first and then do images separately - alternate between writing and image generation per chapter for visual consistency.
-
-**Document structure (with image placements):**
+**Document structure:**
 ```
 # [Title]
 
@@ -154,7 +150,7 @@ Produce `manuscript.md` AND generate all chapter images in one pass. Do not writ
 *[Source attribution paragraph]*
 ```
 
-Image placement follows the rules in Workflow 2: cover after prelude hook, chapter images after headings, never two images back-to-back.
+Image placement: cover after prelude hook, chapter images after headings, never two images back-to-back.
 
 **Writing principles:**
 - **Plain language.** No jargon unless immediately explained. Write as if the reader is smart but unfamiliar with the field
@@ -177,21 +173,38 @@ Image placement follows the rules in Workflow 2: cover after prelude hook, chapt
 - The prelude must hook within the first two sentences
 - The conclusion must include actionable next steps
 
-**Image generation rules:**
+### Step 4b - Generate Chapter Images
+
+**After the full manuscript is written**, generate all images. Each image is crafted to match the specific content of its chapter.
 
 Create N+1 images (cover + one per chapter):
 
 | Image | Naming | Prompt Strategy |
 |---|---|---|
 | Cover | `cover.png` | Captures the book's overarching theme/metaphor |
-| Chapter 1 | `ch1.png` | References the chapter's core metaphor |
-| Chapter 2 | `ch2.png` | References the chapter's core concept |
+| Chapter 1 | `ch1.png` | Visualizes the chapter's core concept or key finding |
+| Chapter 2 | `ch2.png` | Visualizes the chapter's core concept or key finding |
 | ... | `chN.png` | Each image ties to its chapter's central idea |
 
-- Generate images as you write each chapter (not all at the end)
+**Default style prompt (always applied):**
+
+Every image prompt MUST include this style directive:
+
+> "Modern minimalist editorial illustration. Clean lines, soft gradients, muted professional color palette (whites, light grays, warm neutrals, subtle accent colors). Flat or semi-flat design with geometric simplicity. Light, airy composition with generous whitespace. Typography-friendly layout. Inspired by the clean, approachable aesthetic of Google brand illustrations and modern consultancy report visuals. The image may include relevant text or labels if they enhance clarity."
+
+**Anti-patterns (never do these):**
+- Never cartoony, whimsical, or playful characters
+- Never dark, dystopian, or dramatic lighting
+- Never photorealistic human faces
+- Never clip-art or stock illustration style
+- Never overly complex or busy compositions
+- Never neon or garish color palettes
+
+**Rules:**
 - Save to `research/Minibook/<book-slug>/images/`
-- Each prompt should reference the agreed style markers from Step 3
-- Maintain visual consistency across all images
+- Each prompt combines the default style directive above with a description specific to the chapter's content
+- Maintain visual consistency across all images (same palette, same rendering style)
+- The user can regenerate individual images later if they want a different style
 
 ### Step 5 - Create Review Artifacts
 
@@ -288,11 +301,12 @@ After the user approves the manuscript and images, offer publishing options:
 - **Never write prose without an approved outline.** The outline is the contract
 - **Ground all claims in sources.** Flag any assertion that lacks a citation
 - **Maintain consistent voice.** If the user edits passages, match their tone in subsequent writing
-- **Generate images alongside writing.** Do not separate writing and illustration into two phases
-- **Respect the image placement rules.** Never deviate from the layout principles in Workflow 2
+- **Write first, illustrate after.** Complete the full manuscript, then generate all images informed by the actual chapter content
+- **Use the default image style.** Always apply the default style prompt. Never ask the user to choose an image style - they can adjust after
+- **Respect the image placement rules.** Cover after prelude hook, chapter images after headings, never two images back-to-back
 - **Create the folder structure first.** Before any writing begins, set up the project directories
 - **One source of truth.** `manuscript.md` is always the canonical version. If edits happen elsewhere (Notion, a web component), sync back to `manuscript.md`
-- **Ask the 3 pre-writing questions.** After outline approval, always ask about reading length, reader/angle, and image style before writing
+- **Ask the 2 pre-writing questions.** After outline approval, always ask about reading length and reader/angle before writing
 
 ### Quality checklist (run before publishing)
 - [ ] Every chapter has at least one cited data point
