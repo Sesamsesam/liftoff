@@ -17,23 +17,24 @@ It can produce reports, mind maps, audio discussions, quizzes, flashcards, slide
 
 ---
 
-## Available Workflows
+## Research Pipeline
 
-When a research task is triggered, read the relevant workflow file from the `workflows/` folder in this extension.
+When a user asks to research a topic, the agent runs the **full pipeline autonomously** from start to finish. The pipeline is split across two files for readability, but they are **one continuous flow**. Never stop between them.
 
-| Workflow | File | When to Use |
+| Step | File | What Happens |
 |---|---|---|
-| **Deep Research** | `workflows/deep-research.md` | User asks to research a topic. Runs Steps 1-7 autonomously (start, poll, import, curate, consensus, index update). Chains automatically to Report Handoff. |
-| **Report & Handoff** | `workflows/report-handoff.md` | Runs after deep research completes. Generates reports, downloads locally, then offers minibook or Notion publishing. |
+| **1. Deep Research** | `workflows/deep-research.md` | Start research → poll → import → curate sources → consensus analysis → update index |
+| **2. Report Generation** | `workflows/report-handoff.md` | Generate reports → download locally → update index → offer next steps |
 
 > [!IMPORTANT]
-> **Workflow chaining:** Deep Research always chains to Report Handoff at the end. Do not stop between workflows. Each workflow file ends with a clear "Next Step" that tells you what to read next.
+> **This is one pipeline, not two optional workflows.** Always execute both files in order, without stopping to ask the user between them. The only user interaction is at the very end, where the agent offers to create a minibook or publish to Notion.
 
-### How to execute a workflow
+### How to execute
 
-1. Read the workflow file when triggered
-2. Execute all steps in order
-3. Follow the "Next Step" at the end of each workflow file - it will either chain to another workflow or offer the user choices
+1. Read `workflows/deep-research.md` and execute all steps
+2. At the end, it says "read `workflows/report-handoff.md`" - do that immediately
+3. Execute all steps in report-handoff
+4. Only at the final "Next Step" do you offer the user choices (minibook, Notion, or keep as-is)
 
 ---
 
