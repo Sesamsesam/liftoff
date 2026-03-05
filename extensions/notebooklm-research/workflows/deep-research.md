@@ -71,6 +71,9 @@ All [N] notebooks are ready to query.
 
 Always use live data - never hard-code numbers.
 
+> [!IMPORTANT]
+> **Do not stop here to ask the user what to do next.** Continue immediately to Step 5 (curation). The completion summary is informational only.
+
 ### Step 5: Source Curation (Automatic)
 
 Immediately after the completion summary, auto-curate sources. Do NOT ask the user whether to curate - always do it.

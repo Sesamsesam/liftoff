@@ -4,15 +4,17 @@ description: "Generate reports from research, download locally, and hand off to 
 
 # Report Generation & Handoff
 
-> **Phase 2 - User Input Required.** These steps need user decisions before proceeding.
+> **Phase 2 - Mostly Autonomous.** Generate reports, download them, then offer the user next steps.
 
 ---
 
 ### Step 8: Report Generation
 
-Ask **one focusing question** before generating:
+Ask **one short focusing question**, then auto-proceed:
 
-> "I'm about to generate a report for each notebook ([list titles]). Any specific angle, or should I go broad?"
+> "I'm generating a report for each notebook. Any specific angle, or should I go broad?"
+
+Do not wait long. If the user doesn't answer within a reasonable time, go broad.
 
 **Generate per notebook using `studio_create`:**
 
@@ -45,7 +47,7 @@ Each notebook's report becomes the **foundation** for downstream studio artifact
 
 ### Step 9: Download Reports Locally
 
-After all reports are generated, **download each report** into the project's `research/reports/` folder:
+**Immediately after generating, download each report** into the project's `research/reports/` folder:
 
 ```python
 # Try API download first
@@ -78,11 +80,14 @@ notebook_query(
 
 After all reports are downloaded, update `research/index.md`.
 
-### Step 10: Handoff
+---
 
-After reports are downloaded, offer the next step:
+## Next Step
 
-> "Your research is ready! Here's what I can do next:
+> [!IMPORTANT]
+> **Do not stop here.** After downloading all reports, offer the user next steps:
+
+> "Your research reports are downloaded and ready!
 >
 > 1. **Write a minibook** - a polished, illustrated booklet you can share. I'll draft an outline first for your approval.
 > 2. **Publish reports to Notion** - if you just want the raw reports formatted as Notion pages.
