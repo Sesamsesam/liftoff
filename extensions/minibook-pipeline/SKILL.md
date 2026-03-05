@@ -190,7 +190,7 @@ Create N+1 images (cover + one per chapter):
 
 Every image prompt MUST include this style directive:
 
-> "Modern minimalist editorial illustration. Clean lines, soft gradients, muted professional color palette (whites, light grays, warm neutrals, subtle accent colors). Flat or semi-flat design with geometric simplicity. Light, airy composition with generous whitespace. Typography-friendly layout. Inspired by the clean, approachable aesthetic of Google brand illustrations and modern consultancy report visuals. The image may include relevant text or labels if they enhance clarity."
+> "Modern minimalist editorial illustration. Clean lines, soft gradients on a light, airy canvas (whites, light grays, warm neutrals). Punctuated by deliberate, elegant strokes of accent color - think teal, soft coral, muted gold, or rich blue - that draw the eye and add visual energy without overwhelming the composition. Flat or semi-flat design with geometric simplicity. Generous whitespace. Typography-friendly layout. The overall feel should be fresh, premium, and inviting - minimalist but never dull. Inspired by the clean, approachable aesthetic of Google brand illustrations and modern consultancy report visuals. The image may include relevant text or labels if they enhance clarity."
 
 **Anti-patterns (never do these):**
 - Never cartoony, whimsical, or playful characters
