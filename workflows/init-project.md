@@ -7,6 +7,9 @@ description: "Initialize a new project with Git, GitHub, scaffolding, and all gu
 ## When To Use
 Run this workflow when creating a brand new project from scratch.
 
+> [!IMPORTANT]
+> **Do not use F.O.R.G.E. for this workflow.** This is a standardized setup with no design decisions to approve. Do not create an implementation plan or ask for review. Execute directly. The first thing the user should see is the PROBE discovery question.
+
 ## Steps
 
 ### 1. P.R.O.B.E. Discovery
