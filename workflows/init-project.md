@@ -12,16 +12,27 @@ Run this workflow when creating a brand new project from scratch.
 
 ## Steps
 
-### 1. P.R.O.B.E. Discovery
+### 0. Silent Setup (no user interaction)
+
+Before asking the user anything, silently set up the project infrastructure:
+
+1. Create `.gemini/` directory in the project root
+2. Symlink `GEMINI.md` and `extensions/` to their global locations (see Step 5 for exact commands)
+3. Create `.gitignore` with the Antigravity entries (see Step 4 for exact content)
+
+These are the same for every project type. Do not show output or ask for approval.
+
+### 1. Opening Question
+
+> "We are ready for take-off! What do you want to work on or build?"
+
+Wait for the user's answer before proceeding.
+
+### 2. P.R.O.B.E. Discovery
 
 **P**roject **R**equirements **O**utline and **B**uild **E**valuation
 
-Instead of scripted questions, run a fluid conversational discovery.
-
-**Opening question:**
-> "What do you want to do?"
-
-Based on the answer, ask 1-2 dynamic follow-up questions to extract what you need for classification and scaffolding. Only ask what you genuinely need. Stop asking when you have enough to classify and build the probe plan.
+Based on the user's answer, ask 1-2 dynamic follow-up questions to extract what you need for classification and scaffolding. Only ask what you genuinely need. Stop asking when you have enough to classify and build the probe plan.
 
 #### Internal Classification (never share with user)
 
@@ -74,7 +85,7 @@ Include detected needs in the probe plan's "Immediate next steps" section, expla
 >
 > Check `probe-plan.md` in your folder view on the left sidebar. You can edit it, expand on it by chatting with me ('let's expand the probe and tell me more'), or if you're happy with it, we move on to the next steps."
 
-### 2. Scaffold the project
+### 3. Scaffold the project
 
 Based on the PROBE classification:
 
@@ -104,14 +115,14 @@ No framework scaffolding. Create these files directly:
 
 The project is ready for extension configuration.
 
-### 3. Initialize Git
+### 4. Initialize Git
 ```bash
 # turbo
 git init
 ```
 
-### 4. Create `.gitignore`
-Write the `.gitignore` from the `git-flow` skill template (covers node_modules, .env*, .convex/_generated/, .wrangler/, etc.)
+### 5. Extend `.gitignore`
+The base `.gitignore` with Antigravity symlink entries was created in Step 0. Now extend it with the `git-flow` skill template entries (node_modules, .env*, .convex/_generated/, .wrangler/, etc.) and any project-specific patterns.
 
 **Add these entries to `.gitignore` for every new project - these are symlinks to global Antigravity files and must never be committed:**
 ```gitignore
@@ -120,7 +131,7 @@ Write the `.gitignore` from the `git-flow` skill template (covers node_modules, 
 .gemini/extensions/      # → global extension directories + extensions.json
 ```
 
-### 5. Create `.env.example`
+### 6. Create `.env.example`
 ```bash
 # Required environment variables
 # Copy this file to .env.local and fill in the values
@@ -130,10 +141,10 @@ Write the `.gitignore` from the `git-flow` skill template (covers node_modules, 
 
 Only add specific entries (Convex, Clerk, Cloudflare, etc.) when the user chooses to integrate those tools.
 
-### 6. Set up CSS foundation
+### 7. Set up CSS foundation
 Create `src/index.css` with the design tokens from the `brand-identity` skill.
 
-### 7. Create GitHub repository
+### 8. Create GitHub repository
 
 Use the GitHub CLI to create a private repo and push the initial code:
 
@@ -168,9 +179,9 @@ gh repo view --json visibility -q '.visibility'
 >
 > If you go to your GitHub account you'll see I created a folder (a repository) 📁. As you build and work with me, your files get periodically saved there in the cloud - so at any time, from anywhere, your work is safe and accessible 🌏. Pretty cool right! 😊✨"
 
-### 8. Link global extensions and settings
+### 9. Verify symlinks
 
-Create the `.gemini/` directory in the project, then symlink global extensions and GEMINI.md so the user always has visibility into their toolkit.
+The symlinks were created in Step 0. Verify they work:
 
 **macOS / Linux:**
 ```bash
@@ -217,7 +228,7 @@ All symlinks point to the global canonical location. Edits made through the syml
 >
 > "👉 Look at the Explorer sidebar on the left (the icon that looks like two documents stacked on top of each other 📄📄). You'll see a `.gemini/` folder - expand it and take a look 👀 Inside, there's an `extensions/` folder. These are all the skills and extensions that currently exist in Liftoff, they will help you automate work - over time as Sami keeps adding new ones they will be automatically updated 🚀 You don't need to do anything now, I'll recommend the right ones when your project needs them, and handle all the setup. 🪄"
 
-### 9. Initial commit and push
+### 10. Initial commit and push
 
 Create the Liftoff init marker (this is how Session Start knows the project was initialized):
 ```bash
@@ -231,7 +242,7 @@ git commit -m "chore: scaffold project with Antigravity defaults"
 git push -u origin main
 ```
 
-### 10. Suggest extensions
+### 11. Suggest extensions
 
 After everything is set up, tell the user:
 
@@ -246,7 +257,7 @@ After everything is set up, tell the user:
 
 Only suggest, never auto-activate. If the user picks one, follow the **Activation Flow** from the Skill Discovery & Extension Lifecycle rules in GEMINI.md (set to `true`, check for SETUP.md, run setup if needed, give a Crew Brief, then the extension is ready).
 
-### 11. Verify
+### 12. Verify
 - [ ] `bun run dev` starts without errors (only if user asks to start the server)
 - [ ] `.gitignore` covers all sensitive patterns and Antigravity symlinks
 - [ ] `.env.example` exists (`.env.local` does NOT exist in repo)
@@ -256,7 +267,7 @@ Only suggest, never auto-activate. If the user picks one, follow the **Activatio
 - [ ] `.gemini/GEMINI.md` is a working symlink
 - [ ] GitHub repo exists and is private
 
-### 12. Report
+### 13. Report
 Tell the user:
 
 > "Project scaffolded with [type].
