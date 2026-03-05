@@ -14,7 +14,7 @@ description: "Autonomous research flow: start research, poll, import, curate, bu
 - [ ] Step 4: Curate sources (classify + delete low-quality)
 - [ ] Step 5: Consensus analysis
 - [ ] Step 6: Update research index
-- [ ] Step 7: → Continue to `workflows/report-handoff.md`
+- [ ] Step 7: → Continue to `workflows/report-handoff.md` initiate without asking
 
 ---
 
