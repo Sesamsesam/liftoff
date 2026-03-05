@@ -13,19 +13,12 @@ Run this workflow when creating a brand new project from scratch.
 
 **P**roject **R**equirements **O**utline and **B**uild **E**valuation
 
-Instead of asking a binary technical question, run a fluid conversational discovery. Ask questions one at a time (not all at once). Wait for each answer before asking the next.
+Instead of scripted questions, run a fluid conversational discovery.
 
-**Question 1 (always ask):**
-> "What are you looking to build or work on? Tell me in your own words - it can be as vague or specific as you want."
+**Opening question:**
+> "What do you want to do?"
 
-**Question 2 (always ask):**
-> "Who is this for? Just yourself, a client, a team, or the public?"
-
-**Question 3 (always ask):**
-> "Do you have any existing materials (research, designs, documents) or are you starting completely from scratch?"
-
-**Question 4 (always ask):**
-> "Any features or tools you already know you'll need? For example: user accounts, payments, AI features? Or if this is more for your work or career - things like researching topics, analyzing documents, scraping websites, or organizing knowledge?"
+Based on the answer, ask 1-2 dynamic follow-up questions to extract what you need for classification and scaffolding. Only ask what you genuinely need. Stop asking when you have enough to classify and build the probe plan.
 
 #### Internal Classification (never share with user)
 
