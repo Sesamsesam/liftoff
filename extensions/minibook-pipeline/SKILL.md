@@ -140,7 +140,7 @@ If user says "you choose": select a style that complements the book's theme and 
 
 Produce `manuscript.md` AND generate all chapter images in one pass. Do not write the full manuscript first and then do images separately - alternate between writing and image generation per chapter for visual consistency.
 
-**Document structure:**
+**Document structure (with image placements):**
 ```
 # [Title]
 
@@ -154,15 +154,26 @@ Produce `manuscript.md` AND generate all chapter images in one pass. Do not writ
 
 [Hook paragraphs - the most compelling entry point]
 
+![Cover](research/Minibook/<book-slug>/images/cover.png)
+
+[Remaining prelude paragraphs]
+
 ---
 
 ## Chapter 1: [Title]
+
+![Chapter 1](research/Minibook/<book-slug>/images/ch1.png)
 
 [Body prose]
 
 ---
 
 ## Chapter 2: [Title]
+
+![Chapter 2](research/Minibook/<book-slug>/images/ch2.png)
+
+[Body prose]
+
 ...
 
 ---
@@ -175,6 +186,8 @@ Produce `manuscript.md` AND generate all chapter images in one pass. Do not writ
 
 *[Source attribution paragraph]*
 ```
+
+Image placement follows the rules in Workflow 2: cover after prelude hook, chapter images after headings, never two images back-to-back.
 
 **Writing principles:**
 - **Plain language.** No jargon unless immediately explained. Write as if the reader is smart but unfamiliar with the field
@@ -197,15 +210,69 @@ Produce `manuscript.md` AND generate all chapter images in one pass. Do not writ
 - The prelude must hook within the first two sentences
 - The conclusion must include actionable next steps
 
-### Step 5 - User Review
+### Step 5 - Create Review Artifacts
 
-Present the complete manuscript and all generated images together for review. Expect iterative edits. The user may:
+After all chapters are written and images generated, create three deliverables before presenting to the user:
+
+#### 5a. Image Review Carousel (artifact)
+
+Create an artifact file with a carousel showing all generated images so the user can flip through and approve the visual style:
+
+````carousel
+![Cover](absolute/path/to/images/cover.png)
+<!-- slide -->
+![Chapter 1](absolute/path/to/images/ch1.png)
+<!-- slide -->
+![Chapter 2](absolute/path/to/images/ch2.png)
+<!-- slide -->
+...continue for all chapters
+````
+
+This lets the user quickly review image quality and consistency before reading the full manuscript.
+
+#### 5b. Manuscript File (project file)
+
+The `manuscript.md` file already created during Step 4 is the source of truth. It contains the full prose with relative image paths at the correct locations (as shown in the document structure above). This is what the agent uses when publishing to Notion or building a web page.
+
+#### 5c. Visual Review Artifact (artifact)
+
+Create a second artifact that is the **full manuscript with images rendered inline**. This uses absolute paths so images actually display inside Antigravity:
+
+```markdown
+# [Title]
+### [Subtitle]
+*[Tagline]*
+
+---
+
+## Prelude: [Hook Title]
+[Hook paragraphs]
+
+![Cover](/absolute/path/to/images/cover.png)
+
+## Chapter 1: [Title]
+![Chapter 1](/absolute/path/to/images/ch1.png)
+[Body prose]
+...
+```
+
+This gives the user a "printed book" preview - they can scroll through the entire manuscript with images appearing between chapters, exactly as a reader would experience it. The .md file in the project folder only shows file paths, but this artifact renders the actual images.
+
+### Step 6 - User Review
+
+Present all three deliverables:
+1. **Image carousel** - "Flip through the images first - do they match the style you wanted?"
+2. **Visual manuscript** - "Here's the full book with images rendered inline - scroll through it like a reader would"
+3. **Manuscript file** - "The source file is at `research/Minibook/<slug>/manuscript.md` - this is what we'll use for publishing"
+
+Expect iterative edits. The user may:
 - Rewrite passages in their own voice
 - Add personal commentary
 - Adjust data framing
 - Change chapter ordering
+- Request image regeneration for specific chapters
 
-After edits, `manuscript.md` remains the source of truth.
+After edits, update `manuscript.md` AND regenerate the visual review artifact to reflect changes. `manuscript.md` remains the source of truth.
 
 **Image generation rules (during Step 4):**
 
@@ -297,6 +364,9 @@ Map Markdown elements to Notion blocks:
 ### Quality checklist (run before publishing)
 - [ ] Every chapter has at least one cited data point
 - [ ] No orphaned images (every image is placed in the manuscript)
+- [ ] `manuscript.md` has image paths at correct positions (after chapter headings)
+- [ ] Image review carousel artifact was created and user approved images
+- [ ] Visual review artifact was created with absolute paths (images render inline)
 - [ ] Folder structure matches the convention
 - [ ] Outline was approved before writing began
 - [ ] User reviewed the complete manuscript
