@@ -85,16 +85,12 @@ After all reports are downloaded, update `research/index.md`.
 ## Next Step
 
 > [!IMPORTANT]
-> **Do not stop here.** After downloading all reports, offer the user next steps:
+> **Proceed to minibook creation.** After downloading all reports, transition immediately to the minibook pipeline:
 
-> "Your research reports are downloaded and ready!
->
-> 1. **Write a minibook** - a polished, illustrated booklet you can share. I'll draft an outline first for your approval.
-> 2. **Publish reports to Notion** - if you just want the raw reports formatted as Notion pages.
->
-> Or you can just keep the research as-is and decide later."
+> "Your research reports are downloaded and ready! Next up, let's turn this into a polished minibook. I'll draft an outline for your approval."
 
-**Branch routing:**
-- If user picks **minibook**: activate the `minibook-pipeline` extension and pass the research reports to it
-- If user picks **Notion**: activate the `notion-publishing` extension and pass the report files to it
-- If user says **later**: end the workflow. Research is saved and ready
+Read the `minibook-pipeline` extension's SKILL.md and begin the minibook workflow, passing the research reports from `research/reports/` as source material.
+
+**If the user explicitly declines the minibook**, offer alternatives:
+- **Publish reports to Notion** - activate `notion-publishing` extension
+- **Keep as-is** - end the workflow. Research is saved and ready

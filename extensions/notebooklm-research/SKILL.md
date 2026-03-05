@@ -19,22 +19,23 @@ It can produce reports, mind maps, audio discussions, quizzes, flashcards, slide
 
 ## Research Pipeline
 
-When a user asks to research a topic, the agent runs the **full pipeline autonomously** from start to finish. The pipeline is split across two files for readability, but they are **one continuous flow**. Never stop between them.
+When a user asks to research a topic, the agent runs the **full pipeline autonomously** from start to finish. The pipeline is split across files for readability, but it is **one continuous flow**. Never stop between steps.
 
 | Step | File | What Happens |
 |---|---|---|
-| **1. Deep Research** | `workflows/deep-research.md` | Start research → poll → import → curate sources → consensus analysis → update index |
-| **2. Report Generation** | `workflows/report-handoff.md` | Generate reports → download locally → update index → offer next steps |
+| **1. Deep Research** | `workflows/deep-research.md` | Start research, poll, import, curate sources, consensus analysis, update index |
+| **2. Report Generation** | `workflows/report-handoff.md` | Generate reports, download locally, update index |
+| **3. Minibook Creation** | `minibook-pipeline` extension | Draft outline, write manuscript, generate images, create review artifacts |
 
 > [!IMPORTANT]
-> **This is one pipeline, not two optional workflows.** Always execute both files in order, without stopping to ask the user between them. The only user interaction is at the very end, where the agent offers to create a minibook or publish to Notion.
+> **This is one pipeline, not three optional workflows.** Steps 1 and 2 execute autonomously without asking the user. Step 3 (minibook) transitions automatically after reports are downloaded. The user can decline the minibook, but the default is to proceed.
 
 ### How to execute
 
 1. Read `workflows/deep-research.md` and execute all steps
 2. At the end, it says "read `workflows/report-handoff.md`" - do that immediately
 3. Execute all steps in report-handoff
-4. Only at the final "Next Step" do you offer the user choices (minibook, Notion, or keep as-is)
+4. At the end, it transitions to the `minibook-pipeline` extension automatically
 
 ---
 
@@ -48,6 +49,7 @@ When a user asks to research a topic, the agent runs the **full pipeline autonom
 - **Cite the source**: "Based on the NotebookLM research, I'm using X because..."
 - **Prefer project conventions** over research suggestions unless the user wants to change
 - **Suggest NotebookLM** for topics that benefit from deep, multi-source research
+- **Never construct external URLs by guessing** from local data (OS username, folder names, file paths). Always verify from the actual source: `git remote get-url origin` for repo URLs, `gh api user -q .login` for GitHub usernames
 
 ### Research Folder Structure
 

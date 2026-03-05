@@ -21,17 +21,26 @@ For multiple notebooks, launch all `research_start` calls in parallel.
 
 ### Step 2: Poll Until Complete
 
+**Pass `max_wait` directly to the `research_status` tool call.** This makes the tool itself wait before returning, instead of the agent polling in a tight loop.
+
 ```
-research_status(notebook_id, query="<original query>", poll_interval=<see below>, max_wait=<see below>)
+research_status(notebook_id, query="<original query>", max_wait=<see below>)
 ```
 
-**Polling intervals by mode:**
-- **Fast mode:** `poll_interval=30, max_wait=180` (every 30s, up to 3 min)
-- **Deep mode:** `poll_interval=120, max_wait=900` (every 2 min, up to 15 min)
+**`max_wait` values by mode:**
+- **Fast mode:** `max_wait=30` (tool waits up to 30 seconds before returning)
+- **Deep mode:** `max_wait=120` (tool waits up to 2 minutes before returning)
+
+If `status` is still `in_progress` after the call returns, call `research_status` again with the same `max_wait`. Repeat until `completed` or until total elapsed time exceeds:
+- **Fast mode:** 3 minutes total
+- **Deep mode:** 15 minutes total
+
+> [!IMPORTANT]
+> **Never use `max_wait=0`.** This causes a tight polling loop that wastes tokens. Always pass at least `max_wait=30`.
 
 - Always use `query` for matching (task IDs change during deep research)
-- If `max_wait` expires while still `in_progress`, tell the user:
-  > "Research is still running - these deep dives can take a while 🔬. I'll stop checking now. Take a look in a few minutes and when you think it's done, just tell me and I'll import the results!"
+- If total elapsed time exceeds the limit while still `in_progress`, tell the user:
+  > "Research is still running - these deep dives can take a while. I'll stop checking now. Take a look in a few minutes and when you think it's done, just tell me and I'll import the results!"
 - Poll multiple notebooks in parallel
 - **Auth recovery:** If any MCP call fails with an auth/session error during polling, run `nlm login` yourself (do not ask the user to run it), tell them a browser is opening, wait for confirmation, then resume polling
 

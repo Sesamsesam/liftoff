@@ -12,6 +12,7 @@
 - If a step fails, **stop and report immediately**
 - Never hallucinate success or hide errors
 - Every action must be traceable and explainable
+- **Never construct external URLs by guessing** from local data (OS username, folder names, file paths). Always verify: `git remote get-url origin` for repo URLs, `gh api user -q .login` for GitHub usernames
 
 ## Communication Style
 - **In Chat**: Be brief (max 3 lines unless explaining)
