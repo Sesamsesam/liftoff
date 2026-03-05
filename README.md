@@ -39,7 +39,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | ⚔️ **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | ⚡ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and a template for creating your own |
-| 🔌 **7 optional extensions** | Cloudflare infrastructure, RAG document chat, strategic project planning, research pipelines, minibook creation, web scraping, and session memory so your AI remembers yesterday |
+| 🔌 **8 optional extensions** | Cloudflare infrastructure, RAG document chat, strategic project planning, research pipelines, minibook creation, Notion publishing, web scraping, and session memory so your AI remembers yesterday |
 | 🏆 **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 
@@ -153,7 +153,8 @@ All extensions are installed dormant. Activate any of them by setting to `true` 
 | `cloudflare-mcp` | Deploy to the web, manage databases and storage via Cloudflare |
 | `orbit-planning` | O.R.B.I.T. - Deep Professional Project Planning before you build |
 | `notebooklm-research` | Connect to NotebookLM via MCP for grounded, citation-backed research directly from the agent |
-| `minibook-pipeline` | End-to-end minibook creation: write from research, generate chapter imagery, publish to Notion |
+| `minibook-pipeline` | End-to-end minibook creation: write from research, generate chapter imagery, hand off for publishing |
+| `notion-publishing` | Publish any manuscript or report to Notion with proper formatting and image placement |
 | `beads-workflow` | Cross-session context persistence |
 | `firecrawl` | Scrape, crawl, and convert any website to clean structured data |
 | `autorag-pipeline` | RAG Level 1: R2 + AutoRAG + chat interface (20-min setup) |
@@ -278,16 +279,15 @@ skills/
 
 Extensions that require MCP or CLI setup also have a `SETUP.md` - a separate file for one-time installation instructions. The agent reads it once during activation, then only uses `SKILL.md` going forward. This keeps the workflow file focused and the setup instructions self-contained.
 
-You don't create a new folder for every small thing. Instead, you add new patterns as sections inside the existing `SKILL.md`. For example, `notebooklm-research/SKILL.md` could contain:
+You don't create a new folder for every small thing. Instead, you add related workflows within the same extension folder. For example, `notebooklm-research/` contains:
 
-- **Skill 1**: The Research-to-Production pipeline (research → extract → ground → implement)
-- **Skill 2**: Auto-add sources (automatically click "Add to Sources" after research is complete)
+- **SKILL.md** - the index (core rules, workflow table)
+- **workflows/deep-research.md** - the autonomous research + curation flow
+- **workflows/report-handoff.md** - report generation + publishing handoff
 
-Both live inside the same `notebooklm-research/SKILL.md` because they're part of the same topic.
+All of these live inside the same `notebooklm-research/` folder because they're part of the same topic. Each workflow file is self-contained, and ends with a "Next Step" that chains to the next workflow or offers the user a choice of what to do next.
 
-The agent reads the full file and knows how to apply each pattern when relevant.
-
-> **When to create a new folder**: Only when the topic is genuinely different. If you're adding something about video production, that's a new folder (`remotion-video/`). If you're adding a second NotebookLM workflow, it goes in the existing `notebooklm-research/SKILL.md`.
+> **When to create a new folder**: Only when the topic is genuinely different. If you're adding something about video production, that's a new folder (`remotion-video/`). If you're adding a new NotebookLM workflow (like audio generation), it goes in `notebooklm-research/workflows/audio-creation.md`.
 
 ---
 
@@ -319,8 +319,13 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── beads-workflow/SKILL.md + SETUP.md     # (extension)
 │   ├── firecrawl/SKILL.md + SETUP.md          # (extension)
 │   ├── autorag-pipeline/SKILL.md              # (extension)
-│   ├── notebooklm-research/SKILL.md + SETUP.md # (extension)
-│   └── minibook-pipeline/SKILL.md             # (extension)
+│   ├── notebooklm-research/                   # (extension, with workflows)
+│   │   ├── SKILL.md + SETUP.md
+│   │   └── workflows/
+│   │       ├── deep-research.md
+│   │       └── report-handoff.md
+│   ├── minibook-pipeline/SKILL.md             # (extension)
+│   └── notion-publishing/SKILL.md             # (extension)
 ├── setup/
 │   └── package-manager/SKILL.md       # One-time OS + package manager detection
 ├── skills/

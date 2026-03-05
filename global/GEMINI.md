@@ -107,8 +107,9 @@
 
 ### Extension Folder Structure
 Every extension folder follows this structure:
-- `SKILL.md` - the capability itself (workflows, rules, patterns)
+- `SKILL.md` - the entry point (overview, core rules, workflow index)
 - `SETUP.md` (optional) - one-time installation/configuration steps
+- `workflows/` (optional) - sub-workflow files for complex extensions that would exceed ~200 lines in a single SKILL.md. Each workflow file is self-contained and ends with a "Next Step" that chains to the next workflow or offers branch choices
 
 **SETUP.md is the gate.** If an extension has a SETUP.md, the extension is NOT ready to use until setup is complete - even if it's set to `true`.
 
