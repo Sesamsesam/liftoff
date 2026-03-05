@@ -292,55 +292,21 @@ After edits, update `manuscript.md` AND regenerate the visual review artifact to
 
 ---
 
-## Workflow 2: Publish to Notion
+## Publishing Handoff
 
-Takes the finished manuscript + images and creates a formatted Notion page.
+After the user approves the manuscript and images, offer publishing options:
 
-### Prerequisites
+> "Your minibook is ready! What would you like to do with it?
+>
+> 1. **Publish to Notion** - a formatted page with all your images and chapters, ready to share
+> 2. **Build a web page** - an interactive scroll site or one-pager you can put online
+>
+> Or you can just keep the manuscript as-is and decide later."
 
-- Notion MCP server must be connected and authenticated
-- A target workspace or parent page must be identified
-
-### Image Placement Rules
-
-These rules ensure readable, visually balanced layout (learned from "The AI Shift" scroll book):
-
-1. **Title > Subtitle > Tagline > Prelude text first.** The hook paragraphs appear before any image. Pull readers in with words before visuals
-2. **Cover image after the prelude hook.** Place `cover.png` after the first 2-3 prelude paragraphs, before the rest of the prelude content
-3. **Chapter images after the chapter heading.** Place `chN.png` immediately after the `## Chapter N: Title` heading, before the first body paragraph
-4. **Never two images back-to-back.** There must be at least one paragraph of text between any two images
-5. **Data callouts are text-only zones.** No images within 2 blocks of a blockquote citation
-6. **Tables stand alone.** No image directly above or below a table
-
-### Notion Block Mapping
-
-Map Markdown elements to Notion blocks:
-
-| Markdown | Notion Block |
-|---|---|
-| `# Title` | Page title |
-| `### Subtitle` | Heading 3 |
-| `*Tagline*` | Italic paragraph |
-| `---` | Divider |
-| `## Chapter N: Title` | Heading 2 |
-| `> **Bold text**` | Callout block (or quote block) |
-| `> *Source:...*` | Quote block (italic) |
-| Body paragraphs | Paragraph blocks |
-| Tables | Table blocks |
-| Images | Image blocks (uploaded) |
-
-### Publishing Steps
-
-1. **Create the Notion page** under the target parent page using Notion MCP
-2. **Add the title** as the page title
-3. **Walk through the manuscript** section by section:
-   - Convert each Markdown element to the appropriate Notion block
-   - Insert images at the placement points defined above
-   - Preserve heading hierarchy
-4. **Add source attribution** at the bottom as a toggleable section
-
-> [!IMPORTANT]
-> **Notion MCP limitations:** If the Notion MCP server does not support image uploads directly, save images to a public URL (e.g., R2 bucket) first, then embed via URL. Inform the user if this fallback is needed.
+**Branch routing:**
+- If user picks **Notion**: activate the `notion-publishing` extension (follow the Activation Flow in GEMINI.md) and pass the manuscript + images to it
+- If user picks **web page**: use `stack-pro-max` to scaffold a site and build a scroll page from the manuscript content
+- If user says **later**: end the workflow. The manuscript and images are saved and ready whenever they want to publish
 
 ---
 
