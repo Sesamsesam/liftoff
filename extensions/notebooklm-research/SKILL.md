@@ -17,248 +17,25 @@ It can produce reports, mind maps, audio discussions, quizzes, flashcards, slide
 
 ---
 
-## Automated Workflow
+## Available Workflows
 
-**Every time you do deep research, this runs in two phases:**
+When a research task is triggered, read the relevant workflow file from the `workflows/` folder in this extension.
 
-### Phase 1 - Autonomous Flow (no user interaction)
-Steps 1-7 run continuously without stopping. Do not ask permission between steps.
-
-1. **Start** - Launch research across notebooks
-2. **Poll** - Wait for completion
-3. **Import** - Auto-import all discovered sources
-4. **Summary** - Show completion stats
-5. **Curate** - Auto-apply quality filter rules, remove low-quality sources
-6. **Consensus** - Map agreements and conflicts across sources
-7. **Brain Update** - Refresh `research/index.md`
-
-### Phase 2 - User Input Required
-8. **Report** - Ask the angle question, then generate
-9. **Download** - Save reports locally
-10. **Handoff** - Offer minibook creation if minibook-pipeline is active
-
-*(Without this skill, you'd manually import sources, clean up failures, and request reports every single time. Now it's automatic.)*
-
----
-
-### Step 1: Start Research
-
-```
-research_start(notebook_id, query, source="web", mode="deep"|"fast")
-```
-
-- **Deep** (~5 min, ~40-80 sources): comprehensive research
-- **Fast** (~30s, ~10 sources): quick lookups
-
-For multiple notebooks, launch all `research_start` calls in parallel.
-
-### Step 2: Poll Until Complete
-
-```
-research_status(notebook_id, query="<original query>", poll_interval=<see below>, max_wait=<see below>)
-```
-
-**Polling intervals by mode:**
-- **Fast mode:** `poll_interval=30, max_wait=180` (every 30s, up to 3 min)
-- **Deep mode:** `poll_interval=120, max_wait=900` (every 2 min, up to 15 min)
-
-- Always use `query` for matching (task IDs change during deep research)
-- If `max_wait` expires while still `in_progress`, tell the user:
-  > "Research is still running - these deep dives can take a while 🔬. I'll stop checking now. Take a look in a few minutes and when you think it's done, just tell me and I'll import the results!"
-- Poll multiple notebooks in parallel
-- **Auth recovery:** If any MCP call fails with an auth/session error during polling, run `nlm login` yourself (do not ask the user to run it), tell them a browser is opening, wait for confirmation, then resume polling
-
-### Step 3: Auto-Import Sources
-
-```
-research_import(notebook_id, task_id)
-```
-
-- Call **immediately** when status returns `completed`
-- Import all sources by default (omit `source_indices`)
-- Import each notebook as it completes - don't wait for all
-
-> [!IMPORTANT]
-> **Always auto-import.** Never leave research in "completed but not imported" state.
-
-### Step 4: Completion Summary
-
-Dynamically pull data from `notebook_list` and present:
-
-```
-## Research Complete
-
-| Notebook | Sources | Link |
+| Workflow | File | When to Use |
 |---|---|---|
-| [Title] | [count] | [url] |
-| **Total** | **[sum]** | |
-
-### Actions Taken
-1. Created [N] notebooks with targeted research prompts
-2. Launched deep research across all notebooks
-3. Polled until all research completed
-4. Auto-imported all discovered sources
-
-All [N] notebooks are ready to query.
-```
-
-Always use live data - never hard-code numbers.
-
-### Step 5: Source Curation (Automatic)
-
-Immediately after the completion summary, auto-curate sources. Do NOT ask the user whether to curate - always do it.
-
-#### 5a. Classify Sources
-
-Use `notebook_query` to have NotebookLM classify its own sources (it has already parsed every word of every source).
-
-**Curation query:**
-
-```
-Classify every source in this notebook. For each source, provide:
-1. Source title
-2. Publication year (or best estimate)
-3. Source credibility tier:
-   - TIER_1: Primary research institutions, academic papers, government reports, major consultancies, or any organization that conducted original research with documented methodology
-   - TIER_2: Established journalism outlets with editorial oversight, official company filings, earnings reports, or industry body publications
-   - TIER_3: Blogs, forums, social media, opinion pieces, listicles, content aggregators, or sources with no clear institutional backing
-4. Data quality: ORIGINAL (contains its own data, surveys, experiments, or first-hand analysis) or DERIVATIVE (summarizes, repackages, or comments on other sources)
-
-Be strict. If unsure about credibility, default to TIER_3. Format as a numbered list.
-```
-
-**Keep/Remove rules:**
-- **Keep:** TIER_1 + ORIGINAL from the current year
-- **Keep:** TIER_2 + ORIGINAL from the current year
-- **Keep:** TIER_1 + DERIVATIVE only if the original source is NOT already present
-- **Remove:** All TIER_3 sources
-- **Remove:** Anything older than 12 months
-- **Remove:** DERIVATIVE sources when a higher-tier ORIGINAL covering the same findings exists
-
-**Auto-apply keep/remove rules - do not ask for confirmation.** Delete removed sources with `source_delete(source_id, confirm=True)`. Show a brief summary of what was kept and removed after the fact.
-
-#### 5b. Delete Low-Quality Sources
-
-After classification, immediately delete all sources marked for removal. Do not present the list for user approval - the rules above are strict enough to trust. Log what was removed in the completion summary.
-
-### Step 6: Consensus Analysis (Automatic)
-
-Run immediately after curation, no user interaction needed.
-
-Query each notebook to map agreement vs. conflict:
-
-```
-Analyze the remaining sources for consensus and conflict:
-1. What key findings do MULTIPLE sources agree on? List each and note how many sources support it.
-2. Are there claims where sources directly contradict each other? List each conflict with the disagreeing sources.
-3. Any outlier predictions supported by only a single source?
-
-Focus on substantive claims, not stylistic differences.
-```
-
-This consensus map guides report structure:
-- **Consensus findings** become the main body
-- **Conflicts** are isolated into an appendix
-- **Single-source outliers** are noted as "worth monitoring"
-
-Present the consensus/conflict map to the user, then update `research/index.md`.
-
-### Step 7: Update Research Index
-
-Update `research/index.md` with the consensus and conflict findings before proceeding to Phase 2.
-
----
-
-## Phase 2: User Input Required
-
-### Step 8: Report Generation
-
-Ask **one focusing question** before generating:
-
-> "I'm about to generate a report for each notebook ([list titles]). Any specific angle, or should I go broad?"
-
-**Generate per notebook using `studio_create`:**
-
-```python
-# Run for EACH notebook individually
-studio_create(
-    notebook_id="[current notebook ID]",
-    artifact_type="report",
-    report_format="Create Your Own",
-    custom_prompt="""Create a comprehensive, consensus-driven report. Follow this structure:
-
-    (1) EXECUTIVE OVERVIEW - Landscape summary based on majority source agreement.
-
-    (2) CONSENSUS FINDINGS - Main body. Only findings supported by 2+ sources. Organize thematically, not by source. Cite all supporting sources inline. Must read as one coherent narrative.
-
-    (3) SUPPORTING DATA - Key statistics and projections reinforcing consensus. Cite origins.
-
-    (4) FORWARD-LOOKING OUTLOOK - Converging predictions. Note confidence (strong consensus vs. emerging trend).
-
-    (5) CONTESTED AREAS (appendix) - Separated from main narrative. Each conflict: what each side claims, which sources support each position.
-
-    (6) OUTLIER SIGNALS (appendix) - Single-source claims lacking corroboration. Present as "worth monitoring."
-
-    Main body (1-4) must be unified with no contradictions. All disagreements in 5-6 only.""",
-    confirm=True
-)
-```
-
-Each notebook's report becomes the **foundation** for downstream studio artifacts (audio, quizzes, slides, etc.).
-
-#### 5d. Download Reports Locally
-
-After all reports are generated, **download each report** into the project's `research/reports/` folder:
-
-```python
-# Try API download first
-download_artifact(
-    notebook_id="[notebook ID]",
-    artifact_type="report",
-    output_path="research/reports/[slug]_briefing.md"
-)
-```
-
-**If `download_artifact` fails** (e.g. "not supported for async download"), use the fallback:
-
-```python
-# Fallback: extract report content via notebook_query
-notebook_query(
-    notebook_id="[notebook ID]",
-    query="Reproduce the full text of the Briefing Doc report that was just generated, preserving all headings, citations, and formatting."
-)
-# Save the response text as research/reports/[slug]_briefing.md
-```
-
-**Naming convention:** lowercase slug from notebook title + `_briefing.md`:
-- `fortune500_briefing.md`
-- `workforce_displacement_briefing.md`
-- `upskilling_briefing.md`
-- `ai_frameworks_briefing.md`
+| **Deep Research** | `workflows/deep-research.md` | User asks to research a topic. Runs Steps 1-7 autonomously (start, poll, import, curate, consensus, index update). Chains automatically to Report Handoff. |
+| **Report & Handoff** | `workflows/report-handoff.md` | Runs after deep research completes. Generates reports, downloads locally, then offers minibook or Notion publishing. |
 
 > [!IMPORTANT]
-> **Always download reports.** The research is not complete until report files exist in `research/reports/`.
+> **Workflow chaining:** Deep Research always chains to Report Handoff at the end. Do not stop between workflows. Each workflow file ends with a clear "Next Step" that tells you what to read next.
 
-After all reports are downloaded, update `research/index.md`.
+### How to execute a workflow
 
-### Step 10: Handoff
-
-After reports are downloaded, offer the next step:
-
-> "Your research is ready! Here's what I can do next:
->
-> 1. **Write a minibook** - a polished, illustrated booklet you can share. I'll draft an outline first for your approval.
-> 2. **Publish reports to Notion** - if you just want the raw reports formatted as Notion pages.
->
-> Or you can just keep the research as-is and decide later."
-
-**Branch routing:**
-- If user picks **minibook**: activate the `minibook-pipeline` extension and pass the research reports to it
-- If user picks **Notion**: activate the `notion-publishing` extension and pass the report files to it
-- If user says **later**: end the workflow. Research is saved and ready
+1. Read the workflow file when triggered
+2. Execute all steps in order
+3. Follow the "Next Step" at the end of each workflow file - it will either chain to another workflow or offer the user choices
 
 ---
-
 
 ## Agent Behaviors
 
@@ -278,7 +55,7 @@ The agent MUST maintain a `research/` folder at the **project root** whenever No
 ```
 project-root/
   research/
-    index.md          <- notebook index (was notebooklm-brain.md)
+    index.md          <- notebook index
     reports/
       [slug]_briefing.md
       [slug]_briefing.md
