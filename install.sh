@@ -103,12 +103,11 @@ done
 # ─── Install Extensions (all start dormant) ───
 install_extension() {
   local ext_name="$1"
-  mkdir -p "$SKILL_EXTENSIONS_DIR/$ext_name"
-  cp "$SCRIPT_DIR/extensions/$ext_name/SKILL.md" "$SKILL_EXTENSIONS_DIR/$ext_name/SKILL.md"
-  # Copy SETUP.md if it exists (one-time setup instructions, separate from workflow)
-  if [ -f "$SCRIPT_DIR/extensions/$ext_name/SETUP.md" ]; then
-    cp "$SCRIPT_DIR/extensions/$ext_name/SETUP.md" "$SKILL_EXTENSIONS_DIR/$ext_name/SETUP.md"
-  fi
+  local src_dir="$SCRIPT_DIR/extensions/$ext_name"
+  local dest_dir="$SKILL_EXTENSIONS_DIR/$ext_name"
+  # Copy entire extension folder (SKILL.md, SETUP.md, workflows/, etc.)
+  mkdir -p "$dest_dir"
+  cp -r "$src_dir"/* "$dest_dir"/
   echo "  ✓ $ext_name"
 }
 

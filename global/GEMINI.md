@@ -63,7 +63,7 @@
 - **All projects live in `~/dev/`** (or `%USERPROFILE%\dev\` on Windows) - this is a hard convention, no exceptions
 - If `~/dev/` does not exist, create it automatically (`mkdir -p ~/dev/`)
 - **Never rename project folders** once created - renaming breaks git remotes, symlinks, and cached paths. If a different name is needed, create a new project from scratch
-- **"Liftoff" trigger**: When the user says "liftoff", first check that `setup-package-manager` is `"done"` in `extensions.json`. If done: read `~/.gemini/workflows/init-project.md` and execute the workflow immediately. If still `"pending"`: the global install has not completed yet. Say: "Before we can liftoff, we need to finish the global setup first. Let me run that now." Then execute the `setup-package-manager` skill instead
+- **"Liftoff" trigger**: When the user says "liftoff", first run the auto-update check (see Session Start). Then check that `setup-package-manager` is `"done"` in `extensions.json`. If done: read `~/.gemini/workflows/init-project.md` and execute the workflow immediately. If still `"pending"`: the global install has not completed yet. Say: "Before we can liftoff, we need to finish the global setup first. Let me run that now." Then execute the `setup-package-manager` skill instead
 - **Auto-detect empty projects**: If the agent is in a folder inside `~/dev/` that has no `.gemini/.liftoff-init` file AND `setup-package-manager` is `"done"`, automatically run `init-project`. If `setup-package-manager` is still `"pending"`, run the setup first. The user does not need to ask - the agent detects and acts
 
 ## Server Management
@@ -192,16 +192,17 @@ During regular project work, when the agent leverages a Liftoff core skill (FORG
 - Never repetitive or forced - if it doesn't fit naturally, skip it
 
 ## Session Start (Run Every Time)
+- **Liftoff auto-update (always first)**: If `~/.gemini/.liftoff-source` exists:
+  1. Read the source path from the file
+  2. Run `git -C <source_path> fetch --quiet 2>/dev/null`
+  3. Compare local HEAD with the hash stored in `~/.gemini/.liftoff-version`
+  4. If newer commits exist: run `git -C <source_path> pull --quiet` then run the installer:
+     - **macOS/Linux**: `<source_path>/install.sh`
+     - **Windows**: `powershell -ExecutionPolicy Bypass -File "<source_path>/install.ps1"`
+  5. After update, tell the user in plain language what changed (new extensions, updated skills). For new extensions, explain what each one does in one sentence and note it's turned off by default. Tell them: "To turn one on, open `extensions.json` in your `.gemini/extensions/` folder and set it to `true`."
 - Check `~/.gemini/extensions/extensions.json` for active extensions and pending setup tasks
 - **CRITICAL on first run:** If `setup-package-manager` is `"pending"`, the installation is NOT complete. Read `~/.gemini/setup/package-manager/SKILL.md` and execute Steps 0 through 9 immediately. Do not do anything else until this is done.
 - If any `setup-*` entries are `"pending"`: read the matching `~/.gemini/setup/*/SKILL.md`, execute it, then mark `"done"`
-- **Liftoff auto-update**: If `~/.gemini/.liftoff-source` exists:
-  1. Run `git -C <source_path> fetch --quiet 2>/dev/null`
-  2. Compare local HEAD with `~/.gemini/.liftoff-version`
-  3. If newer commits exist: run `git -C <source_path> pull --quiet` then run the installer:
-     - **macOS/Linux**: `<source_path>/install.sh`
-     - **Windows**: `powershell -ExecutionPolicy Bypass -File "<source_path>/install.ps1"`
-  4. After update, tell the user in plain language what changed (new extensions, updated skills). For new extensions, explain what each one does in one sentence and note it's turned off by default. Tell them: "To turn one on, open `extensions.json` in your `.gemini/extensions/` folder and set it to `true`."
 - **Project init fallback**: If `setup-package-manager` is `"done"` and the current workspace has no `.gemini/.liftoff-init` file, the project has not been initialized by Liftoff yet. Read `~/.gemini/workflows/init-project.md` and execute the workflow (see Project Directory Convention). This check ensures users who closed the window during the handoff or skipped it are not left stranded. Only trigger this once per session - do not loop. Note: a `.gemini/` directory might exist from other sources (e.g., cloned repos) - the `.liftoff-init` marker is the only reliable proof that init-project ran
 - **Extension health check**: For each extension set to `true` in `extensions.json`, verify setup completion if the extension has a `SETUP.md`. Check tool installations, MCP config entries, and auth status. If anything is missing, run the full setup sequence from the Activation Flow. This catches interrupted or partially completed setups.
 - If Beads active: run `bd ready` to find pending tasks
