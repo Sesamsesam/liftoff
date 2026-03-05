@@ -1,25 +1,30 @@
 ---
-description: "Generate reports from research, download locally, and hand off to minibook or Notion publishing."
+description: "Generate reports from research, download locally, and hand off to minibook pipeline."
 ---
 
 # Report Generation & Handoff
 
-> **Phase 2 - Mostly Autonomous.** Generate reports, download them, then offer the user next steps.
+> **This workflow continues autonomously from deep-research.md.** Complete every step before stopping.
+
+## Checklist
+
+- [ ] Step 8: Generate reports
+- [ ] Step 9: Download reports locally
+- [ ] Step 10: → Continue to minibook-pipeline extension
 
 ---
 
-### Step 8: Report Generation
+### Step 8: Generate Reports
 
-Ask **one short focusing question**, then auto-proceed:
+Ask **one short focusing question**, then proceed immediately (do not wait long):
 
-> "I'm generating a report for each notebook. Any specific angle, or should I go broad?"
+> "Generating reports for each notebook. Any specific angle, or should I go broad?"
 
-Do not wait long. If the user doesn't answer within a reasonable time, go broad.
+If the user doesn't answer quickly, go broad.
 
 **Generate per notebook using `studio_create`:**
 
 ```python
-# Run for EACH notebook individually
 studio_create(
     notebook_id="[current notebook ID]",
     artifact_type="report",
@@ -43,14 +48,15 @@ studio_create(
 )
 ```
 
-Each notebook's report becomes the **foundation** for downstream studio artifacts (audio, quizzes, slides, etc.).
+> ✅ **Done? Check Step 8 off the list. Continue to Step 9.**
+
+---
 
 ### Step 9: Download Reports Locally
 
-**Immediately after generating, download each report** into the project's `research/reports/` folder:
+**Immediately after generating, download each report** into `research/reports/`:
 
 ```python
-# Try API download first
 download_artifact(
     notebook_id="[notebook ID]",
     artifact_type="report",
@@ -58,39 +64,33 @@ download_artifact(
 )
 ```
 
-**If `download_artifact` fails** (e.g. "not supported for async download"), use the fallback:
+**If `download_artifact` fails**, use the fallback:
 
 ```python
-# Fallback: extract report content via notebook_query
 notebook_query(
     notebook_id="[notebook ID]",
     query="Reproduce the full text of the Briefing Doc report that was just generated, preserving all headings, citations, and formatting."
 )
-# Save the response text as research/reports/[slug]_briefing.md
+# Save the response as research/reports/[slug]_briefing.md
 ```
 
-**Naming convention:** lowercase slug from notebook title + `_briefing.md`:
-- `fortune500_briefing.md`
-- `workforce_displacement_briefing.md`
-- `upskilling_briefing.md`
-- `ai_frameworks_briefing.md`
-
-> [!IMPORTANT]
-> **Always download reports.** The research is not complete until report files exist in `research/reports/`.
+**Naming convention:** lowercase slug from notebook title + `_briefing.md`
 
 After all reports are downloaded, update `research/index.md`.
 
+> ✅ **Done? Check Step 9 off the list. Continue to Step 10.**
+
 ---
 
-## Next Step
+### Step 10: Continue to Minibook
 
 > [!IMPORTANT]
-> **Proceed to minibook creation.** After downloading all reports, transition immediately to the minibook pipeline:
+> **Do not stop. Do not ask what to do next.** Transition to the minibook pipeline:
 
 > "Your research reports are downloaded and ready! Next up, let's turn this into a polished minibook. I'll draft an outline for your approval."
 
 Read the `minibook-pipeline` extension's SKILL.md and begin the minibook workflow, passing the research reports from `research/reports/` as source material.
 
-**If the user explicitly declines the minibook**, offer alternatives:
+**Only if the user explicitly declines the minibook**, offer alternatives:
 - **Publish reports to Notion** - activate `notion-publishing` extension
-- **Keep as-is** - end the workflow. Research is saved and ready
+- **Keep as-is** - end the workflow

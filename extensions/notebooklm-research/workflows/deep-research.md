@@ -4,7 +4,17 @@ description: "Autonomous research flow: start research, poll, import, curate, bu
 
 # Deep Research Workflow
 
-> **Phase 1 - Autonomous.** Steps 1-7 run continuously without stopping. Do not ask permission between steps.
+> **This entire workflow is autonomous.** Complete every step before stopping. After each step, check the list below and proceed to the next unchecked step.
+
+## Checklist
+
+- [ ] Step 1: Start research
+- [ ] Step 2: Poll until complete
+- [ ] Step 3: Import sources
+- [ ] Step 4: Curate sources (classify + delete low-quality)
+- [ ] Step 5: Consensus analysis
+- [ ] Step 6: Update research index
+- [ ] Step 7: → Continue to `workflows/report-handoff.md`
 
 ---
 
@@ -18,6 +28,10 @@ research_start(notebook_id, query, source="web", mode="deep"|"fast")
 - **Fast** (~30s, ~10 sources): quick lookups
 
 For multiple notebooks, launch all `research_start` calls in parallel.
+
+> ✅ **Done? Check Step 1 off the list. Continue to Step 2.**
+
+---
 
 ### Step 2: Poll Until Complete
 
@@ -40,11 +54,15 @@ If `status` is still `in_progress` after the call returns, call `research_status
 
 - Always use `query` for matching (task IDs change during deep research)
 - If total elapsed time exceeds the limit while still `in_progress`, tell the user:
-  > "Research is still running - these deep dives can take a while. I'll stop checking now. Take a look in a few minutes and when you think it's done, just tell me and I'll import the results!"
+  > "Research is still running. I'll stop checking now. Take a look in a few minutes and when you think it's done, just tell me and I'll import the results!"
 - Poll multiple notebooks in parallel
 - **Auth recovery:** If any MCP call fails with an auth/session error during polling, run `nlm login` yourself (do not ask the user to run it), tell them a browser is opening, wait for confirmation, then resume polling
 
-### Step 3: Auto-Import Sources
+> ✅ **Done? Check Step 2 off the list. Continue to Step 3.**
+
+---
+
+### Step 3: Import Sources
 
 ```
 research_import(notebook_id, task_id)
@@ -52,46 +70,24 @@ research_import(notebook_id, task_id)
 
 - Call **immediately** when status returns `completed`
 - Import all sources by default (omit `source_indices`)
-- Import each notebook as it completes - don't wait for all
+- Import each notebook as it completes
 
 > [!IMPORTANT]
 > **Always auto-import.** Never leave research in "completed but not imported" state.
 
-### Step 4: Completion Summary
+Log a brief one-liner per notebook: "[Title]: [N] sources imported." Do not present a formatted summary table. Do not ask the user what to do next.
 
-Dynamically pull data from `notebook_list` and present:
+> ✅ **Done? Check Step 3 off the list. Continue to Step 4.**
 
-```
-## Research Complete
+---
 
-| Notebook | Sources | Link |
-|---|---|---|
-| [Title] | [count] | [url] |
-| **Total** | **[sum]** | |
+### Step 4: Curate Sources
 
-### Actions Taken
-1. Created [N] notebooks with targeted research prompts
-2. Launched deep research across all notebooks
-3. Polled until all research completed
-4. Auto-imported all discovered sources
+Immediately after importing, auto-curate sources. Do NOT ask the user whether to curate.
 
-All [N] notebooks are ready to query.
-```
+#### 4a. Classify Sources
 
-Always use live data - never hard-code numbers.
-
-> [!IMPORTANT]
-> **Do not stop here to ask the user what to do next.** Continue immediately to Step 5 (curation). The completion summary is informational only.
-
-### Step 5: Source Curation (Automatic)
-
-Immediately after the completion summary, auto-curate sources. Do NOT ask the user whether to curate - always do it.
-
-#### 5a. Classify Sources
-
-Use `notebook_query` to have NotebookLM classify its own sources (it has already parsed every word of every source).
-
-**Curation query:**
+Use `notebook_query` to have NotebookLM classify its own sources:
 
 ```
 Classify every source in this notebook. For each source, provide:
@@ -114,15 +110,17 @@ Be strict. If unsure about credibility, default to TIER_3. Format as a numbered 
 - **Remove:** Anything older than 12 months
 - **Remove:** DERIVATIVE sources when a higher-tier ORIGINAL covering the same findings exists
 
-**Auto-apply keep/remove rules - do not ask for confirmation.** Delete removed sources with `source_delete(source_id, confirm=True)`. Show a brief summary of what was kept and removed after the fact.
+#### 4b. Delete Low-Quality Sources
 
-#### 5b. Delete Low-Quality Sources
+Auto-apply keep/remove rules. Delete removed sources with `source_delete(source_id, confirm=True)`. Log a brief summary of what was kept and removed. Do not present the list for user approval.
 
-After classification, immediately delete all sources marked for removal. Do not present the list for user approval - the rules above are strict enough to trust. Log what was removed in the completion summary.
+> ✅ **Done? Check Step 4 off the list. Continue to Step 5.**
 
-### Step 6: Consensus Analysis (Automatic)
+---
 
-Run immediately after curation, no user interaction needed.
+### Step 5: Consensus Analysis
+
+Run immediately after curation. No user interaction needed.
 
 Query each notebook to map agreement vs. conflict:
 
@@ -140,15 +138,21 @@ This consensus map guides report structure:
 - **Conflicts** are isolated into an appendix
 - **Single-source outliers** are noted as "worth monitoring"
 
-Present the consensus/conflict map to the user, then update `research/index.md`.
+Log the consensus/conflict summary briefly. Do not ask the user what to do next.
 
-### Step 7: Update Research Index
-
-Update `research/index.md` with the consensus and conflict findings before proceeding.
+> ✅ **Done? Check Step 5 off the list. Continue to Step 6.**
 
 ---
 
-## Next Step
+### Step 6: Update Research Index
+
+Update `research/index.md` with the consensus and conflict findings.
+
+> ✅ **Done? Check Step 6 off the list. Continue to Step 7.**
+
+---
+
+### Step 7: Continue to Report Generation
 
 > [!IMPORTANT]
-> **Do not stop here.** After completing Steps 1-7, immediately proceed to the report generation phase. Read `workflows/report-handoff.md` in this extension folder and continue.
+> **Do not stop. Do not ask the user what to do.** Read `workflows/report-handoff.md` in this extension folder and execute it now.

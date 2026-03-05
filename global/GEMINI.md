@@ -71,6 +71,12 @@
 - **Never auto-start dev servers** unless explicitly asked
 - Assume the user already has their local environment running
 
+## Workflow Execution
+- **When a skill workflow is triggered, it must run to completion.** Every workflow file has a checklist at the top. After completing each step, check the list and proceed to the next unchecked step.
+- **Never present a mid-workflow summary and ask what to do next.** Mid-pipeline output is informational only. The workflow defines when to stop.
+- **The workflow decides when to stop, not the agent.** Only stop when the workflow explicitly says "end" or "offer the user a choice." If unsure, keep going.
+- **After long operations (polling, importing), re-read the checklist** to reorient before deciding what to do next. Do not rely on memory alone.
+
 ## Browser & Recording
 - **Never auto-open the browser** unless explicitly asked
 - **Never auto-record** browser sessions unless explicitly asked

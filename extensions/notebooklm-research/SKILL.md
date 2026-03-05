@@ -23,19 +23,19 @@ When a user asks to research a topic, the agent runs the **full pipeline autonom
 
 | Step | File | What Happens |
 |---|---|---|
-| **1. Deep Research** | `workflows/deep-research.md` | Start research, poll, import, curate sources, consensus analysis, update index |
-| **2. Report Generation** | `workflows/report-handoff.md` | Generate reports, download locally, update index |
-| **3. Minibook Creation** | `minibook-pipeline` extension | Draft outline, write manuscript, generate images, create review artifacts |
+| **Steps 1-7** | `workflows/deep-research.md` | Start research, poll, import, curate sources, consensus analysis, update index |
+| **Steps 8-9** | `workflows/report-handoff.md` | Generate reports, download locally, update index |
+| **Step 10** | `minibook-pipeline` extension | Draft outline, write manuscript, generate images |
 
 > [!IMPORTANT]
-> **This is one pipeline, not three optional workflows.** Steps 1 and 2 execute autonomously without asking the user. Step 3 (minibook) transitions automatically after reports are downloaded. The user can decline the minibook, but the default is to proceed.
+> **This is one pipeline, not three optional workflows.** Each workflow file has a checklist at the top. After completing each step, check the list and proceed to the next unchecked step. Never present a mid-pipeline summary and ask what to do next. The pipeline decides when to stop, not the agent.
 
 ### How to execute
 
-1. Read `workflows/deep-research.md` and execute all steps
-2. At the end, it says "read `workflows/report-handoff.md`" - do that immediately
-3. Execute all steps in report-handoff
-4. At the end, it transitions to the `minibook-pipeline` extension automatically
+1. Read `workflows/deep-research.md` and execute Steps 1-7 using the checklist
+2. Step 7 says "read `workflows/report-handoff.md`" - do that immediately
+3. Execute Steps 8-10 using the checklist
+4. Step 10 transitions to the `minibook-pipeline` extension automatically
 
 ---
 
