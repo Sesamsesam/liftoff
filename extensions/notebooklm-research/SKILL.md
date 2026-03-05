@@ -243,16 +243,19 @@ After all reports are downloaded, update `research/index.md`.
 
 ### Step 10: Handoff
 
-If the `minibook-pipeline` extension is active, offer the next step:
+After reports are downloaded, offer the next step:
 
 > "Your research is ready! Here's what I can do next:
 >
 > 1. **Write a minibook** - a polished, illustrated booklet you can share. I'll draft an outline first for your approval.
-> 2. **Set it up on Notion** - if you just want the raw report formatted as a Notion page.
+> 2. **Publish reports to Notion** - if you just want the raw reports formatted as Notion pages.
 >
-> Which would you prefer?"
+> Or you can just keep the research as-is and decide later."
 
-If user just wants the raw report on Notion (no minibook), they will say so. Otherwise, proceed to the minibook-pipeline workflow.
+**Branch routing:**
+- If user picks **minibook**: activate the `minibook-pipeline` extension and pass the research reports to it
+- If user picks **Notion**: activate the `notion-publishing` extension and pass the report files to it
+- If user says **later**: end the workflow. Research is saved and ready
 
 ---
 

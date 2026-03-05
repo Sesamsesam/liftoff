@@ -1,56 +1,23 @@
 ---
 name: minibook-pipeline
-description: "End-to-end minibook creation: write a manuscript from research, generate chapter imagery, and publish to Notion with proper layout."
+description: "End-to-end minibook creation: write a manuscript from research, generate chapter imagery, and hand off for publishing."
 ---
 
 # Minibook Pipeline
 
-> **Research to published book in three steps.** The agent handles writing, image generation, and Notion publishing. You approve the outline, review the prose, and pick the visual style.
+> **Research to published book in three steps.** The agent handles writing, image generation, and review artifacts. You approve the outline, review the prose, and pick the visual style.
 
-This extension turns grounded research (typically from NotebookLM) into a polished, illustrated minibook published on a Notion page. It codifies the workflow used to produce "The AI Shift" - an 8-chapter, 45,000-character book synthesized from four research briefings.
+This extension turns grounded research (typically from NotebookLM) into a polished, illustrated minibook. It codifies the workflow used to produce "The AI Shift" - an 8-chapter, 45,000-character book synthesized from four research briefings.
 
 ---
 
-## Getting Started
+## Prerequisites
 
-When a user asks to create a minibook, the agent must run through these prerequisite checks **before** starting any writing. Do not skip these steps.
+This extension needs research to write from. Before starting:
 
-### Check 1: Is NotebookLM connected?
-
-Look for the `notebooklm-research` extension in `~/.gemini/extensions/extensions.json`.
-
-- **If active (`true`):** Proceed to Check 2.
-- **If dormant (`false`):** Tell the user:
-  > "To create a minibook, we first need research to write from. The best way is through NotebookLM. Let me help you activate and set up the `notebooklm-research` extension first."
-  
-  Then activate it (`set to true` in extensions.json) and walk them through the NotebookLM setup per that extension's SKILL.md.
-- **If missing entirely:** Tell the user the `notebooklm-research` extension needs to be installed. Guide them through running the Liftoff installer, or manually copying the extension to `~/.gemini/extensions/notebooklm-research/`.
-
-> [!NOTE]
-> NotebookLM is the recommended research source, but not the only one. If the user already has research materials (PDFs, articles, notes, reports) they want to use instead, skip straight to Check 3.
-
-### Check 2: Does research exist for this topic?
-
-Ask the user: **"What topic do you want to write about? Do you already have research on this, or should we start from scratch?"**
-
-- **If research exists:** Ask where it lives (NotebookLM notebook, local files, etc.) and proceed to Check 3.
-- **If no research yet:** Guide the user through the research phase first:
-  1. Create a NotebookLM notebook for the topic
-  2. Add relevant sources (URLs, PDFs, YouTube videos, pasted text)
-  3. Generate research artifacts: a Briefing Doc, Study Guide, or custom report
-  4. Download those artifacts locally
-
-  > "Before we can write a minibook, we need solid research to build on. Let's start by creating a NotebookLM notebook for your topic and gathering sources. Once we have research reports generated, we will use those as the foundation for your book."
-
-  Do not proceed to writing until the user has at least 2-3 research artifacts downloaded.
-
-### Check 3: Are source materials available locally?
-
-Check for files in `research/Minibook/<book-slug>/sources/` or wherever the user indicates.
-
-- **If sources exist locally:** Summarize what is available and proceed to Workflow 1 (Write).
-- **If sources are in NotebookLM but not downloaded:** Download the research artifacts using `mcp_notebooklm_download_artifact` and save them into the `sources/` folder.
-- **If sources are elsewhere** (Google Drive, web URLs, etc.): Help the user gather them into the `sources/` folder for traceability.
+1. Check `research/reports/` for existing research reports or briefings
+2. If none exist, use the `notebooklm-research` extension to run deep research and download reports first. The user can also provide their own source materials (PDFs, articles, notes)
+3. Do not proceed until source materials are available in the project
 
 > [!IMPORTANT]
 > **The golden rule: no research, no book.** Never start writing a minibook without grounded source material. If the user pushes to skip research, explain that the quality of the book depends entirely on the quality of the research feeding it.
