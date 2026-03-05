@@ -210,6 +210,22 @@ Image placement follows the rules in Workflow 2: cover after prelude hook, chapt
 - The prelude must hook within the first two sentences
 - The conclusion must include actionable next steps
 
+**Image generation rules:**
+
+Create N+1 images (cover + one per chapter):
+
+| Image | Naming | Prompt Strategy |
+|---|---|---|
+| Cover | `cover.png` | Captures the book's overarching theme/metaphor |
+| Chapter 1 | `ch1.png` | References the chapter's core metaphor |
+| Chapter 2 | `ch2.png` | References the chapter's core concept |
+| ... | `chN.png` | Each image ties to its chapter's central idea |
+
+- Generate images as you write each chapter (not all at the end)
+- Save to `research/Minibook/<book-slug>/images/`
+- Each prompt should reference the agreed style markers from Step 3
+- Maintain visual consistency across all images
+
 ### Step 5 - Create Review Artifacts
 
 After all chapters are written and images generated, create three deliverables before presenting to the user:
@@ -273,22 +289,6 @@ Expect iterative edits. The user may:
 - Request image regeneration for specific chapters
 
 After edits, update `manuscript.md` AND regenerate the visual review artifact to reflect changes. `manuscript.md` remains the source of truth.
-
-**Image generation rules (during Step 4):**
-
-Create N+1 images (cover + one per chapter):
-
-| Image | Naming | Prompt Strategy |
-|---|---|---|
-| Cover | `cover.png` | Captures the book's overarching theme/metaphor |
-| Chapter 1 | `ch1.png` | References the chapter's core metaphor |
-| Chapter 2 | `ch2.png` | References the chapter's core concept |
-| ... | `chN.png` | Each image ties to its chapter's central idea |
-
-- Generate images as you write each chapter (not all at the end)
-- Save to `research/Minibook/<book-slug>/images/`
-- Each prompt should reference the agreed style markers from Step 3
-- Maintain visual consistency across all images
 
 ---
 
