@@ -39,7 +39,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | ⚔️ **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | ⚡ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and a template for creating your own |
-| 🔌 **8 optional extensions** | Cloudflare infrastructure, RAG document chat, strategic project planning, research pipelines, minibook creation, Notion publishing, web scraping, and session memory so your AI remembers yesterday |
+| 🔌 **9 optional extensions** | Cloudflare infrastructure, RAG document chat, strategic project planning, research pipelines, minibook creation, Notion publishing, web blog articles, web scraping, and session memory so your AI remembers yesterday |
 | 🏆 **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 
@@ -155,6 +155,7 @@ All extensions are installed dormant. Activate any of them by setting to `true` 
 | `notebooklm-research` | Connect to NotebookLM via MCP for grounded, citation-backed research directly from the agent |
 | `minibook-pipeline` | End-to-end minibook creation: write from research, generate chapter imagery, hand off for publishing |
 | `notion-publishing` | Publish any manuscript or report to Notion with proper formatting and image placement |
+| `web-blog` | Convert manuscripts into polished one-page blog articles with dynamic content rendering |
 | `beads-workflow` | Cross-session context persistence |
 | `firecrawl` | Scrape, crawl, and convert any website to clean structured data |
 | `autorag-pipeline` | RAG Level 1: R2 + AutoRAG + chat interface (20-min setup) |
@@ -325,7 +326,8 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   │       ├── deep-research.md
 │   │       └── report-handoff.md
 │   ├── minibook-pipeline/SKILL.md             # (extension)
-│   └── notion-publishing/SKILL.md             # (extension)
+│   ├── notion-publishing/SKILL.md + SETUP.md  # (extension)
+│   └── web-blog/SKILL.md                     # (extension)
 ├── setup/
 │   └── package-manager/SKILL.md       # One-time OS + package manager detection
 ├── skills/
