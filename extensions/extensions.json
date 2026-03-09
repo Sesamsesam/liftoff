@@ -9,5 +9,6 @@
     "minibook-pipeline": false,
     "notion-publishing": false,
     "autorag-pipeline": false,
-    "web-blog": false
+    "web-blog": false,
+    "google": false
 }

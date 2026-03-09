@@ -39,7 +39,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | ⚔️ **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | ⚡ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and a template for creating your own |
-| 🔌 **9 optional extensions** | Cloudflare infrastructure, RAG document chat, strategic project planning, research pipelines, minibook creation, Notion publishing, web blog articles, web scraping, and session memory so your AI remembers yesterday |
+| 🔌 **10 optional extensions** | Cloudflare infrastructure, Google Cloud + Workspace, RAG document chat, strategic project planning, research pipelines, minibook creation, Notion publishing, web blog articles, web scraping, and session memory so your AI remembers yesterday |
 | 🏆 **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 
@@ -159,8 +159,9 @@ All extensions are installed dormant. Activate any of them by setting to `true` 
 | `beads-workflow` | Cross-session context persistence |
 | `firecrawl` | Scrape, crawl, and convert any website to clean structured data |
 | `autorag-pipeline` | RAG Level 1: R2 + AutoRAG + chat interface (20-min setup) |
+| `google` | Google Cloud infrastructure + Google Workspace (Gmail, Drive, Calendar, Sheets, Docs, Meet) via MCP |
 
-> **More extensions coming soon.** See `updates-pending/` for advanced extensions in development (extended-git, vertex-rag-pipeline, google-cloud).
+> **More extensions coming soon.** See `updates-pending/` for advanced extensions in development (extended-git, vertex-rag-pipeline).
 
 
 <details>
@@ -327,7 +328,12 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   │       └── report-handoff.md
 │   ├── minibook-pipeline/SKILL.md             # (extension)
 │   ├── notion-publishing/SKILL.md + SETUP.md  # (extension)
-│   └── web-blog/SKILL.md                     # (extension)
+│   ├── web-blog/SKILL.md                     # (extension)
+│   └── google/                                # (extension, with workflows)
+│       ├── SKILL.md + SETUP.md
+│       └── workflows/
+│           ├── cloud.md
+│           └── workspace.md
 ├── setup/
 │   └── package-manager/SKILL.md       # One-time OS + package manager detection
 ├── skills/
