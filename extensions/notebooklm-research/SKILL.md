@@ -27,6 +27,7 @@ When a user asks to research a topic, the agent runs the **full pipeline autonom
 | **Steps 1-7** | `workflows/deep-research.md` | Start research, poll, import, curate sources, consensus analysis, update index |
 | **Steps 8-9** | `workflows/report-handoff.md` | Generate reports, download locally, update index |
 | **Step 10** | `minibook-pipeline` extension | Draft outline, write manuscript, generate images |
+| **After minibook** | `minibook-pipeline` Publishing Handoff | User chooses: publish to Notion, build a web blog, or keep as-is |
 
 > [!IMPORTANT]
 > **This is one pipeline, not three optional workflows.** Each workflow file has a checklist at the top. After completing each step, check the list and proceed to the next unchecked step. Never present a mid-pipeline summary and ask what to do next. The pipeline decides when to stop, not the agent.

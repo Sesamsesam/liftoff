@@ -279,13 +279,13 @@ After the user approves the manuscript and images, offer publishing options:
 > "Your minibook is ready! What would you like to do with it?
 >
 > 1. **Publish to Notion** - a formatted page with all your images and chapters, ready to share
-> 2. **Build a web page** - an interactive scroll site or one-pager you can put online
+> 2. **Build a web blog** - a beautiful one-page blog article you can put online
 >
 > Or you can just keep the manuscript as-is and decide later."
 
 **Branch routing:**
-- If user picks **Notion**: activate the `notion-publishing` extension (follow the Activation Flow in GEMINI.md) and pass the manuscript + images to it
-- If user picks **web page**: use `stack-pro-max` to scaffold a site and build a scroll page from the manuscript content
+- If user picks **Notion**: activate the `notion-publishing` extension (follow the Activation Flow in GEMINI.md). If SETUP.md has not been completed, run it first. Pass the manuscript + images to it
+- If user picks **web blog**: activate the `web-blog` extension and pass the manuscript + images. The extension scaffolds a Vite+React+Tailwind project and generates the blog article with dynamic content rendering
 - If user says **later**: end the workflow. The manuscript and images are saved and ready whenever they want to publish
 
 ---

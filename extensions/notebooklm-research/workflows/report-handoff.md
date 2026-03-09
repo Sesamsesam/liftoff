@@ -93,4 +93,5 @@ Read the `minibook-pipeline` extension's SKILL.md and begin the minibook workflo
 
 **Only if the user explicitly declines the minibook**, offer alternatives:
 - **Publish reports to Notion** - activate `notion-publishing` extension
+- **Build a web blog** - activate `web-blog` extension
 - **Keep as-is** - end the workflow
