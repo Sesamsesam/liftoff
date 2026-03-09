@@ -159,7 +159,7 @@ All extensions are installed dormant. Activate any of them by setting to `true` 
 | `beads-workflow` | Cross-session context persistence |
 | `firecrawl` | Scrape, crawl, and convert any website to clean structured data |
 | `autorag-pipeline` | RAG Level 1: R2 + AutoRAG + chat interface (20-min setup) |
-| `google` | Google Cloud infrastructure + Google Workspace (Gmail, Drive, Calendar, Sheets, Docs, Meet) via MCP |
+| `google` | Google Cloud infrastructure + Google Workspace (Gmail, Drive, Calendar, Sheets, Docs, Meet) via CLI |
 
 > **More extensions coming soon.** See `updates-pending/` for advanced extensions in development (extended-git, vertex-rag-pipeline).
 
