@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --color-bg-deep: #050810;
+  --color-bg-dark: #0a0e1a;
+  --color-bg-surface: #111827;
+  --color-teal: #22D3EE;
+  --color-teal-glow: rgba(34, 211, 238, 0.3);
+  --color-coral: #FF6B6B;
+  --color-gold: #F59E0B;
+  --color-blue: #3B82F6;
+  --color-white: #F9FAFB;
+  --color-muted: rgba(249, 250, 251, 0.5);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--color-bg-deep);
+  color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Camera zone removed -- user will overlay webcam via screen recording */
+
+/* Animated background */
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.slide-bg::before {
+  content: '';
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-teal-glow), transparent 70%);
+  top: -200px;
+  right: -200px;
+  animation: drift 20s ease-in-out infinite alternate;
+}
+
+.slide-bg::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
+  bottom: -100px;
+  left: -100px;
+  animation: drift 15s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 40px) scale(1.1); }
+}
+
+/* Particle grid overlay */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* Vignette */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(5, 8, 16, 0.8) 100%);
+  pointer-events: none;
+}
