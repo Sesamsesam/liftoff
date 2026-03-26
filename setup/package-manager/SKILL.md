@@ -27,6 +27,7 @@ When `extensions.json` has `"setup-package-manager": "pending"`, execute this fl
 # Liftoff Setup Progress
 - [ ] Step 0: Welcome + GitHub check
 - [ ] Step 1: Detect OS
+- [ ] Step 1.5: Windows Build Essentials (Windows only)
 - [ ] Step 2: Install Homebrew (macOS) / detect package manager
 - [ ] Step 3: Install bun
 - [ ] Step 4: Detect git
@@ -70,6 +71,57 @@ Wait for the user to confirm before proceeding to Step 1.
 ### 1. Detect OS
 
 The system context includes `OS version: mac` or `OS version: windows`. Use this to branch.
+
+### 1.5 Windows Build Essentials (Windows Only)
+
+> [!IMPORTANT]
+> **This step is the Windows equivalent of macOS Xcode Command Line Tools.** On Mac, Homebrew automatically detects and installs the C/C++ compiler and system headers. Windows has no such automatic chain - the agent must explicitly check for and install these foundational tools. Without them, `bun install` or `npm install` will fail with cryptic errors on any package with native bindings (e.g., `sharp`, `better-sqlite3`, `node-canvas`).
+
+**Skip this entire step on macOS/Linux** - macOS handles this via Xcode CLI Tools (triggered automatically by Homebrew), and Linux distributions ship with `gcc`/`build-essential`.
+
+#### 1.5.1 Visual C++ Build Tools
+
+1. Check if the C++ compiler is available:
+   ```powershell
+   where cl.exe
+   ```
+2. If found: note `Build Tools: Visual C++ (present)` and skip to 1.5.2
+3. If not found: tell the user:
+   > "I'm installing Windows Build Tools - these are foundational tools your computer needs to compile software. On Mac this happens automatically, but on Windows we set it up once. This may take 5-10 minutes."
+4. Install via winget:
+   ```powershell
+   winget install Microsoft.VisualStudio.2022.BuildTools --override "--quiet --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
+   ```
+5. If winget is not available, provide the fallback:
+   > "Please download Build Tools from https://visualstudio.microsoft.com/visual-cpp-build-tools/ - click Download, run the installer, select 'Desktop development with C++', and click Install. Reply with **'Done'** when finished."
+6. After install, verify:
+   ```powershell
+   where cl.exe
+   ```
+7. If still not found after install: note `Build Tools: unavailable (manual install needed)` and move on. The user may hit errors later with native packages, but core tools (bun, git, gh) will still work.
+
+#### 1.5.2 Python 3 (for node-gyp)
+
+Many native Node.js/Bun packages use `node-gyp` to compile, which requires Python. macOS ships with Python; Windows does not.
+
+1. Check if Python is available:
+   ```powershell
+   python --version
+   ```
+2. If found (Python 3.x): note the version and skip
+3. If not found or returns Python 2.x: install via winget:
+   ```powershell
+   winget install Python.Python.3.12
+   ```
+4. If winget is not available, use the fallback:
+   ```powershell
+   powershell -c "irm https://www.python.org/ftp/python/3.12.0/python-3.12.0-amd64.exe -OutFile python-installer.exe; Start-Process python-installer.exe -ArgumentList '/quiet InstallAllUsers=1 PrependPath=1' -Wait"
+   ```
+5. Verify:
+   ```powershell
+   python --version
+   ```
+6. If both methods fail: note `Python: unavailable` and move on. Most projects will work, but some native compilation steps may fail.
 
 ### 2. System Package Manager
 
@@ -192,6 +244,8 @@ Append a `## Machine Environment` section to the user's `~/.gemini/GEMINI.md` (b
 ## Machine Environment
 - OS: [macOS / Windows / Linux] ([architecture if detectable])
 - Package Manager: [brew / winget / choco / scoop / apt / dnf / pacman / unavailable]
+- Build Tools: [Xcode CLI Tools (macOS) / Visual C++ Build Tools 2022 (Windows) / gcc (Linux) / unavailable]
+- Python: [version] (or: unavailable / not needed)
 - Runtime: bun [version]
 - Git: [version]
 - GitHub CLI: gh [version] (authenticated as @[username])
@@ -218,6 +272,8 @@ Then list ONLY the tools that are relevant to the user's OS. For each tool, hone
 
 Use these explanations (adapt to actual tool names on user's OS):
 - **Package manager** (Homebrew / winget / apt) - "this is how I install tools on your machine. You'll never need to touch it yourself, but it's the engine under the hood"
+- **Build Tools** (Xcode CLI Tools / Visual C++ Build Tools) - "the foundation that lets your computer compile and build software. Without this, many packages would fail to install" *(only list if it was installed or detected in Step 1.5)*
+- **Python** - "used behind the scenes to compile certain software packages" *(only list on Windows if it was installed in Step 1.5)*
 - **bun** - "the runtime that makes your projects fast. It handles dependencies and runs your code"
 - **git** - "tracks every change to your code, like an unlimited undo button. I manage it automatically"
 - **GitHub CLI** - "the bridge to your GitHub vault where everything gets stored safely"
@@ -316,6 +372,12 @@ The agent should use the correct commands based on what was noted:
 **brew exists but permission denied**: Multi-user Mac. Do **not** fix permissions. Note `Package Manager: unavailable` and use curl/direct-download for all tools.
 
 **"winget is not recognized"**: Windows version too old (pre-10) or App Installer not installed. Direct user to Microsoft Store to install "App Installer".
+
+**"error: could not find cl.exe" or "node-gyp rebuild failed" on Windows**: Visual C++ Build Tools are missing. Run: `winget install Microsoft.VisualStudio.2022.BuildTools --override "--quiet --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"` and restart the terminal.
+
+**"python is not recognized" on Windows**: Python is not installed. Run: `winget install Python.Python.3.12` and restart the terminal.
+
+**Visual C++ Build Tools install hangs or fails**: The download is large (~2-4 GB). Ensure the user has a stable internet connection. If winget fails, direct the user to https://visualstudio.microsoft.com/visual-cpp-build-tools/ for manual download.
 
 **"gh: command not found" after install**: Restart terminal or run `eval "$(/opt/homebrew/bin/brew shellenv)"` on macOS.
 
