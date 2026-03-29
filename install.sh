@@ -36,13 +36,9 @@ mkdir -p "$SKILLS_DIR"
 mkdir -p "$WORKFLOWS_DIR"
 mkdir -p "$EXTENSIONS_DIR"
 mkdir -p "$SETUP_DIR"
+mkdir -p "$GEMINI_DIR/user-extensions"
 
-# ─── Backup existing GEMINI.md ───
-if [ -f "$GEMINI_DIR/GEMINI.md" ]; then
-  BACKUP_NAME="GEMINI.md.backup.$(date +%Y%m%d_%H%M%S)"
-  echo -e "${YELLOW}Existing GEMINI.md found - backing up as $BACKUP_NAME${NC}"
-  cp "$GEMINI_DIR/GEMINI.md" "$GEMINI_DIR/$BACKUP_NAME"
-fi
+# ─── Clean overwrite (no backups - prevents context bloat) ───
 
 # ─── Install Core Identity ───
 echo -e "${GREEN}Installing core identity...${NC}"
@@ -77,13 +73,28 @@ fi
 
 # ─── Install Core Skills ───
 echo -e "${GREEN}Installing core skills...${NC}"
-CORE_SKILLS=("forge-methodology" "security-guardian" "error-handling" "git-flow" "brand-identity" "stack-pro-max" "antigravity-standard")
+
+# Preserve Machine Environment before overwriting liftoff-lifecycle
+MACHINE_ENV_FILE=$(mktemp)
+LIFECYCLE_FILE="$SKILLS_DIR/liftoff-lifecycle/SKILL.md"
+if [ -f "$LIFECYCLE_FILE" ]; then
+  sed -n '/^## Machine Environment$/,$p' "$LIFECYCLE_FILE" > "$MACHINE_ENV_FILE"
+fi
+
+CORE_SKILLS=("forge-methodology" "security-guardian" "error-handling" "git-flow" "brand-identity" "stack-pro-max" "antigravity-standard" "liftoff-lifecycle")
 
 for skill in "${CORE_SKILLS[@]}"; do
   mkdir -p "$SKILLS_DIR/$skill"
   cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$SKILLS_DIR/$skill/SKILL.md"
   echo "  ✓ $skill"
 done
+
+# Re-append user's Machine Environment to fresh liftoff-lifecycle
+if [ -s "$MACHINE_ENV_FILE" ]; then
+  echo "" >> "$SKILLS_DIR/liftoff-lifecycle/SKILL.md"
+  cat "$MACHINE_ENV_FILE" >> "$SKILLS_DIR/liftoff-lifecycle/SKILL.md"
+fi
+rm -f "$MACHINE_ENV_FILE"
 
 # ─── Install Workflows ───
 echo -e "${GREEN}Installing workflows...${NC}"

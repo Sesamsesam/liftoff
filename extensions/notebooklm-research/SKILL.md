@@ -106,3 +106,5 @@ project-root/
 
 > [!IMPORTANT]
 > This is a **living document**. Update in place - don't recreate. Always include ALL notebooks.
+
+Source: [nichochar/notebooklm-mcp-cli](https://github.com/nichochar/notebooklm-mcp-cli)

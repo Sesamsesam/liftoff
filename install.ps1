@@ -27,14 +27,10 @@ New-Item -ItemType Directory -Force -Path $SkillsDir | Out-Null
 New-Item -ItemType Directory -Force -Path $WorkflowsDir | Out-Null
 New-Item -ItemType Directory -Force -Path $ExtensionsDir | Out-Null
 New-Item -ItemType Directory -Force -Path $SetupDir | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $GeminiDir "user-extensions") | Out-Null
 
-# ─── Backup existing GEMINI.md ───
+# ─── Clean overwrite (no backups - prevents context bloat) ───
 $GeminiMdPath = Join-Path $GeminiDir "GEMINI.md"
-if (Test-Path $GeminiMdPath) {
-    $BackupName = "GEMINI.md.backup.$(Get-Date -Format 'yyyyMMdd_HHmmss')"
-    Write-Host "Existing GEMINI.md found - backing up as $BackupName" -ForegroundColor Yellow
-    Copy-Item $GeminiMdPath (Join-Path $GeminiDir $BackupName)
-}
 
 # ─── Install Core Identity ───
 Write-Host "Installing core identity..." -ForegroundColor Green
@@ -72,6 +68,18 @@ if (Test-Path $ExtJsonDest) {
 
 # ─── Install Core Skills ───
 Write-Host "Installing core skills..." -ForegroundColor Green
+
+# Preserve Machine Environment before overwriting liftoff-lifecycle
+$MachineEnv = ""
+$LifecycleFile = Join-Path $SkillsDir "liftoff-lifecycle\SKILL.md"
+if (Test-Path $LifecycleFile) {
+    $content = Get-Content $LifecycleFile -Raw
+    $match = [regex]::Match($content, '(?ms)^## Machine Environment.*$')
+    if ($match.Success) {
+        $MachineEnv = $match.Value
+    }
+}
+
 $CoreSkills = @(
     "forge-methodology",
     "security-guardian",
@@ -79,7 +87,8 @@ $CoreSkills = @(
     "git-flow",
     "brand-identity",
     "stack-pro-max",
-    "antigravity-standard"
+    "antigravity-standard",
+    "liftoff-lifecycle"
 )
 
 foreach ($skill in $CoreSkills) {
@@ -87,6 +96,12 @@ foreach ($skill in $CoreSkills) {
     New-Item -ItemType Directory -Force -Path $destDir | Out-Null
     Copy-Item (Join-Path $ScriptDir "skills\$skill\SKILL.md") (Join-Path $destDir "SKILL.md") -Force
     Write-Host "  + $skill" -ForegroundColor Gray
+}
+
+# Re-append user's Machine Environment to fresh liftoff-lifecycle
+if ($MachineEnv) {
+    $freshLifecycle = Join-Path $SkillsDir "liftoff-lifecycle\SKILL.md"
+    Add-Content $freshLifecycle "`n$MachineEnv"
 }
 
 # ─── Install Workflows ───

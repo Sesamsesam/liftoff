@@ -236,9 +236,9 @@ Most systems ship with git. Check first.
 >
 > This connection is permanent - you won't need to do this again."
 
-### 6. Write to GEMINI.md
+### 6. Write Machine Environment
 
-Append a `## Machine Environment` section to the user's `~/.gemini/GEMINI.md` (before the last section, or at the end):
+Append a `## Machine Environment` section to the user's `~/.gemini/skills/liftoff-lifecycle/SKILL.md` (at the end of the file):
 
 ```markdown
 ## Machine Environment
@@ -351,7 +351,7 @@ After creating, tell the user:
 
 #### 9.3 What happens in the new window
 
-The agent in the new window will detect an empty, un-initialized project folder (no `.gemini/` directory) and should automatically run the `init-project` workflow. The user saying "liftoff" confirms this, but even if they say something else, the auto-detection should trigger. See the `Session Start` rules in `GEMINI.md` and the "Liftoff" rule for details.
+The agent in the new window will detect an empty, un-initialized project folder (no `.gemini/` directory) and should automatically run the `init-project` workflow. The user saying "liftoff" confirms this, but even if they say something else, the auto-detection should trigger. See the `Session Start` rules in the `liftoff-lifecycle` skill and the "Liftoff" rule for details.
 
 ## Common Commands Reference
 

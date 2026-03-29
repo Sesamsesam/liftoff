@@ -17,7 +17,7 @@ Run this workflow when creating a brand new project from scratch.
 Before asking the user anything, silently set up the project infrastructure:
 
 1. Create `.gemini/` directory in the project root
-2. Symlink `GEMINI.md` and `extensions/` to their global locations (see Step 5 for exact commands)
+2. Symlink `GEMINI.md`, `extensions/`, and `user-extensions/` to their global locations (see Step 9 for exact commands)
 3. Create `.gitignore` with the Antigravity entries (see Step 4 for exact content)
 
 These are the same for every project type. Do not show output or ask for approval.
@@ -127,8 +127,9 @@ The base `.gitignore` with Antigravity symlink entries was created in Step 0. No
 **Add these entries to `.gitignore` for every new project - these are symlinks to global Antigravity files and must never be committed:**
 ```gitignore
 # Antigravity global symlinks - these point to ~/.gemini/ and are local-only
-.gemini/GEMINI.md        # → global identity + rules
-.gemini/extensions/      # → global extension directories + extensions.json
+.gemini/GEMINI.md          # → global identity + rules
+.gemini/extensions/        # → package extension directories + extensions.json
+.gemini/user-extensions/   # → user-created extensions (never touched by updates)
 ```
 
 ### 6. Create `.env.example`
@@ -187,24 +188,32 @@ The symlinks were created in Step 0. Verify they work:
 ```bash
 # turbo
 mkdir -p .gemini
+mkdir -p ~/.gemini/user-extensions
 
 # Symlink GEMINI.md
 ln -sf ~/.gemini/GEMINI.md .gemini/GEMINI.md
 
-# Symlink entire extensions directory (contains extension folders + extensions.json)
+# Symlink package extensions directory
 ln -sf ~/.gemini/extensions .gemini/extensions
+
+# Symlink user-created extensions directory
+ln -sf ~/.gemini/user-extensions .gemini/user-extensions
 ```
 
 **Windows (PowerShell):**
 ```powershell
 # turbo
 New-Item -ItemType Directory -Force -Path .gemini
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.gemini\user-extensions"
 
 # Hard link for GEMINI.md (no admin needed, same drive)
 cmd /c mklink /H .gemini\GEMINI.md $env:USERPROFILE\.gemini\GEMINI.md
 
 # Junction for extensions directory (no admin needed)
 cmd /c mklink /J .gemini\extensions $env:USERPROFILE\.gemini\extensions
+
+# Junction for user-extensions directory
+cmd /c mklink /J .gemini\user-extensions $env:USERPROFILE\.gemini\user-extensions
 ```
 
 **What this creates in the project:**
@@ -212,11 +221,12 @@ cmd /c mklink /J .gemini\extensions $env:USERPROFILE\.gemini\extensions
 my-project/
 ├── .gemini/
 │   ├── GEMINI.md              → ~/.gemini/GEMINI.md
-│   └── extensions/            → ~/.gemini/extensions/
-│       ├── extensions.json    ← config file, right here
-│       ├── cloudflare-mcp/
-│       ├── orbit-planning/
-│       └── ...                   (all extensions, including dormant)
+│   ├── extensions/            → ~/.gemini/extensions/
+│   │   ├── extensions.json    ← config file (all extensions)
+│   │   ├── cloudflare-mcp/    ← package extensions (managed by installer)
+│   │   └── ...
+│   └── user-extensions/       → ~/.gemini/user-extensions/
+│       └── ...                ← user-created extensions (never touched by updates)
 ├── src/
 └── ...
 ```
@@ -255,7 +265,7 @@ After everything is set up, tell the user:
 >
 > I can set either of these up right now, or you can activate any extension later from `.gemini/extensions/extensions.json`."
 
-Only suggest, never auto-activate. If the user picks one, follow the **Activation Flow** from the Skill Discovery & Extension Lifecycle rules in GEMINI.md (set to `true`, check for SETUP.md, run setup if needed, give a Crew Brief, then the extension is ready).
+Only suggest, never auto-activate. If the user picks one, follow the **Activation Flow** from the Skill Discovery & Extension Lifecycle rules in the `liftoff-lifecycle` skill (set to `true`, check for SETUP.md, run setup if needed, give a Crew Brief, then the extension is ready).
 
 ### 12. Verify
 - [ ] `bun run dev` starts without errors (only if user asks to start the server)

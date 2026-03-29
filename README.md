@@ -1,5 +1,5 @@
 <!-- AGENT: Clone this repo, then run: chmod +x install.sh && ./install.sh -->
-<!-- AGENT: After install.sh finishes, read ~/.gemini/GEMINI.md "Session Start" section and follow it. -->
+<!-- AGENT: After install.sh finishes, read ~/.gemini/skills/liftoff-lifecycle/SKILL.md "Session Start" section and follow it. -->
 <!-- AGENT: If setup-package-manager is "pending" in ~/.gemini/extensions/extensions.json, -->
 <!-- AGENT: read ~/.gemini/setup/package-manager/SKILL.md and execute Steps 0 through 9. Do NOT stop after install.sh. -->
 
@@ -238,11 +238,12 @@ When you scaffold a new project with `init-project`, the agent creates a `.gemin
 my-project/
 ├── .gemini/
 │   ├── GEMINI.md              → ~/.gemini/GEMINI.md
-│   └── extensions/            → ~/.gemini/extensions/
-│       ├── extensions.json    ← config file, right here
-│       ├── cloudflare-mcp/
-│       ├── orbit-planning/
-│       └── ...                   (all extensions, including dormant)
+│   ├── extensions/            → ~/.gemini/extensions/
+│   │   ├── extensions.json    ← config file (all extensions)
+│   │   ├── cloudflare-mcp/    ← package extensions (managed by installer)
+│   │   └── ...
+│   └── user-extensions/       → ~/.gemini/user-extensions/
+│       └── ...                ← your custom extensions (never touched by updates)
 ├── src/
 └── ...
 ```
@@ -256,7 +257,7 @@ my-project/
 
 **Windows note:** On Windows, the agent uses NTFS junctions (for directories) and hard links (for files) instead of symbolic links. These work without admin privileges and behave identically.
 
-**Creating your own skills:** When you ask the agent to create a new skill, it creates it globally at `~/.gemini/extensions/<skill-name>/SKILL.md`, adds it to `extensions.json` as dormant (`false`), and asks if you want to activate it. Since every project symlinks to the global `extensions/` folder, new skills appear everywhere immediately.
+**Creating your own skills:** When you ask the agent to create a new skill, it creates it at `~/.gemini/user-extensions/<skill-name>/SKILL.md`, adds it to `extensions.json` as dormant (`false`), and asks if you want to activate it. User-created extensions live separately from package extensions so they're never affected by updates. Since every project symlinks both `extensions/` and `user-extensions/`, your custom skills appear everywhere immediately.
 
 
 ---
@@ -343,7 +344,9 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── git-flow/SKILL.md              # Git workflow
 │   ├── brand-identity/SKILL.md        # Design tokens
 │   ├── stack-pro-max/SKILL.md         # Tech stack
-│   └── antigravity-standard/SKILL.md  # Skill template
+│   ├── antigravity-standard/SKILL.md  # Skill template
+│   └── liftoff-lifecycle/SKILL.md     # Session start, extension lifecycle, platform rules
+├── user-extensions/                    # User-created extensions (never touched by updates)
 └── workflows/
     └── init-project.md                # Project scaffolding
 ```
@@ -353,10 +356,11 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 ```
 my-project/.gemini/
 ├── GEMINI.md                → symlink to ~/.gemini/GEMINI.md
-└── extensions/              → symlink to ~/.gemini/extensions/
-    ├── extensions.json
-    ├── cloudflare-mcp/
-    ├── orbit-planning/
+├── extensions/              → symlink to ~/.gemini/extensions/
+│   ├── extensions.json
+│   ├── cloudflare-mcp/
+│   └── ...
+└── user-extensions/         → symlink to ~/.gemini/user-extensions/
     └── ...
 ```
 
@@ -375,7 +379,7 @@ A: Any editor that supports Gemini or a similar AI agent with the `~/.gemini/` c
 
 
 **Q: Will this break my existing setup?**
-A: The installer backs up your existing `GEMINI.md` before overwriting. All other files are additive - nothing gets deleted.
+A: The installer cleanly overwrites your existing `GEMINI.md`. All other files are additive - nothing gets deleted. Your user-created extensions in `~/.gemini/user-extensions/` are never touched by updates.
 
 
 **Q: How do I update when new skills or extensions are added?**
@@ -391,7 +395,7 @@ cd liftoff
 
 
 **Q: Can I customize the skills or create my own?**
-A: Yes. Every skill is a markdown file - edit them directly, and the agent picks up changes at runtime. To create a new skill, just ask the agent - it handles the file creation and registration automatically. Or you can manually create a folder under `~/.gemini/extensions/` with a `SKILL.md` inside (and optionally a `SETUP.md` for one-time setup). The `antigravity-standard` skill is a template you can copy.
+A: Yes. Every skill is a markdown file - edit them directly, and the agent picks up changes at runtime. To create a new skill, just ask the agent - it handles the file creation and registration automatically. Your custom extensions are stored in `~/.gemini/user-extensions/` (separate from package extensions) so they're never overwritten by updates. The `antigravity-standard` skill is a template you can follow.
 
 
 **Q: Do I need all the tools listed in `stack-pro-max`?**

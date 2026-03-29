@@ -59,7 +59,7 @@ Session start: agent runs `bd ready` and picks up where you left off. Session en
 
 ## Activation
 - Enable in `~/.gemini/extensions/extensions.json`: `"beads-workflow": true`
-- The agent checks for Beads during Session Start (see `GEMINI.md`)
+- The agent checks for Beads during Session Start (see `liftoff-lifecycle` skill)
 
 ## Enforcement
 - Agent MUST run `bd ready` at session start and `bd sync` at session end

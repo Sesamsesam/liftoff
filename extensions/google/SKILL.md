@@ -88,3 +88,5 @@ Run one or both after completing [SETUP.md](./SETUP.md). Cloud should be done fi
 - **Handle scope errors gracefully** - if an API returns 403, explain which scope is needed and how to add it
 - **Don't over-request** - start with the 6 default services (Drive, Gmail, Calendar, Sheets, Docs, Meet), add more only when needed
 - **Privacy-aware** - remind users that the agent can now read their email/files, and to disable the extension when not needed
+
+Source: [googleworkspace/cli](https://github.com/googleworkspace/cli) | [Google Cloud SDK](https://cloud.google.com/sdk)
