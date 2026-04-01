@@ -17,3 +17,4 @@
 | **GEMINI.md rules changed** | `README.md` if it affects user-facing descriptions. Note: GEMINI.md is now minimal - most rules live in `liftoff-lifecycle` skill |
 | **Lifecycle/platform rules changed** | `liftoff-lifecycle/SKILL.md`, `README.md`, `init-project.md`, `package-manager/SKILL.md` if they reference moved sections |
 | **User extension paths changed** | `liftoff-lifecycle` Skill Creation section, `init-project.md` symlinks, `install.sh`/`install.ps1`/`update.sh`/`update.ps1`, `README.md` diagrams, Cloud Agent Support |
+| **Security tools docs (Socket)** | `security-guardian/SKILL.md`, `extensions/security-tools/SKILL.md`, `extensions/extensions.json` entry if added |
