@@ -38,3 +38,20 @@
 - For session start, extension management, project init, and Liftoff lifecycle: see `liftoff-lifecycle` skill
 - For full methodology details: see `forge-methodology`, `git-flow`, `brand-identity`, `stack-pro-max`, `security-guardian`, `error-handling` skills
 - For skill creation: see `antigravity-standard` skill
+
+### Explicit Liftoff command and full paths
+
+- When the user says **"liftoff"**, the agent MUST:
+  - Read `~/.gemini/skills/liftoff-lifecycle/SKILL.md` and follow the **Session Start** section
+  - If `setup-package-manager` is `"done"` in `~/.gemini/extensions/extensions.json`, execute `~/.gemini/workflows/init-project.md`
+  - If `setup-package-manager` is `"pending"`, execute `~/.gemini/setup/package-manager/SKILL.md` instead, then rerun `liftoff`
+- Core skills live at:
+  - `~/.gemini/skills/forge-methodology/SKILL.md`
+  - `~/.gemini/skills/git-flow/SKILL.md`
+  - `~/.gemini/skills/brand-identity/SKILL.md`
+  - `~/.gemini/skills/stack-pro-max/SKILL.md`
+  - `~/.gemini/skills/security-guardian/SKILL.md`
+  - `~/.gemini/skills/error-handling/SKILL.md`
+  - `~/.gemini/skills/antigravity-standard/SKILL.md`
+- Package extensions live under `~/.gemini/extensions/<name>/SKILL.md`
+- User-created extensions live under `~/.gemini/user-extensions/<name>/SKILL.md` and override package extensions with the same `<name>`
