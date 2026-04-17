@@ -1,92 +1,191 @@
 ---
 name: google
-description: "Connect to Google Cloud and Google Workspace via MCP. Manage infrastructure, send emails, organize Drive, create spreadsheets - all through natural language."
+description: "Google Cloud infrastructure + Google Workspace (Gmail, Drive, Calendar, Sheets, Docs, Meet) via CLI."
 ---
 
-# Google (Cloud + Workspace)
+# Google Cloud + Workspace
 
-> **Two powerhouses, one extension.** Google Cloud for infrastructure. Google Workspace for productivity. Both controlled from right here.
+> **You don't need to do any of this manually.** The agent handles setup and usage automatically. If it needs you to do something (like logging in), it will tell you exactly what and when.
 
-This extension gives Antigravity access to Google's ecosystem through two CLI tools:
+## What This Extension Does
 
-- **Google Cloud CLI (`gcloud`)** - Manage cloud infrastructure: Cloud Run, Cloud SQL, BigQuery, Compute Engine, Cloud Storage, and 8,000+ commands across all Google Cloud services
-- **Google Workspace CLI (`gws`)** - Control productivity apps: Gmail, Drive, Calendar, Sheets, Docs, Meet, Chat, and more
+Gives the agent direct access to Google Cloud infrastructure and Google Workspace applications through two CLI tools:
 
-Both tools authenticate with your Google account. The agent runs them via terminal commands and receives structured JSON responses.
-
-> [!NOTE]
-> **CLI-based access, not MCP.** Google removed MCP server mode from `gws` in v0.8.0. Both tools work through direct CLI commands. This is functionally equivalent - the agent just runs commands like `gws drive files list` instead of calling MCP tools.
-
-> **First-time setup:** See [SETUP.md](./SETUP.md) in this folder for gcloud installation, GCP project creation, and gws configuration.
-
----
-
-## Before vs After: Managing Your Google Services
-
-**Without MCP (15-30 min manual per task):**
-1. Open Gmail in browser, compose email, format, send
-2. Switch to Drive, navigate folders, upload file
-3. Open Calendar, create event, add guests
-4. Open Sheets, create spreadsheet, enter data
-5. Context-switch between 4+ tabs constantly
-
-**With MCP:**
-> "Send an email to [person] about the meeting, create a calendar event for next Tuesday, and put the agenda in a new Google Doc." Done in one message.
-
----
-
-## What You Can Do
-
-### Google Cloud (`gcloud`)
-
-| Category | Examples |
+| Tool | What It Controls |
 |---|---|
-| Compute | Deploy to Cloud Run, manage VMs, configure load balancers |
-| Data | Create Cloud SQL databases, run BigQuery queries |
-| Storage | Manage Cloud Storage buckets, upload/download files |
-| AI/ML | Access Vertex AI, manage models, run predictions |
-| Networking | Configure DNS, VPCs, firewalls |
-| IAM | Manage service accounts, permissions, roles |
+| `gcloud` | Google Cloud Platform - projects, APIs, infrastructure |
+| `gws` | Google Workspace - Gmail, Drive, Calendar, Sheets, Docs, Meet |
 
-### Google Workspace (`gws`)
+> **First-time setup:** See [SETUP.md](./SETUP.md) in this folder for installation and authentication.
 
-| Service | What You Can Do |
+---
+
+## How It Works
+
+> [!IMPORTANT]
+> **No MCP server for gws.** Google removed MCP server mode from the gws CLI in v0.8.0. The agent accesses Google Workspace by running `gws` commands directly through the terminal. This works the same way - it just doesn't appear in the MCP servers list.
+
+The agent runs commands like:
+```bash
+gws gmail +send --to user@example.com --subject "Hello" --body "Message body"
+```
+
+And receives structured JSON output it can parse. No MCP config entry needed.
+
+---
+
+## Quick Reference: 6 Core Services
+
+Each service has **helper commands** (prefixed with `+`) for common operations, plus full Discovery API access for everything else.
+
+For the complete command reference with all flags and examples, see [workflows/command-reference.md](./workflows/command-reference.md).
+
+### Gmail
+
+| Command | What It Does |
 |---|---|
-| **Gmail** | Read, search, send, reply, label, archive emails |
-| **Drive** | List, upload, download, organize, share files |
-| **Calendar** | Create, update, list events, check availability |
-| **Sheets** | Create spreadsheets, read/write cells, format data |
-| **Docs** | Create documents, read content, manage sharing |
-| **Meet** | Access meeting info, manage recordings |
-| **Chat** | Send messages to spaces, manage conversations |
+| `gws gmail +send --to X --subject Y --body Z` | Send an email |
+| `gws gmail +reply --message-id ID --body Z` | Reply to a message |
+| `gws gmail +reply-all --message-id ID --body Z` | Reply-all |
+| `gws gmail +forward --message-id ID --to X` | Forward a message |
+| `gws gmail +triage` | Show unread inbox summary |
+| `gws gmail +watch` | Stream new emails as NDJSON |
+
+### Drive
+
+| Command | What It Does |
+|---|---|
+| `gws drive +upload ./file.pdf --name "Name"` | Upload a file |
+| `gws drive files list --params '{...}'` | List/search files |
+| `gws drive files create --json '{...}' --upload ./file` | Create with metadata |
+| `gws drive files get --params '{...}'` | Get file metadata |
+
+### Calendar
+
+| Command | What It Does |
+|---|---|
+| `gws calendar +agenda` | Today's upcoming events (auto-timezone) |
+| `gws calendar +agenda --today --timezone America/New_York` | Agenda in specific timezone |
+| `gws calendar +insert` | Create a new event |
+| `gws calendar events list --params '{...}'` | List events |
+
+### Sheets
+
+| Command | What It Does |
+|---|---|
+| `gws sheets +append --spreadsheet ID --values "A,B,C"` | Append a row |
+| `gws sheets +read --spreadsheet ID --range "Sheet1!A1:C10"` | Read cell values |
+| `gws sheets spreadsheets create --json '{...}'` | Create new spreadsheet |
+
+### Docs
+
+| Command | What It Does |
+|---|---|
+| `gws docs +write --document ID --text "Content"` | Append text to doc |
+| `gws docs documents create --json '{...}'` | Create new document |
+| `gws docs documents get --params '{...}'` | Read document content |
+
+### Meet
+
+| Command | What It Does |
+|---|---|
+| `gws meet spaces create` | Create a meeting space |
+| `gws meet conferenceRecords list` | List recorded meetings |
+| `gws meet conferenceRecords participants list` | See who attended |
 
 ---
 
-## Workflows
+## Cross-Service Workflows
 
-| Workflow | File | What It Does |
-|---|---|---|
-| Google Cloud | `workflows/cloud.md` | Add gcloud MCP server to Antigravity |
-| Google Workspace | `workflows/workspace.md` | Add gws MCP server to Antigravity |
+These commands span multiple Google services for common productivity tasks:
 
-Run one or both after completing [SETUP.md](./SETUP.md). Cloud should be done first since gws depends on gcloud for its initial setup.
-
----
-
-## Activation
-- Enable in `~/.gemini/extensions/extensions.json`: `"google": true`
-- Triggered by: Google services, Gmail, Drive, Calendar, Sheets, Docs, Cloud Run, BigQuery, GCP
+| Command | What It Does |
+|---|---|
+| `gws workflow +standup-report` | Today's meetings + open tasks as standup summary |
+| `gws workflow +meeting-prep` | Prepare for next meeting: agenda, attendees, linked docs |
+| `gws workflow +email-to-task` | Convert a Gmail message into a Google Tasks entry |
+| `gws workflow +weekly-digest` | Weekly summary: meetings + unread email count |
+| `gws workflow +file-announce` | Announce a Drive file in a Chat space |
 
 ---
 
-## Agent Rules
+## Full Service Catalog
 
-- **Verify auth** before operations - guide through OAuth if not completed
-- **Respect scope limits** - only request scopes for services the user actually needs
-- **Security-first** - never auto-send emails or share files without explicit user confirmation
-- **Explain actions** - tell user what was accessed/modified and provide links when available
-- **Handle scope errors gracefully** - if an API returns 403, explain which scope is needed and how to add it
-- **Don't over-request** - start with the 6 default services (Drive, Gmail, Calendar, Sheets, Docs, Meet), add more only when needed
-- **Privacy-aware** - remind users that the agent can now read their email/files, and to disable the extension when not needed
+Beyond the 6 core services, `gws` supports every Google Workspace API through the Google Discovery Service. The CLI dynamically builds its command surface from these APIs.
 
-Source: [googleworkspace/cli](https://github.com/googleworkspace/cli) | [Google Cloud SDK](https://cloud.google.com/sdk)
+| Service | Description |
+|---|---|
+| `drive` | Files, folders, shared drives |
+| `sheets` | Spreadsheet read/write |
+| `gmail` | Email send, read, manage |
+| `calendar` | Calendar and event management |
+| `docs` | Document read/write |
+| `slides` | Presentation management |
+| `tasks` | Task lists and tasks |
+| `people` | Contacts and profiles |
+| `chat` | Chat spaces and messages |
+| `classroom` | Classes, rosters, coursework |
+| `forms` | Google Forms read/write |
+| `keep` | Google Keep notes |
+| `meet` | Meeting conferences |
+| `events` | Workspace event subscriptions |
+| `modelarmor` | Content safety filtering |
+| `script` | Apps Script project management |
+| `admin-reports` | Audit logs and usage reports |
+
+To use any service not in the default 6, add it during re-authentication:
+```bash
+gws auth login -s drive,gmail,calendar,sheets,docs,meet,chat,tasks
+```
+
+For the full catalog of 100+ upstream skills (helpers, personas, recipes), see [workflows/skills-catalog.md](./workflows/skills-catalog.md).
+
+---
+
+## Agent Skills & Recipes
+
+The gws CLI ships with an optional library of 100+ skill files that enhance the CLI itself. These are separate from Antigravity extensions - they install into gws's own config and are used by the `gws` command.
+
+To install them:
+```bash
+gws skills add https://github.com/googleworkspace/cli
+```
+
+See [workflows/skills-catalog.md](./workflows/skills-catalog.md) for the complete categorized listing and on-demand installation.
+
+---
+
+## Security & Credentials
+
+- Credentials are encrypted at rest with **AES-256-GCM**
+- Encryption key stored in the **OS keychain** (macOS Keychain / Windows Credential Manager)
+- Credentials never leave the local machine
+- No data is sent to third-party services
+- The agent requires **explicit user confirmation** for sensitive actions (sending emails, sharing files, deleting content)
+
+---
+
+## Agent Behavior Rules
+
+### Security-first
+- **Always confirm** before sending emails, sharing files, or deleting content
+- Show the user exactly what will be sent/shared/deleted before executing
+- Never auto-send emails or share files without explicit approval
+
+### Command execution
+- Use **helper commands** (`+send`, `+agenda`, etc.) when available - they're simpler and safer
+- Fall back to raw Discovery API commands only when no helper exists
+- Always parse JSON output to extract meaningful data before presenting to user
+- If a command fails, check `gws auth login` status before retrying
+
+### Error handling
+- If authentication expires, re-run `gws auth login -s drive,gmail,calendar,sheets,docs,meet`
+- If an API is not enabled, run `gcloud services enable <service>.googleapis.com`
+- Never assume a failed command succeeded - always verify output
+
+### Scope awareness
+- The agent has access to 6 services by default: Drive, Gmail, Calendar, Sheets, Docs, Meet
+- If the user asks about Chat, Tasks, or other services, explain they can be added via re-authentication
+- Never attempt to use a service that hasn't been authorized
+
+Source: [googleworkspace/cli](https://github.com/googleworkspace/cli)

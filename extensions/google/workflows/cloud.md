@@ -28,6 +28,12 @@ gcloud auth list
 
 All should return valid output. If not, go back to [SETUP.md](../SETUP.md).
 
+**Cross-check:** Confirm the active gcloud project matches the one used by `gws`. The project ID from `gcloud config get project` should match the project where APIs were enabled and OAuth credentials were created during setup. If they don't match:
+
+```bash
+gcloud config set project YOUR_PROJECT_ID
+```
+
 ---
 
 ### Step 2: Test Operations
