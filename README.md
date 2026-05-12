@@ -39,7 +39,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 |---|---|
 | ⚔️ **F.O.R.G.E. methodology** | The agent plans before it builds, verifies as it goes, and never skips security. You approve every step |
 | ⚡ **7 core skills** | Security, error handling, Git, design systems, tech stack defaults, and a template for creating your own |
-| 🔌 **10 optional extensions** | Cloudflare infrastructure, Google Cloud + Workspace, RAG document chat, strategic project planning, research pipelines, minibook creation, Notion publishing, web blog articles, web scraping, and session memory so your AI remembers yesterday |
+| 🔌 **9 optional extensions** | Cloudflare infrastructure, Google Cloud + Workspace, RAG document chat, strategic project planning, research pipelines, minibook creation, Notion publishing, web blog articles, and web scraping |
 | 🏆 **Professional-grade standards** | Every project gets enterprise patterns without enterprise complexity, automatically |
 
 
@@ -51,7 +51,7 @@ That's what Antigravity is - an AI-powered workspace where you talk to an intell
 <br>
 No more boilerplate security setups, no more forgotten <code>.gitignore</code> files, no more explaining your stack to a new AI session. This is the upgrade that makes your agent feel like a senior engineer instead of an intern.
 <br><br>
-But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer), <a href="https://github.com/steveyegge/beads">Beads</a> (session persistence by Steve Yegge, ex-Google and ex-Amazon, so your AI never forgets what you worked on), and <a href="https://www.firecrawl.dev/">Firecrawl</a> (scrape, crawl, and convert any website to clean data for your agent). More advanced tools like <a href="https://graphite.dev">Graphite</a> (stacked PRs) and Google Cloud Vertex AI are coming soon.
+But here's the real edge: Liftoff bakes in tools and frameworks that even experienced developers often haven't discovered yet - things like <a href="https://convex.dev">Convex</a> (a reactive backend built by ex-Google and ex-Dropbox engineers that replaces your entire API layer) and <a href="https://www.firecrawl.dev/">Firecrawl</a> (scrape, crawl, and convert any website to clean data for your agent). More advanced tools like <a href="https://graphite.dev">Graphite</a> (stacked PRs) and Google Cloud Vertex AI are coming soon.
 <br><br>
 It also wires up MCP connections to <a href="https://docs.convex.dev">Convex MCP</a>, <a href="https://developers.cloudflare.com/agents/guides/remote-mcp-server/">Cloudflare MCP</a> (D1, R2, Workers, AI Gateway, AutoRAG), and <a href="https://www.firecrawl.dev/">Firecrawl</a> - plus research pipelines that turn NotebookLM into a grounded implementation engine.
 <br><br>
@@ -156,7 +156,7 @@ All extensions are installed dormant. Activate any of them by setting to `true` 
 | `minibook-pipeline` | End-to-end minibook creation: write from research, generate chapter imagery, hand off for publishing |
 | `notion-publishing` | Publish any manuscript or report to Notion with proper formatting and image placement |
 | `web-blog` | Convert manuscripts into polished one-page blog articles with dynamic content rendering |
-| `beads-workflow` | Cross-session context persistence |
+
 | `firecrawl` | Scrape, crawl, and convert any website to clean structured data |
 | `autorag-pipeline` | RAG Level 1: R2 + AutoRAG + chat interface (20-min setup) |
 | `google` | Google Cloud infrastructure + Google Workspace (Gmail, Drive, Calendar, Sheets, Docs, Meet) via CLI |
@@ -184,10 +184,6 @@ The agent walks you through 5 phases:
 <strong>4. Implementation Roadmap</strong> - "What do we build first?" Your features get broken into phased work orders - concrete tasks the agent executes via F.O.R.G.E.
 <br><br>
 <strong>5. Track</strong> - "Keep the plan alive." The O.R.B.I.T. plan is a living document (<code>docs/orbit.md</code>). When you change direction mid-build, the agent updates the plan first, then proceeds. You never have to say "go update the plan" - it just does.
-<br><br>
-<strong>With Beads active (extension):</strong> Session continuity is seamless. Each new session auto-loads your O.R.B.I.T. state, including <em>why</em> decisions changed - not just what changed. You spend zero time re-explaining.
-<br>
-<strong>Without Beads:</strong> O.R.B.I.T. still works perfectly within a session. Across sessions, the agent reads <code>orbit.md</code> and picks up from there. You may occasionally need to remind it of context from previous conversations.
 </details>
 
 
@@ -204,7 +200,6 @@ Extensions are installed **dormant** (all set to `false` by default). To activat
 // Example: activating orbit-planning while keeping the others off
 {
   "_instructions": "Set any extension to true to activate it. The agent handles the rest.",
-  "beads-workflow": false,
   "notebooklm-research": false,
   "orbit-planning": true,  // ← changed to true to activate
   "cloudflare-mcp": false
@@ -222,9 +217,9 @@ Most extensions include setup steps - things like connecting an MCP server, auth
 
 **Why not just activate everything?** Two reasons:
 
-1. **Setup overhead.** Most extensions (5 out of 7) require connecting external services. Activating everything at once means running through multiple installations back-to-back of every tool. If you don't need Cloudflare infrastructure or web scraping today, there's no reason to set them up today because it can take a while - or you can just do everything at once to get it over with but if you are a beginner I DO NOT RECOMMEND IT.
+1. **Setup overhead.** Most extensions require connecting external services. Activating everything at once means running through multiple installations back-to-back of every tool. If you don't need Cloudflare infrastructure or web scraping today, there's no reason to set them up today because it can take a while - or you can just do everything at once to get it over with but if you are a beginner I DO NOT RECOMMEND IT.
 
-2. **Behavioral changes.** Some extensions change how the agent works. For example, `beads-workflow` makes the agent track session context and manage task persistence between conversations. That's powerful when you need it, but if you're doing a quick one-off task, you don't want the agent spending time on session management overhead.
+2. **Behavioral changes.** Some extensions change how the agent works. That's powerful when you need it, but if you're doing a quick one-off task, you don't want the agent spending time on overhead that isn't relevant.
 
 Activate what you need, when you need it. The agent handles the rest.
 
@@ -319,7 +314,7 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── extensions.json                       # Extension activation config
 │   ├── cloudflare-mcp/SKILL.md + SETUP.md     # (extension)
 │   ├── orbit-planning/SKILL.md                # (extension)
-│   ├── beads-workflow/SKILL.md + SETUP.md     # (extension)
+
 │   ├── firecrawl/SKILL.md + SETUP.md          # (extension)
 │   ├── autorag-pipeline/SKILL.md              # (extension)
 │   ├── notebooklm-research/                   # (extension, with workflows)
