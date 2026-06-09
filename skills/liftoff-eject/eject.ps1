@@ -149,8 +149,17 @@ Write-Host "  ✓ Removed global rules and tracking files"
 # 4. Remove cloned source repository
 if ($SourceDir -and (Test-Path $SourceDir)) {
     if ($SourceDir -ne $env:USERPROFILE -and $SourceDir -ne "C:\" -and $SourceDir -ne "C:\Users") {
-        Remove-Item $SourceDir -Recurse -Force -ErrorAction SilentlyContinue
-        Write-Host "  ✓ Removed source repository clone: $SourceDir" -ForegroundColor Yellow
+        # Get absolute paths
+        $CwdAbs = (Get-Item ".").FullName
+        $SourceDirAbs = (Get-Item $SourceDir -ErrorAction SilentlyContinue).FullName
+
+        if ($SourceDirAbs -and $CwdAbs.StartsWith($SourceDirAbs)) {
+            Write-Host "  ⚠️  Active workspace detected at: $SourceDir" -ForegroundColor Yellow
+            Write-Host "  Skipping deletion of the source repository folder because you are currently working inside it."
+        } else {
+            Remove-Item $SourceDir -Recurse -Force -ErrorAction SilentlyContinue
+            Write-Host "  ✓ Removed source repository clone: $SourceDir" -ForegroundColor Yellow
+        }
     }
 }
 

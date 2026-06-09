@@ -132,8 +132,17 @@ echo "  ✓ Removed global rules and tracking files"
 if [ -n "$SOURCE_DIR" ] && [ -d "$SOURCE_DIR" ]; then
   # Safe check to make sure we don't delete home or root
   if [ "$SOURCE_DIR" != "$HOME" ] && [ "$SOURCE_DIR" != "/" ]; then
-    rm -rf "$SOURCE_DIR"
-    echo -e "  ✓ Removed source repository clone: ${YELLOW}$SOURCE_DIR${NC}"
+    # Get absolute paths of CWD and SOURCE_DIR
+    CWD_ABS=$(pwd -P)
+    SOURCE_DIR_ABS=$(cd "$SOURCE_DIR" && pwd -P 2>/dev/null || echo "$SOURCE_DIR")
+
+    if [[ "$CWD_ABS" == "$SOURCE_DIR_ABS"* ]]; then
+      echo -e "  ${YELLOW}⚠️  Active workspace detected at: $SOURCE_DIR${NC}"
+      echo -e "  Skipping deletion of the source repository folder because you are currently working inside it."
+    else
+      rm -rf "$SOURCE_DIR"
+      echo -e "  ✓ Removed source repository clone: ${YELLOW}$SOURCE_DIR${NC}"
+    fi
   fi
 fi
 
