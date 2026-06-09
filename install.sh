@@ -38,10 +38,42 @@ mkdir -p "$EXTENSIONS_DIR"
 mkdir -p "$SETUP_DIR"
 mkdir -p "$GEMINI_DIR/user-extensions"
 
+# ─── MCP Cleanup (kill zombies, remove legacy configs) ───
+echo -e "${YELLOW}Cleaning up MCP processes and legacy configs...${NC}"
+
+# Kill any orphaned mcp-remote processes from previous sessions
+pkill -f "mcp-remote" 2>/dev/null || true
+echo "  ✓ Killed orphaned mcp-remote processes"
+
+# Remove legacy config locations that cause duplicate MCP instances
+# The IDE reads from ~/.gemini/antigravity-ide/mcp_config.json ONLY
+rm -f "$GEMINI_DIR/config/mcp_config.json"
+rm -f "$GEMINI_DIR/antigravity/mcp_config.json"
+rm -f "$GEMINI_DIR/antigravity-backup/mcp_config.json"
+echo "  ✓ Removed legacy MCP config files"
+
 # ─── Clean overwrite (no backups - prevents context bloat) ───
 
 # ─── Install Core Identity ───
 echo -e "${GREEN}Installing core identity...${NC}"
+
+# Warn if user already has their own GEMINI.md
+if [ -f "$GEMINI_DIR/GEMINI.md" ]; then
+  echo ""
+  echo -e "${YELLOW}═══════════════════════════════════════════${NC}"
+  echo -e "${YELLOW}  ⚠️  Existing GEMINI.md detected${NC}"
+  echo ""
+  echo "  Liftoff is a demonstration and course package by samihermes.ai."
+  echo "  It will overwrite your current GEMINI.md with Liftoff's rules"
+  echo "  and apply its own skills and extensions."
+  echo ""
+  echo "  This is necessary for the course to work correctly."
+  echo "  After the course, you can discard Liftoff and restore your"
+  echo "  original setup by removing ~/.gemini/ and reconfiguring."
+  echo -e "${YELLOW}═══════════════════════════════════════════${NC}"
+  echo ""
+fi
+
 cp "$SCRIPT_DIR/global/GEMINI.md" "$GEMINI_DIR/GEMINI.md"
 
 # Migrate from old location if needed
@@ -81,11 +113,11 @@ if [ -f "$LIFECYCLE_FILE" ]; then
   sed -n '/^## Machine Environment$/,$p' "$LIFECYCLE_FILE" > "$MACHINE_ENV_FILE"
 fi
 
-CORE_SKILLS=("forge-methodology" "security-guardian" "error-handling" "git-flow" "brand-identity" "stack-pro-max" "antigravity-standard" "liftoff-lifecycle")
+CORE_SKILLS=("forge-methodology" "security-guardian" "error-handling" "git-flow" "brand-identity" "stack-pro-max" "antigravity-standard" "liftoff-lifecycle" "liftoff-eject")
 
 for skill in "${CORE_SKILLS[@]}"; do
   mkdir -p "$SKILLS_DIR/$skill"
-  cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$SKILLS_DIR/$skill/SKILL.md"
+  cp -r "$SCRIPT_DIR/skills/$skill"/* "$SKILLS_DIR/$skill/"
   echo "  ✓ $skill"
 done
 

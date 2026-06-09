@@ -21,6 +21,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # modified, or overwritten by the installer or updater.
 USER_EXT_DIR="$GEMINI_DIR/user-extensions"
 
+# ─── MCP Cleanup (every update kills zombies and removes legacy configs) ───
+pkill -f "mcp-remote" 2>/dev/null || true
+rm -f "$GEMINI_DIR/config/mcp_config.json"
+rm -f "$GEMINI_DIR/antigravity/mcp_config.json"
+rm -f "$GEMINI_DIR/antigravity-backup/mcp_config.json"
+
 # ─── Overwrite GEMINI.md ───
 cp "$SCRIPT_DIR/global/GEMINI.md" "$GEMINI_DIR/GEMINI.md"
 

@@ -29,11 +29,50 @@ New-Item -ItemType Directory -Force -Path $ExtensionsDir | Out-Null
 New-Item -ItemType Directory -Force -Path $SetupDir | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $GeminiDir "user-extensions") | Out-Null
 
+# ─── MCP Cleanup (kill zombies, remove legacy configs) ───
+Write-Host "Cleaning up MCP processes and legacy configs..." -ForegroundColor Yellow
+
+# Kill any orphaned mcp-remote processes from previous sessions
+Get-Process -Name "node" -ErrorAction SilentlyContinue |
+    Where-Object { $_.CommandLine -match "mcp-remote" } |
+    Stop-Process -Force -ErrorAction SilentlyContinue
+Write-Host "  + Killed orphaned mcp-remote processes" -ForegroundColor Gray
+
+# Remove legacy config locations that cause duplicate MCP instances
+# The IDE reads from ~/.gemini/antigravity-ide/mcp_config.json ONLY
+$legacyConfigs = @(
+    (Join-Path $GeminiDir "config\mcp_config.json"),
+    (Join-Path $GeminiDir "antigravity\mcp_config.json"),
+    (Join-Path $GeminiDir "antigravity-backup\mcp_config.json")
+)
+foreach ($cfg in $legacyConfigs) {
+    if (Test-Path $cfg) { Remove-Item $cfg -Force -ErrorAction SilentlyContinue }
+}
+Write-Host "  + Removed legacy MCP config files" -ForegroundColor Gray
+
 # ─── Clean overwrite (no backups - prevents context bloat) ───
 $GeminiMdPath = Join-Path $GeminiDir "GEMINI.md"
 
 # ─── Install Core Identity ───
 Write-Host "Installing core identity..." -ForegroundColor Green
+
+# Warn if user already has their own GEMINI.md
+if (Test-Path $GeminiMdPath) {
+    Write-Host ""
+    Write-Host "═══════════════════════════════════════════" -ForegroundColor Yellow
+    Write-Host "  Warning: Existing GEMINI.md detected" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "  Liftoff is a demonstration and course package by samihermes.ai."
+    Write-Host "  It will overwrite your current GEMINI.md with Liftoff's rules"
+    Write-Host "  and apply its own skills and extensions."
+    Write-Host ""
+    Write-Host "  This is necessary for the course to work correctly."
+    Write-Host "  After the course, you can discard Liftoff and restore your"
+    Write-Host "  original setup by removing ~/.gemini/ and reconfiguring."
+    Write-Host "═══════════════════════════════════════════" -ForegroundColor Yellow
+    Write-Host ""
+}
+
 Copy-Item (Join-Path $ScriptDir "global\GEMINI.md") $GeminiMdPath -Force
 
 # ─── Handle extensions.json ───
@@ -88,13 +127,14 @@ $CoreSkills = @(
     "brand-identity",
     "stack-pro-max",
     "antigravity-standard",
-    "liftoff-lifecycle"
+    "liftoff-lifecycle",
+    "liftoff-eject"
 )
 
 foreach ($skill in $CoreSkills) {
     $destDir = Join-Path $SkillsDir $skill
     New-Item -ItemType Directory -Force -Path $destDir | Out-Null
-    Copy-Item (Join-Path $ScriptDir "skills\$skill\SKILL.md") (Join-Path $destDir "SKILL.md") -Force
+    Copy-Item (Join-Path $ScriptDir "skills\$skill\*") $destDir -Recurse -Force
     Write-Host "  + $skill" -ForegroundColor Gray
 }
 

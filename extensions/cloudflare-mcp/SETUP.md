@@ -128,7 +128,7 @@ By default, the agent is granted access to all commands. You should disable dest
 
 Configure your local agent to connect to the new portal.
 
-1. Open your agent's MCP configuration file (typically at `~/.gemini/antigravity/mcp_config.json`).
+1. Open your agent's MCP configuration file at `~/.gemini/antigravity-ide/mcp_config.json`.
 2. Add the following entry to the `"mcpServers"` object:
 
 ```json

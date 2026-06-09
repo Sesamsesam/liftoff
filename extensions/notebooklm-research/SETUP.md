@@ -27,7 +27,7 @@ nlm doctor                             # Verify connection
 
 ## MCP Config
 
-Add to `~/.gemini/antigravity/mcp_config.json`:
+Add to `~/.gemini/antigravity-ide/mcp_config.json`:
 
 ```json
 "notebooklm": {

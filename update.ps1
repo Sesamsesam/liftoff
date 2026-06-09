@@ -20,6 +20,21 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 # modified, or overwritten by the installer or updater.
 $UserExtDir = Join-Path $GeminiDir "user-extensions"
 
+# ─── MCP Cleanup (every update kills zombies and removes legacy configs) ───
+Get-Process -Name "node" -ErrorAction SilentlyContinue |
+    Where-Object { $_.CommandLine -match "mcp-remote" } |
+    Stop-Process -Force -ErrorAction SilentlyContinue
+
+$legacyConfigs = @(
+    (Join-Path $GeminiDir "config\mcp_config.json"),
+    (Join-Path $GeminiDir "antigravity\mcp_config.json")
+)
+foreach ($cfg in $legacyConfigs) {
+    if (Test-Path $cfg) { Remove-Item $cfg -Force -ErrorAction SilentlyContinue }
+}
+$backupConfig = Join-Path $GeminiDir "antigravity-backup\mcp_config.json"
+if (Test-Path $backupConfig) { Remove-Item $backupConfig -Force -ErrorAction SilentlyContinue }
+
 # ─── Overwrite GEMINI.md ───
 Copy-Item (Join-Path $ScriptDir "global\GEMINI.md") (Join-Path $GeminiDir "GEMINI.md") -Force
 

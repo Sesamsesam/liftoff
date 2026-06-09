@@ -340,7 +340,8 @@ The agent follows this cycle for every task. You never need to say "use FORGE" -
 │   ├── brand-identity/SKILL.md        # Design tokens
 │   ├── stack-pro-max/SKILL.md         # Tech stack
 │   ├── antigravity-standard/SKILL.md  # Skill template
-│   └── liftoff-lifecycle/SKILL.md     # Session start, extension lifecycle, platform rules
+│   ├── liftoff-lifecycle/SKILL.md     # Session start, extension lifecycle, platform rules
+│   └── liftoff-eject/SKILL.md         # Uninstallation and clean up
 ├── user-extensions/                    # User-created extensions (never touched by updates)
 └── workflows/
     └── init-project.md                # Project scaffolding

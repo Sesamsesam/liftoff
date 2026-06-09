@@ -19,7 +19,7 @@ description: "One-time setup: connect Notion MCP via OAuth for publishing manusc
 
 Notion provides a **hosted remote MCP server** with OAuth authentication. No API keys, no npm packages to manage.
 
-Add to Antigravity's `mcp_config.json`:
+Add to `~/.gemini/antigravity-ide/mcp_config.json`:
 
 ```json
 {

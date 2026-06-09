@@ -24,7 +24,7 @@ That's it. No domain, no infrastructure, no OAuth flows.
 
 ## Step 2: Add to Agent Config
 
-Add to `~/.gemini/antigravity/mcp_config.json`:
+Add to `~/.gemini/antigravity-ide/mcp_config.json`:
 
 ```json
 "firecrawl": {

@@ -181,10 +181,10 @@ During regular project work, when the agent leverages a Liftoff core skill (FORG
      # Windows:
      powershell -ExecutionPolicy Bypass -File "<source_path>/update.ps1"
      ```
-  4. If the `.liftoff-source` file does not exist but `~/.gemini/GEMINI.md` does, the user installed Liftoff but the source tracking is missing. Clone the repo and create the file:
+  4. If the `.liftoff-source` file does not exist, the source tracking is missing. Clone the repo and create the file:
      ```bash
-     git clone https://github.com/Sesamsesam/liftoff.git ~/.gemini/antigravity/scratch/liftoff
-     echo ~/.gemini/antigravity/scratch/liftoff > ~/.gemini/.liftoff-source
+     git clone https://github.com/Sesamsesam/liftoff.git ~/antigravity
+     echo ~/antigravity > ~/.gemini/.liftoff-source
      ```
   5. After update, tell the user in plain language what changed (new extensions, updated skills). For new extensions, explain what each one does in one sentence and note it's turned off by default. Tell them: "To turn one on, open `extensions.json` in your `.gemini/extensions/` folder and set it to `true`."
 - Check `~/.gemini/extensions/extensions.json` for active extensions and pending setup tasks
